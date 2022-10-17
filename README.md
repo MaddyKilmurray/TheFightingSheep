@@ -33,13 +33,23 @@
       required: ["_id", "awards", "imdb", "lastupdated", "num_mflix_comments", "title", "type", "year"],
       properties: {
         _id: { bsonType: "objectId" },
-        awards: {enum: ['']},
-        cast: {},
-        countries: {},
-        directors: {},
-        fullplot: {},
-        genres: {},
-        imdb: {},
+        awards: {
+          bsonType: "object",
+          required: ["wins", "nominations", "text"],
+          properties: { wins: { bsonType: "int" }, nominations: { bsonType: "int" }, text: { bsonType: "string" } }
+        },
+        cast: { bsonType: "array", items: { bsonType: "string" } },
+        countries: { bsonType: "array", items: { bsonType: "string" } },
+        directors: { bsonType: "array", items: { bsonType: "string" } },
+        fullplot: { bsonType: "string"},
+        genres: { bsonType: "array", items: { bsonType: "string" } },
+        imdb: { bsonType: "object", required: ["rating", "votes", "id"],
+          properties: {
+            rating: { anyOf: [{ bsonType: "double" }, { enum: [""] }] },
+            votes: { anyOf: [{ bsonType: "int" }, { enum: [""] }] },
+            id: { bsonType: "int" }
+          }
+        },
         lastupdated: {},
         num_mflix_comments: {},
         plot: {},
