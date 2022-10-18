@@ -63,10 +63,10 @@
           required: ["id"],
           properties: { rating: { bsonType: "double" }, votes: { bsonType: "int" }, id: { bsonType: "int" } }
         },
-        lastupdated: { bsonType: "string" },
+        lastupdated: { bsonType: "date" },
         num_mflix_comments: { bsonType: "int" },
         plot: { bsonType: "string" },
-        rated: { enum: ["AO", "APPROVED", "Approved", "G", "GP", "M", "NC-17", "NOT RATED", "Not Rated", "OPEN", "PASSED", "PG", "PG-13", "R", "TV-14", "TV-G", "TV-MA", "TV-PG", "TV-Y7", "UNRATED", "X"] },
+        rated: { enum: ["AO", "APPROVED", "G", "GP", "M", "NC_17", "NOT_RATED", "OPEN", "PASSED", "PG", "PG_13", "R", "TV_14", "TV_G", "TV_MA", "TV_PG", "TV_Y7", "UNRATED", "X"] },
         runtime: { bsonType: "int" },
         title: { bsonType: "string" },
         tomatoes: {
