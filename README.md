@@ -183,8 +183,10 @@
 
 ## POJO specifications for each collection
 The following is the boilerplate-free outline for what each Entity POJO should look like. When actually implementing, add appropriate access modifiers, constructors, getters and setters, additional methods and annotations.
+
 ### The `authorisedusers` collection
 ```java
+@Document
 class AuthorisedUser {
 	@MongoId ObjectId id;
 	String username;
@@ -199,6 +201,7 @@ enum UserRole {
 ```
 ### The `comments` collection
 ```java
+@Document
 class Comment {
 	@MongoId ObjectId id;
 	Date date;
@@ -210,6 +213,7 @@ class Comment {
 ```
 ### The `movies` collection
 ```java
+@Document
 class Movie {
 	@MongoId ObjectId id;
 	Awards awards;
@@ -293,6 +297,7 @@ class Viewer {
 ```
 ### The `showings` collection
 ```java
+@Document
 class Showing {
 	@MongoId ObjectId id;
 	Date showingDate;
@@ -302,14 +307,33 @@ class Showing {
 ```
 ### The `theaters` collection
 ```java
+@Document
 class Theater {
 	@MongoId ObjectId id;
 	Integer theaterId;
-	// continue this...
+	Location location;
+}
+
+class Location {
+	Address address;
+	Geo geo;
+}
+
+class Address {
+	String city;
+	String state;
+	String streetOne;
+	String zipCode;
+}
+
+class Geo {
+	List<Double> coordinates;
+	String type;
 }
 ```
 ### The `users` collection
 ```java
+@Document
 class User {
 	@MongoId ObjectId id;
 	String email;
