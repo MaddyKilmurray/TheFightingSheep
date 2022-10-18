@@ -12,9 +12,9 @@ public class Theater {
 
     private Location location;
 
-    public Theater(int id, String street1, String city, String state, int zipcode, String type, int[] coordinates) {
+    public Theater(int id, Location location) {
         this.theaterId = id;
-        this.location = new Location(street1, city, state, zipcode, type, coordinates);
+        this.location = location;
     }
 
     public int getTheaterId() {
