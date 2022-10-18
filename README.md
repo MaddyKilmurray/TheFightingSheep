@@ -23,7 +23,7 @@
         },
         username: { bsonType: "string" },
         password: { bsonType: "string" },
-        userRoles: { enum: ["ADMIN"] }
+        userRoles: { enum: ["ADMIN", "USER"] }
       }
     }
   }
