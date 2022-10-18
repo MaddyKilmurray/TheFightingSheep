@@ -222,6 +222,8 @@
 > db.movies.deleteMany({$nor:[schema]})
 ```
 ## POJO specifications for each collection
+The following is the boilerplate-free outline for what each Entity POJO should look like. When actually implementing, add appropriate access modifiers, constructors, getters and setters, additional methods and annotations.
+
 ### The `authorisedusers` collection
 ```java
 class AuthorisedUser {
