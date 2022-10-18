@@ -85,7 +85,7 @@
           }
         },
         type: { bsonType: "string" },
-        year: { anyOf: [{ bsonType: "int" }] },
+        year: { bsonType: "int" },
         languages: { bsonType: "array", items: { bsonType: "string" } },
         poster: { bsonType: "string" },
         writers: { bsonType: "array", items: { bsonType: "string" } }
