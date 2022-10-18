@@ -1,10 +1,8 @@
 package com.sparta.thefightingsheep.control;
 
-import com.sparta.thefightingsheep.model.entity.UsersEntity;
 import com.sparta.thefightingsheep.model.user.User;
 import com.sparta.thefightingsheep.model.user.UserDAO;
 import com.sparta.thefightingsheep.model.user.UserRepository;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,8 +18,8 @@ public class UserApiController {
     private UserDAO userDAO;
 
     @GetMapping("/user/{id}")
-    public UsersEntity getUserById(@PathVariable String id){
-        UsersEntity result = userRepo.findById(id).get();
+    public User getUserById(@PathVariable String id){
+        User result = userRepo.findById(id).get();
         return result;
     }
 }

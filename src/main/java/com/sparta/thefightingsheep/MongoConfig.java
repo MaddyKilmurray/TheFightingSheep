@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 public class MongoConfig {
     @Bean
     public MongoClient mongo() {
-        ConnectionString connectionString = new ConnectionString("mongodb+srv://thefightingsheep.8nvddvb.mongodb.net/sample_mflix");
+        ConnectionString connectionString = new ConnectionString("mongodb+srv://thefightingsheep.8nvddvb.mongodb.net/test");
         MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
                 .applyConnectionString(connectionString)
                 .build();
