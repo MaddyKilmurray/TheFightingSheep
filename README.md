@@ -132,61 +132,73 @@
   }
   ```
   + `users`:
-- Run the following commands in `mongosh` for the following categories
-  + `movies`:
   ```js
-  > use sample_mflix
-  > var schema = {
-    $jsonSchema: {
+  {
+  $jsonSchema: {
       bsonType: "object",
-      required: ["_id", "awards", "imdb", "lastupdated", "num_mflix_comments", "title", "type", "year"],
+      required: ["_id", "email", "name", "password"],
       properties: {
         _id: { bsonType: "objectId" },
-        awards: {
-          bsonType: "object",
-          required: ["wins", "nominations", "text"],
-          properties: { wins: { bsonType: "int" }, nominations: { bsonType: "int" }, text: { bsonType: "string" } }
-        },
-        cast: { bsonType: "array", items: { bsonType: "string" } },
-        countries: { bsonType: "array", items: { bsonType: "string" } },
-        directors: { bsonType: "array", items: { bsonType: "string" } },
-        fullplot: { bsonType: "string"},
-        genres: { bsonType: "array", items: { bsonType: "string" } },
-        imdb: {
-          bsonType: "object",
-          required: ["id"],
-          properties: { rating: { bsonType: "double" }, votes: { bsonType: "int" }, id: { bsonType: "int" } }
-        },
-        lastupdated: { bsonType: "string" },
-        num_mflix_comments: { bsonType: "int" },
-        plot: { bsonType: "string" },
-        rated: { enum: ["AO", "APPROVED", "Approved", "G", "GP", "M", "NC-17", "NOT RATED", "Not Rated", "OPEN", "PASSED", "PG", "PG-13", "R", "TV-14", "TV-G", "TV-MA", "TV-PG", "TV-Y7", "UNRATED", "X"] },
-        runtime: { bsonType: "int" },
-        title: { bsonType: "string" },
-        tomatoes: {
-          bsonType: "object",
-          required: ["lastUpdated"],
-          properties: {
-            consensus: { bsonType: "string" },
-            critic: { bsonType: "object", properties: { meter: { bsonType: "int" }, numReviews: { bsonType: "int" }, rating: { bsonType: "double" } } },
-            dvd: { bsonType: "date" },
-            fresh: { bsonType: "int" },
-            lastupdated: { bsonType: "date"  },
-            production: { bsonType: "string" },
-            rotten: { bsonType: "int" },
-            viewer: { bsonType: "object", required: ["numReviews"], properties: { meter: { bsonType: "int" }, numReviews: { bsonType: "int" }, rating: { bsonType: "double" } } },
-            website: { bsonType: "string" }
-          }
-        },
-        type: { bsonType: "string" },
-        year: { anyOf: [{ bsonType: "int" }] },
-        languages: { bsonType: "array", items: { bsonType: "string" } },
-        poster: { bsonType: "string" },
-        writers: { bsonType: "array", items: { bsonType: "string" } }
+        email: { bsonType: "string" },
+        name: { bsonType: "string" },
+        password: { bsonType: "string" },
       }
     }
   }
-  > db.movies.updateMany({},{$unset:{"imdb.rating":"","imdb.votes":""}},{})
-  > db.movies.deleteMany({$nor:[schema]})
   ```
-  + `users`:
+- Run the following commands in `mongosh`:
+```js
+> use sample_mflix
+> var schema = {
+  $jsonSchema: {
+    bsonType: "object",
+    required: ["_id", "awards", "imdb", "lastupdated", "num_mflix_comments", "title", "type", "year"],
+    properties: {
+      _id: { bsonType: "objectId" },
+      awards: {
+        bsonType: "object",
+        required: ["wins", "nominations", "text"],
+        properties: { wins: { bsonType: "int" }, nominations: { bsonType: "int" }, text: { bsonType: "string" } }
+      },
+      cast: { bsonType: "array", items: { bsonType: "string" } },
+      countries: { bsonType: "array", items: { bsonType: "string" } },
+      directors: { bsonType: "array", items: { bsonType: "string" } },
+      fullplot: { bsonType: "string"},
+      genres: { bsonType: "array", items: { bsonType: "string" } },
+      imdb: {
+        bsonType: "object",
+        required: ["id"],
+        properties: { rating: { bsonType: "double" }, votes: { bsonType: "int" }, id: { bsonType: "int" } }
+      },
+      lastupdated: { bsonType: "string" },
+      num_mflix_comments: { bsonType: "int" },
+      plot: { bsonType: "string" },
+      rated: { enum: ["AO", "APPROVED", "Approved", "G", "GP", "M", "NC-17", "NOT RATED", "Not Rated", "OPEN", "PASSED", "PG", "PG-13", "R", "TV-14", "TV-G", "TV-MA", "TV-PG", "TV-Y7", "UNRATED", "X"] },
+      runtime: { bsonType: "int" },
+      title: { bsonType: "string" },
+      tomatoes: {
+        bsonType: "object",
+        required: ["lastUpdated"],
+        properties: {
+          consensus: { bsonType: "string" },
+          critic: { bsonType: "object", properties: { meter: { bsonType: "int" }, numReviews: { bsonType: "int" }, rating: { bsonType: "double" } } },
+          dvd: { bsonType: "date" },
+          fresh: { bsonType: "int" },
+          lastupdated: { bsonType: "date"  },
+          production: { bsonType: "string" },
+          rotten: { bsonType: "int" },
+          viewer: { bsonType: "object", required: ["numReviews"], properties: { meter: { bsonType: "int" }, numReviews: { bsonType: "int" }, rating: { bsonType: "double" } } },
+          website: { bsonType: "string" }
+        }
+      },
+      type: { bsonType: "string" },
+      year: { anyOf: [{ bsonType: "int" }] },
+      languages: { bsonType: "array", items: { bsonType: "string" } },
+      poster: { bsonType: "string" },
+      writers: { bsonType: "array", items: { bsonType: "string" } }
+    }
+  }
+}
+> db.movies.updateMany({},{$unset:{"imdb.rating":"","imdb.votes":""}},{})
+> db.movies.deleteMany({$nor:[schema]})
+```
