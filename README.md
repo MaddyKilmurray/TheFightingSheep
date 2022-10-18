@@ -180,6 +180,7 @@
 	db.movies.deleteMany({$nor:[schema]})
 })()
 ```
+
 ## POJO specifications for each collection
 The following is the boilerplate-free outline for what each Entity POJO should look like. When actually implementing, add appropriate access modifiers, constructors, getters and setters, additional methods and annotations.
 ### The `authorisedusers` collection
@@ -230,6 +231,64 @@ class Movie {
 	@Nullable List<String> languages;
 	@Nullable String poster;
 	@Nullable List<String> writers;
+}
+
+class Awards {
+	Integer wins;
+	Integer nominations;
+	String text;
+}
+
+class Imdb {
+	Integer id;
+	@Nullable Double rating;
+	@Nullable Integer votes;
+}
+
+enum Rating {
+    AO,
+    APPROVED,
+    G,
+    GP,
+    M,
+    NC_17,
+    NOT_RATED,
+    OPEN,
+    PASSED,
+    PG,
+    PG_13,
+    R,
+    TV_14,
+    TV_G,
+    TV_MA,
+    TV_PG,
+    TV_Y7,
+    UNRATED,
+    X
+}
+
+class Tomatoes {
+	@Nullable String consensus;
+	@Nullable Critic critic;
+	@Nullable Date dvd;
+	@Nullable Integer fresh;
+	Date lastUpdated;
+	@Nullable String production;
+	@Nullable Integer rotten;
+	@Nullable Viewer viewer;
+	@Nullable String website;
+}
+
+class Critic {
+	@Nullable Integer meter;
+	@Nullable Integer numReviews;
+	@Nullable Double rating;
+}
+
+class Viewer {
+	@Nullable Integer meter;
+	Integer numReviews;
+	@Nullable Double rating;
 }
 ```
 ### The `showings` collection
