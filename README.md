@@ -43,25 +43,37 @@
         directors: { bsonType: "array", items: { bsonType: "string" } },
         fullplot: { bsonType: "string"},
         genres: { bsonType: "array", items: { bsonType: "string" } },
-        imdb: { bsonType: "object", required: ["rating", "votes", "id"],
+        imdb: {
+          bsonType: "object",
+          required: ["rating", "votes", "id"],
+          properties: { rating: { anyOf: [{ bsonType: "double" }, { enum: [""] }] }, votes: { anyOf: [{ bsonType: "int" }, { enum: [""] }] }, id: { bsonType: "int" } }
+        },
+        lastupdated: { bsonType: "string" },
+        num_mflix_comments: { bsonType: "int" },
+        plot: { bsonType: "string" },
+        rated: { enum: ["AO", "APPROVED", "Approved", "G", "GP", "M", "NC-17", "NOT RATED", "Not Rated", "OPEN", "PASSED", "PG", "PG-13", "R", "TV-14", "TV-G", "TV-MA", "TV-PG", "TV-Y7", "UNRATED", "X"] },
+        runtime: { bsonType: "int" },
+        title: { bsonType: "string" },
+        tomatoes: {
+          bsonType: "object",
+          required: ["lastUpdated"],
           properties: {
-            rating: { anyOf: [{ bsonType: "double" }, { enum: [""] }] },
-            votes: { anyOf: [{ bsonType: "int" }, { enum: [""] }] },
-            id: { bsonType: "int" }
+            consensus: { bsonType: "string" },
+            critic: { bsonType: "object", properties: { meter: { bsonType: "int" }, numReviews: { bsonType: "int" }, rating: { bsonType: "double" } } },
+            dvd: { bsonType: "date" },
+            fresh: { bsonType: "int" },
+            lastupdated: { bsonType: "date"  },
+            production: { bsonType: "string" },
+            rotten: { bsonType: "int" },
+            viewer: { bsonType: "object", required: ["numReviews"], properties: { meter: { bsonType: "int" }, numReviews: { bsonType: "int" }, rating: { bsonType: "double" } } },
+            website: { bsonType: "string" }
           }
         },
-        lastupdated: {},
-        num_mflix_comments: {},
-        plot: {},
-        rated: {},
-        runtime: {},
-        title: {},
-        tomatoes: {},
-        type: {},
-        year: {},
-        languages: {},
-        poster: {},
-        writers: {}
+        type: { bsonType: "string" },
+        year: { anyOf: [{ bsonType: "int" }] },
+        languages: { bsonType: "array", items: { bsonType: "string" } },
+        poster: { bsonType: "string" },
+        writers: { bsonType: "array", items: { bsonType: "string" } }
       }
     }
   }
