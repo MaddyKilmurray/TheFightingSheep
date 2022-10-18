@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Display Name</title>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>awards</th>
+        <th>directors</th>
+        <th>full plot</th>
+        <th>languages</th>
+        <th>number of Comments</th>
+        <th>plot</th>
+        <th>title</th>
+        <th>writers</th>
+        <th>genres</th>
+        <th>last updated</th>
+        <th>poster</th>
+        <th>tomatoes</th>
+        <th>year</th>
+        <th>imdb</th>
+        <th>rated</th>
+        <th>released</th>
+        <th>cast</th>
+        <th>runtime</th>
+        <th>countries</th>
+        <th>type</th>
+    </tr>
+    </thead>
+    <tr th:each="movie : ${movies}"></tr>
+</table>
+</body>
+</html>

@@ -44,8 +44,14 @@ public class MoviesEntityDto implements Serializable {
     private final Double tomatoesViewerRating;
     private final String tomatoesWebsite;
     private final String type;
+    private final Object directors;
+    private final Object languages;
+    private final Object writers;
+    private final Object genres;
+    private final Object cast;
+    private final Object countries;
 
-    public MoviesEntityDto(String id, Object awards, String fullplot, Integer numMflixComments, String plot, String title, Integer awardsNominations, String lastupdated, String poster, Object tomatoes, Integer year, String awardsText, Object imdb, String rated, String tomatoesConsensus, Integer awardsWins, Integer imdbId, Date released, Object tomatoesCritic, Double imdbRating, Integer runtime, Integer tomatoesCriticMeter, Integer imdbVotes, Integer tomatoesCriticNumReviews, Double tomatoesCriticRating, Date tomatoesDvd, Integer tomatoesFresh, Date tomatoesLastUpdated, String tomatoesProduction, Integer tomatoesRotten, Object tomatoesViewer, Integer tomatoesViewerMeter, Integer tomatoesViewerNumReviews, Double tomatoesViewerRating, String tomatoesWebsite, String type) {
+    public MoviesEntityDto(String id, Object awards, String fullplot, Integer numMflixComments, String plot, String title, Integer awardsNominations, String lastupdated, String poster, Object tomatoes, Integer year, String awardsText, Object imdb, String rated, String tomatoesConsensus, Integer awardsWins, Integer imdbId, Date released, Object tomatoesCritic, Double imdbRating, Integer runtime, Integer tomatoesCriticMeter, Integer imdbVotes, Integer tomatoesCriticNumReviews, Double tomatoesCriticRating, Date tomatoesDvd, Integer tomatoesFresh, Date tomatoesLastUpdated, String tomatoesProduction, Integer tomatoesRotten, Object tomatoesViewer, Integer tomatoesViewerMeter, Integer tomatoesViewerNumReviews, Double tomatoesViewerRating, String tomatoesWebsite, String type, Object directors, Object languages, Object writers, Object genres, Object cast, Object countries) {
         this.id = id;
         this.awards = awards;
         this.fullplot = fullplot;
@@ -82,6 +88,12 @@ public class MoviesEntityDto implements Serializable {
         this.tomatoesViewerRating = tomatoesViewerRating;
         this.tomatoesWebsite = tomatoesWebsite;
         this.type = type;
+        this.directors = directors;
+        this.languages = languages;
+        this.writers = writers;
+        this.genres = genres;
+        this.cast = cast;
+        this.countries = countries;
     }
 
     public String getId() {
@@ -228,6 +240,30 @@ public class MoviesEntityDto implements Serializable {
         return type;
     }
 
+    public Object getDirectors() {
+        return directors;
+    }
+
+    public Object getLanguages() {
+        return languages;
+    }
+
+    public Object getWriters() {
+        return writers;
+    }
+
+    public Object getGenres() {
+        return genres;
+    }
+
+    public Object getCast() {
+        return cast;
+    }
+
+    public Object getCountries() {
+        return countries;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -268,12 +304,18 @@ public class MoviesEntityDto implements Serializable {
                 Objects.equals(this.tomatoesViewerNumReviews, entity.tomatoesViewerNumReviews) &&
                 Objects.equals(this.tomatoesViewerRating, entity.tomatoesViewerRating) &&
                 Objects.equals(this.tomatoesWebsite, entity.tomatoesWebsite) &&
-                Objects.equals(this.type, entity.type);
+                Objects.equals(this.type, entity.type) &&
+                Objects.equals(this.directors, entity.directors) &&
+                Objects.equals(this.languages, entity.languages) &&
+                Objects.equals(this.writers, entity.writers) &&
+                Objects.equals(this.genres, entity.genres) &&
+                Objects.equals(this.cast, entity.cast) &&
+                Objects.equals(this.countries, entity.countries);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, awards, fullplot, numMflixComments, plot, title, awardsNominations, lastupdated, poster, tomatoes, year, awardsText, imdb, rated, tomatoesConsensus, awardsWins, imdbId, released, tomatoesCritic, imdbRating, runtime, tomatoesCriticMeter, imdbVotes, tomatoesCriticNumReviews, tomatoesCriticRating, tomatoesDvd, tomatoesFresh, tomatoesLastUpdated, tomatoesProduction, tomatoesRotten, tomatoesViewer, tomatoesViewerMeter, tomatoesViewerNumReviews, tomatoesViewerRating, tomatoesWebsite, type);
+        return Objects.hash(id, awards, fullplot, numMflixComments, plot, title, awardsNominations, lastupdated, poster, tomatoes, year, awardsText, imdb, rated, tomatoesConsensus, awardsWins, imdbId, released, tomatoesCritic, imdbRating, runtime, tomatoesCriticMeter, imdbVotes, tomatoesCriticNumReviews, tomatoesCriticRating, tomatoesDvd, tomatoesFresh, tomatoesLastUpdated, tomatoesProduction, tomatoesRotten, tomatoesViewer, tomatoesViewerMeter, tomatoesViewerNumReviews, tomatoesViewerRating, tomatoesWebsite, type, directors, languages, writers, genres, cast, countries);
     }
 
     @Override
@@ -314,6 +356,12 @@ public class MoviesEntityDto implements Serializable {
                 "tomatoesViewerNumReviews = " + tomatoesViewerNumReviews + ", " +
                 "tomatoesViewerRating = " + tomatoesViewerRating + ", " +
                 "tomatoesWebsite = " + tomatoesWebsite + ", " +
-                "type = " + type + ")";
+                "type = " + type + ", " +
+                "directors = " + directors + ", " +
+                "languages = " + languages + ", " +
+                "writers = " + writers + ", " +
+                "genres = " + genres + ", " +
+                "cast = " + cast + ", " +
+                "countries = " + countries + ")";
     }
 }
