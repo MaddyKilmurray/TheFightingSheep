@@ -23,7 +23,7 @@ public class WebController {
         model.addAttribute("movie",result);
         return "displayMovie";
     }
-    @GetMapping("/user/{id}")
+    @GetMapping("/movie/{id}")
     public MoviesEntity getMovieById(@PathVariable int id){
         MoviesEntity result = movieRepo.findById(String.valueOf(id)).get();
         return result;
@@ -34,6 +34,14 @@ public class WebController {
         List<MoviesEntity> all = movieRepo.findAll();
         model.addAttribute("movies",all);
         return "allMovies";
+    }
+
+    @GetMapping("/movie/form/create")
+    public String movieForm(Model model)
+    {
+        MoviesEntity movie = new MoviesEntity();
+        model.addAttribute("movie",movie);
+        return "movieForm";
     }
 
     @GetMapping("/accessDenied")
