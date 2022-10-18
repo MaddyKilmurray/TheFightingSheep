@@ -10,10 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
-
 @Controller
 public class WebController {
-
     @Autowired
     private MoviesEntityRepository movieRepo;
     @GetMapping("/movie")
@@ -47,5 +45,9 @@ public class WebController {
     @GetMapping("/accessDenied")
     public String accessDenied(){
         return "accessDenied";
+    }
+    @GetMapping("/login")
+    public String login() {
+        return "login";
     }
 }
