@@ -1,5 +1,6 @@
 package com.sparta.thefightingsheep.model.user;
 
+import com.sparta.thefightingsheep.model.user.repository.UserRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,8 @@ public class UserDAO {
         user = userRepo.findById(String.valueOf(userDTO.getId())).get();
         return new UserDTO(user.getId(), user.getName(), user.getEmail(), user.getPassword());
     }
+
+
 
     public UserDTO findById(ObjectId id){
         UserDTO userDTO = new UserDTO(null,null,null,null);

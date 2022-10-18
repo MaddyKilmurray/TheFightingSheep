@@ -4,7 +4,7 @@ package com.sparta.thefightingsheep.control;
 import com.sparta.thefightingsheep.model.user.User;
 import com.sparta.thefightingsheep.model.user.UserDAO;
 import com.sparta.thefightingsheep.model.user.UserDTO;
-import com.sparta.thefightingsheep.model.user.UserRepository;
+import com.sparta.thefightingsheep.model.user.repository.UserRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
