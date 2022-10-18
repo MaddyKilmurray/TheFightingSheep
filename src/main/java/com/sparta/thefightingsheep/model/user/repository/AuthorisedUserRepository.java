@@ -1,4 +1,4 @@
-package com.sparta.thefightingsheep.model.user;
+package com.sparta.thefightingsheep.model.user.repository;
 
 import com.sparta.thefightingsheep.model.user.AuthorisedUser;
 import org.bson.types.ObjectId;
@@ -9,8 +9,9 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface AuthorisedUserRepository extends MongoRepository<AuthorisedUser, ObjectId> {
+public interface AuthorisedUserRepository extends MongoRepository<AuthorisedUser, String> {
 
-    @Query("{_id:'?0'}")
-    Optional<AuthorisedUser> findAuthorisedUserById(ObjectId id);
+    AuthorisedUser findById(ObjectId id);
+
+    AuthorisedUser findByUsername(String username);
 }
