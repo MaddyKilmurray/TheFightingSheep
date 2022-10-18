@@ -1,5 +1,6 @@
 package com.sparta.thefightingsheep.control;
 
+import com.sparta.thefightingsheep.model.entity.UsersEntity;
 import com.sparta.thefightingsheep.model.user.User;
 import com.sparta.thefightingsheep.model.user.UserDAO;
 import com.sparta.thefightingsheep.model.user.UserRepository;
@@ -19,8 +20,8 @@ public class UserApiController {
     private UserDAO userDAO;
 
     @GetMapping("/user/{id}")
-    public User getUserById(@PathVariable String id){
-        User result = userRepo.findById(new ObjectId(id)).get();
+    public UsersEntity getUserById(@PathVariable String id){
+        UsersEntity result = userRepo.findById(id).get();
         return result;
     }
 }

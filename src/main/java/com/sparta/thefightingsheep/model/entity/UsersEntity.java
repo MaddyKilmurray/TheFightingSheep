@@ -1,16 +1,17 @@
 package com.sparta.thefightingsheep.model.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+
+import org.springframework.data.mongodb.core.mapping.MongoId;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "users", schema = "sample_mflix", catalog = "")
 public class UsersEntity {
+    @Id
     @Basic
     @Column(name = "_id", nullable = true, length = -1)
-    private String id;
+    private @MongoId String id;
     @Basic
     @Column(name = "email", nullable = true, length = -1)
     private String email;
