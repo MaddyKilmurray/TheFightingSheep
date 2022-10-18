@@ -1,6 +1,7 @@
 package com.sparta.thefightingsheep.security;
 
 import com.sparta.thefightingsheep.model.user.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,8 +17,13 @@ import java.util.Set;
 @Service
 public class AuthUserDetailService implements UserDetailsService {
 
-    private UserRepository userRepository;
-    private AuthorisedUserRepository authorisedUserRepository;
+    private final UserRepository userRepository;
+    private final AuthorisedUserRepository authorisedUserRepository;
+
+    public AuthUserDetailService(UserRepository userRepository, AuthorisedUserRepository authorisedUserRepository) {
+        this.userRepository = userRepository;
+        this.authorisedUserRepository = authorisedUserRepository;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
