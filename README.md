@@ -163,59 +163,22 @@
 - Run the following commands in `mongosh`:
 ```js
 > use sample_mflix
-> var schema = {
-    $jsonSchema: {
-      bsonType: "object",
-      required: ["_id", "awards", "imdb", "lastupdated", "num_mflix_comments", "title", "type", "year"],
-      properties: {
-        _id: { bsonType: "objectId" },
-        awards: {
-          bsonType: "object",
-          required: ["wins", "nominations", "text"],
-          properties: { wins: { bsonType: "int" }, nominations: { bsonType: "int" }, text: { bsonType: "string" } }
-        },
-        cast: { bsonType: "array", items: { bsonType: "string" } },
-        countries: { bsonType: "array", items: { bsonType: "string" } },
-        directors: { bsonType: "array", items: { bsonType: "string" } },
-        fullplot: { bsonType: "string"},
-        genres: { bsonType: "array", items: { bsonType: "string" } },
-        imdb: {
-          bsonType: "object",
-          required: ["id"],
-          properties: { rating: { bsonType: "double" }, votes: { bsonType: "int" }, id: { bsonType: "int" } }
-        },
-        lastupdated: { bsonType: "string" },
-        num_mflix_comments: { bsonType: "int" },
-        plot: { bsonType: "string" },
-        rated: { enum: ["AO", "APPROVED", "Approved", "G", "GP", "M", "NC-17", "NOT RATED", "Not Rated", "OPEN", "PASSED", "PG", "PG-13", "R", "TV-14", "TV-G", "TV-MA", "TV-PG", "TV-Y7", "UNRATED", "X"] },
-        runtime: { bsonType: "int" },
-        title: { bsonType: "string" },
-        tomatoes: {
-          bsonType: "object",
-          required: ["lastUpdated"],
-          properties: {
-            consensus: { bsonType: "string" },
-            critic: { bsonType: "object", properties: { meter: { bsonType: "int" }, numReviews: { bsonType: "int" }, rating: { bsonType: "double" } } },
-            dvd: { bsonType: "date" },
-            fresh: { bsonType: "int" },
-            lastupdated: { bsonType: "date"  },
-            production: { bsonType: "string" },
-            rotten: { bsonType: "int" },
-            viewer: { bsonType: "object", required: ["numReviews"], properties: { meter: { bsonType: "int" }, numReviews: { bsonType: "int" }, rating: { bsonType: "double" } } },
-            website: { bsonType: "string" }
-          }
-        },
-        type: { bsonType: "string" },
-        year: { bsonType: "int" },
-        languages: { bsonType: "array", items: { bsonType: "string" } },
-        poster: { bsonType: "string" },
-        writers: { bsonType: "array", items: { bsonType: "string" } }
-      }
-    }
-  }
-> db.movies.updateMany({},{$unset:{"imdb.rating":"","imdb.votes":""}},{})
-> db.movies.updateMany({"lastupdated":{"$type":"string"}},[{"$set":{"lastupdated":{"$dateFromString":{"dateString":"$lastupdated"}}}}])
-> db.movies.deleteMany({$nor:[schema]})
+> (()=>{
+	db.movies.updateMany({},{$unset:{"imdb.rating":"","imdb.votes":""}},{})
+	db.movies.updateMany({"lastupdated":{"$type":"string"}},[{"$set":{"lastupdated":{"$dateFromString":{"dateString":"$lastupdated"}}}}])
+	db.movies.updateMany({"rated":"Approved"},[{"$set":{"rated":"APPROVED"}}])
+	db.movies.updateMany({"rated":"NC-17"},[{"$set":{"rated":"NC_17"}}])
+	db.movies.updateMany({"rated":"NOT RATED"},[{"$set":{"rated":"NOT_RATED"}}])
+	db.movies.updateMany({"rated":"Not Rated"},[{"$set":{"rated":"NOT_RATED"}}])
+	db.movies.updateMany({"rated":"PG-13"},[{"$set":{"rated":"PG_13"}}])
+	db.movies.updateMany({"rated":"TV-14"},[{"$set":{"rated":"TV_14"}}])
+	db.movies.updateMany({"rated":"TV-G"},[{"$set":{"rated":"TV_G"}}])
+	db.movies.updateMany({"rated":"TV-MA"},[{"$set":{"rated":"TV_MA"}}])
+	db.movies.updateMany({"rated":"TV-PG"},[{"$set":{"rated":"TV_PG"}}])
+	db.movies.updateMany({"rated":"TV-Y7"},[{"$set":{"rated":"TV_Y7"}}])
+	var schema = <movies schema>
+	db.movies.deleteMany({$nor:[schema]})
+})()
 ```
 ## POJO specifications for each collection
 The following is the boilerplate-free outline for what each Entity POJO should look like. When actually implementing, add appropriate access modifiers, constructors, getters and setters, additional methods and annotations.
