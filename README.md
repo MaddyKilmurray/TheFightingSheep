@@ -108,7 +108,7 @@
   ```js
   > use sample_mflix
   > var schema = <movies schema>
-  > db.movies.updteMany({},{$unset:{"imdb.rating":"","imdb.votes":""}},{})
+  > db.movies.updateMany({},{$unset:{"imdb.rating":"","imdb.votes":""}},{})
   > db.movies.deleteMany({$nor:[schema]})
   ```
   
