@@ -45,8 +45,8 @@
         genres: { bsonType: "array", items: { bsonType: "string" } },
         imdb: {
           bsonType: "object",
-          required: ["rating", "votes", "id"],
-          properties: { rating: { anyOf: [{ bsonType: "double" }, { enum: [""] }] }, votes: { anyOf: [{ bsonType: "int" }, { enum: [""] }] }, id: { bsonType: "int" } }
+          required: ["id"],
+          properties: { rating: { bsonType: "double" }, votes: { bsonType: "int" }, id: { bsonType: "int" } }
         },
         lastupdated: { bsonType: "string" },
         num_mflix_comments: { bsonType: "int" },
@@ -101,5 +101,16 @@
     }
   }
   ```
+  + `theatres`:
+  + `users`:
+- Run the following commands in `mongosh` for the following categories
+  + `movies`:
+  ```js
+  > use sample_mflix
+  > var schema = <movies schema>
+  > db.movies.updteMany({},{$unset:{"imdb.rating":"","imdb.votes":""}},{})
+  > db.movies.deleteMany({$nor:[schema]})
+  ```
+  
   + `theatres`:
   + `users`:
