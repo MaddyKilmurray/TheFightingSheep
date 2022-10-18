@@ -13,14 +13,9 @@
   {
     $jsonSchema: {
       bsonType: "object",
-      required: ["_id", "user", "username", "password", "userRoles"],
+      required: ["_id", "username", "password", "userRoles"],
       properties: {
         _id: { bsonType: "objectId" },
-        user: {
-          bsonType: "object",
-          required: ["$ref", "$id"],
-          properties: { $ref: { enum: ["users"] }, $id: { bsonType: "objectId" } }
-        },
         username: { bsonType: "string" },
         password: { bsonType: "string" },
         userRoles: { enum: ["ADMIN", "USER"] }
