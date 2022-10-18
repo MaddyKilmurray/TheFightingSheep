@@ -221,3 +221,33 @@
 > db.movies.updateMany({},{$unset:{"imdb.rating":"","imdb.votes":""}},{})
 > db.movies.deleteMany({$nor:[schema]})
 ```
+## POJO specifications for each collection
+### The `authorisedusers` collection
+```java
+class AuthorisedUser {
+	@MongoId ObjectId id;
+	@DBRef User user;
+	String username;
+	String password
+}
+```
+### The `comments` collection
+```java
+class Comment {
+	@MongoId ObjectId id;
+	Date date;
+	String email;
+	ObjectId movie_id;
+	String name;
+	String text;
+}
+```
+### The `movies` collection
+```java
+class Movie {
+	@MongoId ObjectId id;
+	Awards awards;
+	@Nullable Cast cast;
+	@
+}
+```
