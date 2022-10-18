@@ -8,6 +8,7 @@
 - Set your user permissions to admin
 - Create `showings` collection in `sample_mflix`
 - Add the following validations rules for the following collections
+  + `authorisedusers`:
   + `comments`:
   ```js
   {
