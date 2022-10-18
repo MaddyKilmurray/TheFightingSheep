@@ -9,6 +9,25 @@
 - Create `showings` and `authorisedusers` collections in `sample_mflix`
 - Add the following validations rules for the following collections
   + `authorisedusers`:
+  ```js
+  {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["_id", "user", "username", "password", "userRoles"],
+      properties: {
+        _id: { bsonType: "objectId" },
+        user: {
+          bsonType: "object",
+          required: ["$ref", "$id"],
+          properties: { $ref: { enum: ["users"] }, $id: { bsonType: "objectId" } }
+        },
+        username: { bsonType: "string" },
+        password: { bsonType: "string" },
+        userRoles: { enum: ["ADMIN"] }
+      }
+    }
+  }
+  ```
   + `comments`:
   ```js
   {
