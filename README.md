@@ -6,9 +6,28 @@
 ## MongoDB setup
 - Load the sample database
 - Set your user permissions to admin
-- Create `showings` collection in `sample_mflix`
+- Create `showings` and `authorisedusers` collections in `sample_mflix`
 - Add the following validations rules for the following collections
   + `authorisedusers`:
+  ```js
+  {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["_id", "user", "username", "password", "userRoles"],
+      properties: {
+        _id: { bsonType: "objectId" },
+        user: {
+          bsonType: "object",
+          required: ["$ref", "$id"],
+          properties: { $ref: { enum: ["users"] }, $id: { bsonType: "objectId" } }
+        },
+        username: { bsonType: "string" },
+        password: { bsonType: "string" },
+        userRoles: { enum: ["ADMIN"] }
+      }
+    }
+  }
+  ```
   + `comments`:
   ```js
   {
@@ -103,12 +122,53 @@
   }
   ```
   + `theatres`:
-  + `users`:
-- Run the following commands in `mongosh` for the following categories
-  + `movies`:
   ```js
-  > use sample_mflix
-  > var schema = {
+  {
+    $jsonSchema: {
+      bsonType: 'object',
+      required: ['_id', 'theaterId', 'location'],
+      properties: {
+        _id: { bsonType: 'objectId' },
+        theaterId: { bsonType: 'int' },
+        location: {
+          bsonType: 'object',
+          required: ['address', 'geo'],
+          properties: {
+            address: {
+              bsonType: "object",
+              required: ["city", "state", "street1", "zipcode"],
+              properties: { city: { bsonType: "string" }, state: { bsonType: "string" }, street1: { bsonType: "string" }, zipcode: { bsonType: "string" } }
+            },
+            geo: {
+              bsonType: "object",
+              required: ["coordinates", "type"],
+              properties: { coordinates: { bsonType: "array", items: [{ bsonType: "double" }, { bsonType: "double" }], additionalItems: false }, type: { bsonType: "string" } }
+            }
+          }
+        }
+      }
+    }
+  }
+  ```
+  + `users`:
+  ```js
+  {
+  $jsonSchema: {
+      bsonType: "object",
+      required: ["_id", "email", "name", "password"],
+      properties: {
+        _id: { bsonType: "objectId" },
+        email: { bsonType: "string" },
+        name: { bsonType: "string" },
+        password: { bsonType: "string" },
+      }
+    }
+  }
+  ```
+- Run the following commands in `mongosh`:
+```js
+> use sample_mflix
+> var schema = {
     $jsonSchema: {
       bsonType: "object",
       required: ["_id", "awards", "imdb", "lastupdated", "num_mflix_comments", "title", "type", "year"],
@@ -158,8 +218,6 @@
       }
     }
   }
-  > db.movies.updateMany({},{$unset:{"imdb.rating":"","imdb.votes":""}},{})
-  > db.movies.deleteMany({$nor:[schema]})
-  ```
-  + `theatres`:
-  + `users`:
+> db.movies.updateMany({},{$unset:{"imdb.rating":"","imdb.votes":""}},{})
+> db.movies.deleteMany({$nor:[schema]})
+```
