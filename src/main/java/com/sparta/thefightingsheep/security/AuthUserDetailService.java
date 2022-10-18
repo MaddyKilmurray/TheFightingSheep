@@ -16,7 +16,6 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
-@EnableMongoRepositories(basePackages = "com.sparta.thefightingsheep.model.user.repository")
 public class AuthUserDetailService implements UserDetailsService {
 
     private final UserRepository userRepository;
@@ -30,7 +29,7 @@ public class AuthUserDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         System.out.println(username);
-        AuthorisedUser authUser = authorisedUserRepository.findByUsername(username);
+        AuthorisedUser authUser = authorisedUserRepository.findAuthorisedUserByUsername(username);
         System.out.println(authUser);
         if (authUser == null) {
             throw new UsernameNotFoundException("Username not found");
