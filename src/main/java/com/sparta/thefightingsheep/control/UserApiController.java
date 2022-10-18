@@ -5,11 +5,11 @@ import com.sparta.thefightingsheep.model.user.UserDAO;
 import com.sparta.thefightingsheep.model.user.repository.UserRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 public class UserApiController {
 
     @Autowired
@@ -22,5 +22,15 @@ public class UserApiController {
     public User getUserById(@PathVariable String id){
         User result = userRepo.findById(new ObjectId(id)).get();
         return result;
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+    @GetMapping("/accessdenied")
+    public String accessDenied() {
+        return "accessdenied";
     }
 }
