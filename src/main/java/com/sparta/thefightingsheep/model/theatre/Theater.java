@@ -3,9 +3,11 @@ package com.sparta.thefightingsheep.model.theatre;
 import com.sparta.thefightingsheep.model.theatre.location.Location;
 import com.sparta.thefightingsheep.model.theatre.location.address.Address;
 import com.sparta.thefightingsheep.model.theatre.location.geo.Geo;
+import org.springframework.data.annotation.Id;
 
 public class Theater {
 
+    @Id
     private int theaterId;
 
     private Location location;
