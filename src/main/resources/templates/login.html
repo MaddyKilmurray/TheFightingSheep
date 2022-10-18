@@ -3,15 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>The Fighting Sheep Movie Database - Login</title>
+    <link th:href="@{/static/styles/style.css}" rel="stylesheet"/>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.2/css/bootstrap.min.css} "/>
 </head>
 <body>
+<div class="login_form">
+    <h1>Login</h1>
+    <form th:action="@{/login}" method="POST">
+        <label>Username<input class="form-control" type="text" name="username"/></label></br>
+        <label>Password<input class="form-control" type="password" name="password"/></label></br>
+        <input class="btn btn-info" type="submit" value="Sign In"/>
+    </form>
+</div>
 
-<h1>Login</h1>
-<form th:action="@{/login}" method="POST">
-    <label>Username<input type="text" name="username"/></label></br>
-    <label>Password<input type="password" name="password"/></label></br>
-    <input type="submit" value="Sign In"/>
-</form>
 
 </body>
 </html>

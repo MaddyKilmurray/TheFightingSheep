@@ -1,15 +1,17 @@
 package com.sparta.thefightingsheep.control;
 
+
 import com.sparta.thefightingsheep.model.user.User;
 import com.sparta.thefightingsheep.model.user.UserDAO;
+import com.sparta.thefightingsheep.model.user.UserDTO;
 import com.sparta.thefightingsheep.model.user.repository.UserRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.util.List;
+
+@RestController
 public class UserApiController {
 
     @Autowired
@@ -18,19 +20,47 @@ public class UserApiController {
     @Autowired
     private UserDAO userDAO;
 
-    @GetMapping("/user/{id}")
-    public User getUserById(@PathVariable String id){
-        User result = userRepo.findById(new ObjectId(id)).get();
-        return result;
+
+    @GetMapping("/user/find/{id}")
+    public UserDTO getUserById(@PathVariable String id){
+        UserDTO userDTO = new UserDTO(new ObjectId(id),null, null, null);
+        userDTO = userDAO.findById(new ObjectId(id));
+        return userDTO;
     }
 
-    @GetMapping("/login")
-    public String login() {
-        return "login";
+    @GetMapping("/user/all")
+    public List<User> getAllCustomers(){
+//        userRepo repo = userRepo.getInstance();
+        return userRepo.findAll();
     }
 
-    @GetMapping("/accessdenied")
-    public String accessDenied() {
-        return "accessdenied";
+    @DeleteMapping("/user/delete/{id}")
+    public ObjectId deleteById(@PathVariable ObjectId id){
+        User user = userRepo.findById(String.valueOf(id)).get();
+        userDAO.delete(id);
+        return user.getId();
     }
+
+    @PatchMapping("/user/{id}/name/{newname}")
+    public UserDTO updateName(@PathVariable ObjectId id, @PathVariable String newname){
+        UserDTO userDTO = new UserDTO(id, newname, null, null);
+        userDTO = userDAO.update(userDTO);
+        return userDTO;
+    }
+
+    @PatchMapping("/user/{id}/password/{newpassword}")
+    public UserDTO updatePassword(@PathVariable ObjectId id, @PathVariable String newpassword){
+        UserDTO userDTO = new UserDTO(id, null, null, newpassword);
+        userDTO = userDAO.update(userDTO);
+        return userDTO;
+    }
+
+//    @PutMapping("/user/put/{id}/name/{newName}")
+//    public void edditOrAdduser(@PathVariable int id, @PathVariable String newName) {
+//        User user = userRepo.findById(String.valueOf(id)).get();
+//
+//        product.setProductName(newProductName);
+//        productRepo.save(product);
+//    }
+
 }

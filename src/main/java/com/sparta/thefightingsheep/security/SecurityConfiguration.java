@@ -45,8 +45,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .disable()
                 .authorizeRequests()
                 .anyRequest()
-//                .permitAll() // comment to turn security on
-                .authenticated() // uncomment to turn security on
+                .permitAll() // comment to turn security on
+//                .authenticated() // uncomment to turn security on
                 .and()
                 .formLogin()
                 .loginPage("/login")
