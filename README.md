@@ -103,7 +103,7 @@
   {
     $jsonSchema: {
       bsonType: "object",
-      required: ["_id", "showing_date", "movie", "theatre"],
+      required: ["_id", "showing_date", "movie", "theater"],
       properties: {
         _id: { bsonType: "objectId" },
         showing_date: { bsonType: "date" },
@@ -112,16 +112,16 @@
           required: ["$ref", "$id"],
           properties: { $ref: { enum: ["movies"] }, $id: { bsonType: "objectId" } }
         },
-        theatre: {
+        theater: {
           bsonType: "object",
           required: ["$ref", "$id"],
-          properties: { $ref: { enum: ["theatres"] }, $id: { bsonType: "objectId" } }
+          properties: { $ref: { enum: ["theaters"] }, $id: { bsonType: "objectId" } }
         },
       }
     }
   }
   ```
-  + `theatres`:
+  + `theaters`:
   ```js
   {
     $jsonSchema: {
