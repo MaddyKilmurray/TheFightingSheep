@@ -103,6 +103,34 @@
   }
   ```
   + `theatres`:
+  ```js
+  {
+    $jsonSchema: {
+      bsonType: 'object',
+      required: ['_id', 'theaterId', 'location'],
+      properties: {
+        _id: { bsonType: 'objectId' },
+        theaterId: { bsonType: 'int' },
+        location: {
+          bsonType: 'object',
+          required: ['address', 'geo'],
+          properties: {
+            address: {
+              bsonType: "object",
+              required: ["city", "state", "street1", "zipcode"],
+              properties: { city: { bsonType: "string" }, state: { bsonType: "string" }, street1: { bsonType: "string" }, zipcode: { bsonType: "string" } }
+            },
+            geo: {
+              bsonType: "object",
+              required: ["coordinates", "type"],
+              properties: { coordinates: { bsonType: "array", items: [{ bsonType: "double" }, { bsonType: "double" }], additionalItems: false }, type: { bsonType: "string" } }
+            }
+          }
+        }
+      }
+    }
+  }
+  ```
   + `users`:
 - Run the following commands in `mongosh` for the following categories
   + `movies`:
@@ -160,34 +188,5 @@
   }
   > db.movies.updateMany({},{$unset:{"imdb.rating":"","imdb.votes":""}},{})
   > db.movies.deleteMany({$nor:[schema]})
-  ```
-  + `theatres`:
-  ```js
-  {
-    $jsonSchema: {
-      bsonType: 'object',
-      required: ['_id', 'theaterId', 'location'],
-      properties: {
-        _id: { bsonType: 'objectId' },
-        theaterId: { bsonType: 'int' },
-        location: {
-          bsonType: 'object',
-          required: ['address', 'geo'],
-          properties: {
-            address: {
-              bsonType: "object",
-              required: ["city", "state", "street1", "zipcode"],
-              properties: { city: { bsonType: "string" }, state: { bsonType: "string" }, street1: { bsonType: "string" }, zipcode: { bsonType: "string" } }
-            },
-            geo: {
-              bsonType: "object",
-              required: ["coordinates", "type"],
-              properties: { coordinates: { bsonType: "array", items: [{ bsonType: "double" }, { bsonType: "double" }], additionalItems: false }, type: { bsonType: "string" } }
-            }
-          }
-        }
-      }
-    }
-  }
   ```
   + `users`:
