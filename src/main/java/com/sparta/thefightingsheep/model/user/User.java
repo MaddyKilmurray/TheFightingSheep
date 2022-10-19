@@ -7,11 +7,16 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
 @Data
-@Document(collection = "users")
-public class User {
-	@Id
-	private String id;
-	private String name;
+@Document(collection="users")
+public
+class User {
+	@MongoId
+	private ObjectId id;
 	private String email;
+	private String name;
 	private String password;
+
+	public User() {
+	}
 }
+

@@ -4,6 +4,7 @@ import com.sparta.thefightingsheep.model.user.repository.UserRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ public class UserDAO {
     }
 
     public UserDTO update(UserDTO userDTO){
-        Optional<User> optional = userRepo.findById(String.valueOf(userDTO.getId()));
+        Optional<User> optional = userRepo.findById(userDTO.getId().toString());
         User user = null;
         if(optional.isPresent())
             user = optional.get();
@@ -36,10 +37,17 @@ public class UserDAO {
 
 
     public UserDTO findById(ObjectId id){
-        UserDTO userDTO = new UserDTO(null,null,null,null);
-        User user = userRepo.findById(String.valueOf(userDTO.getId())).get();
-        UserDTO result = new UserDTO(user.getId(), user.getName(), user.getEmail(), user.getPassword());
-        return result;
+        Optional<User> optional = userRepo.findById(String.valueOf(id));
+        User user = null;
+        if(!optional.isPresent())
+            return new UserDTO(null, null, null, null);
+        else {
+            user = optional.get();
+            // UserDTO result = new UserDTO(id,null,null,null);
+            // user = userRepo.findById(id).get();
+            UserDTO result = new UserDTO(user.getId(), user.getName(), user.getEmail(), user.getPassword());
+            return result;
+        }
     }
 
     public List<UserDTO> findAll(){
@@ -51,5 +59,16 @@ public class UserDAO {
 
     public void delete(ObjectId id){
         userRepo.deleteById(String.valueOf(id));
+    }
+
+    public UserDTO addUser(ObjectId id, String name, String email, String password){
+        User user = null;
+        UserDTO newUser = new UserDTO(id,name,email,password);
+        user.setId(newUser.getId());
+        user.setName(newUser.getName());
+        user.setEmail(newUser.getEmail());
+        user.setPassword(newUser.getPassword());
+        userRepo.save(user);
+        return newUser;
     }
 }
