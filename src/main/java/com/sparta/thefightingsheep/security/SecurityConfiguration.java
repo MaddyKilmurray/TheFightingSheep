@@ -9,6 +9,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -27,13 +29,13 @@ public class SecurityConfiguration {
         AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject
                 (AuthenticationManagerBuilder.class);
         authenticationManagerBuilder.userDetailsService(authUserDetailService)
-                .passwordEncoder(bCryptPasswordEncoder());
+                .passwordEncoder(noOpPasswordEncoder());
         return authenticationManagerBuilder.build();
     }
 
     @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
+    public PasswordEncoder noOpPasswordEncoder() {
+        return NoOpPasswordEncoder.getInstance();
     }
 
     @Bean
@@ -49,11 +51,9 @@ public class SecurityConfiguration {
                 .formLogin()
                 .loginPage("/login")
                 .defaultSuccessUrl("/user")
-                .failureUrl("/accessdenied")
                 .permitAll()
                 .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .exceptionHandling().accessDeniedPage("/accessdenied");
         return http.build();
     }
 
