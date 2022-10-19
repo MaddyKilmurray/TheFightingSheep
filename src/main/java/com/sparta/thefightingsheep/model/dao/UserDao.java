@@ -55,12 +55,12 @@ public class UserDao implements Dao<UserDto> {
     }
 
     @Override
-    public String delete(UserDto item) {
+    public boolean delete(String id) {
         try {
-            User user = repository.findById(new ObjectId(item.getId())).get();
+            User user = repository.findById(new ObjectId(id)).get();
             repository.delete(user);
-            return user.getId().toHexString();
-        } catch (Exception e) { return null; }
+            return true;
+        } catch (Exception e) { return false; }
     }
 
     @Override

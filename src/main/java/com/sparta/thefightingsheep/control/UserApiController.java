@@ -1,6 +1,7 @@
 package com.sparta.thefightingsheep.control;
 
 
+import com.sparta.thefightingsheep.model.dto.user.Role;
 import com.sparta.thefightingsheep.model.entity.user.User;
 import com.sparta.thefightingsheep.model.repository.UserRepository;
 import com.sparta.thefightingsheep.model.dao.UserDao;
@@ -23,7 +24,7 @@ public class UserApiController {
 
     @GetMapping("/user/find/{id}")
     public UserDto getUserById(@PathVariable String id){
-        UserDto userDTO = userDAO.findById(id);
+        UserDto userDTO = userDAO.findById(id).get();
         return userDTO;
     }
 
@@ -41,30 +42,24 @@ public class UserApiController {
     }
 
     @PostMapping("/user/add/{id}/{name}/{email}/{password}")
-    public UserDto addUser(@PathVariable String id, @PathVariable String name, @PathVariable String email, @PathVariable String password){
-        UserDto userDTO = userDAO.addUser(id, name, email, password);
-        return userDTO;
+    public String addUser(@PathVariable String id, @PathVariable String name, @PathVariable String email, @PathVariable String password){
+        UserDto userDto = new UserDto(id, name, email, password, Role.USER);
+        userDAO.insert(userDto);
+        return userDAO.insert(userDto);
     }
     @PatchMapping("/user/{id}/name/{newname}")
     public UserDto updateName(@PathVariable String id, @PathVariable String newname){
         UserDto userDTO = new UserDto(id, newname, null, null);
-        userDTO = userDAO.update(userDTO);
+        userDAO.update(userDTO);
         return userDTO;
     }
 
     @PatchMapping("/user/{id}/password/{newpassword}")
     public UserDto updatePassword(@PathVariable String id, @PathVariable String newpassword){
-        UserDto userDTO = new UserDto(id, null, null, newpassword);
-        userDTO = userDAO.update(userDTO);
+        UserDto userDTO = userDAO.findById(id).get();
+        userDTO.setPassword(newpassword);
+        userDAO.update(userDTO);
         return userDTO;
     }
-
-//    @PutMapping("/user/put/{id}/name/{newName}")
-//    public void edditOrAdduser(@PathVariable String id, @PathVariable String newName) {
-//        User user = userRepo.findById(id).get();
-//
-//        product.setProductName(newProductName);
-//        productRepo.save(product);
-//    }
 
 }
