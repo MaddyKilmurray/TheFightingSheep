@@ -5,7 +5,6 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.sql.Array;
 import java.sql.Date;
-
 @Document(collection="movies")
 public class Movies {
     @MongoId
