@@ -31,7 +31,7 @@
   {
     $jsonSchema: {
       bsonType: "object",
-      required: ["_id", "username", "password", "userRoles"],
+      required: ["_id", "username", "password", "userRole"],
       properties: {
         _id: { bsonType: "objectId" },
         _class: { bsonType: "string" },
