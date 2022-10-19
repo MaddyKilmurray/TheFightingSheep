@@ -1,8 +1,8 @@
 package com.sparta.thefightingsheep.control;
 
-import com.sparta.thefightingsheep.model.user.User;
-import com.sparta.thefightingsheep.model.user.UserDAO;
-import com.sparta.thefightingsheep.model.user.repository.UserRepository;
+import com.sparta.thefightingsheep.model.entity.user.User;
+import com.sparta.thefightingsheep.model.repository.UserRepository;
+import com.sparta.thefightingsheep.model.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,10 +15,10 @@ public class UserWebController {
 
     @Autowired
     private UserRepository repo;
-    private final UserDAO userDAO;
+    private final UserDao userDAO;
 
 
-    public UserWebController(UserDAO userDAO) {
+    public UserWebController(UserDao userDAO) {
         this.userDAO = userDAO;
     }
 
@@ -85,5 +85,15 @@ public class UserWebController {
 
 
 
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+    @GetMapping("/accessdenied")
+    public String accessDenied(Model model) {
+        model.addAttribute("loginError", true);
+        return "login";
+    }
 
 }
