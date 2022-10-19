@@ -22,7 +22,6 @@ public class TheaterController {
 
     @GetMapping("/all")
     public List<Theater> getAllTheaters() {
-        System.out.println(theaterRepo.findAll());
         return theaterRepo.findAll();
     }
 }
