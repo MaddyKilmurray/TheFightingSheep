@@ -7,6 +7,24 @@
 - Load the sample database
 - Set your user permissions to admin
 - Create `showings` and `authorisedusers` collections in `sample_mflix`
+- Run the following commands in `mongosh`:
+```js
+> use sample_mflix
+> (()=>{
+	db.movies.updateMany({},{$unset:{"imdb.rating":"","imdb.votes":""}},{})
+	db.movies.updateMany({"lastupdated":{"$type":"string"}},[{"$set":{"lastupdated":{"$dateFromString":{"dateString":"$lastupdated"}}}}])
+	db.movies.updateMany({"rated":"Approved"},[{"$set":{"rated":"APPROVED"}}])
+	db.movies.updateMany({"rated":"NC-17"},[{"$set":{"rated":"NC_17"}}])
+	db.movies.updateMany({"rated":"NOT RATED"},[{"$set":{"rated":"NOT_RATED"}}])
+	db.movies.updateMany({"rated":"Not Rated"},[{"$set":{"rated":"NOT_RATED"}}])
+	db.movies.updateMany({"rated":"PG-13"},[{"$set":{"rated":"PG_13"}}])
+	db.movies.updateMany({"rated":"TV-14"},[{"$set":{"rated":"TV_14"}}])
+	db.movies.updateMany({"rated":"TV-G"},[{"$set":{"rated":"TV_G"}}])
+	db.movies.updateMany({"rated":"TV-MA"},[{"$set":{"rated":"TV_MA"}}])
+	db.movies.updateMany({"rated":"TV-PG"},[{"$set":{"rated":"TV_PG"}}])
+	db.movies.updateMany({"rated":"TV-Y7"},[{"$set":{"rated":"TV_Y7"}}])
+})()
+```
 - Add the following validations rules for the following collections
   + `authorisedusers`:
   ```js
@@ -169,22 +187,8 @@
 - Run the following commands in `mongosh`:
 ```js
 > use sample_mflix
-> (()=>{
-	db.movies.updateMany({},{$unset:{"imdb.rating":"","imdb.votes":""}},{})
-	db.movies.updateMany({"lastupdated":{"$type":"string"}},[{"$set":{"lastupdated":{"$dateFromString":{"dateString":"$lastupdated"}}}}])
-	db.movies.updateMany({"rated":"Approved"},[{"$set":{"rated":"APPROVED"}}])
-	db.movies.updateMany({"rated":"NC-17"},[{"$set":{"rated":"NC_17"}}])
-	db.movies.updateMany({"rated":"NOT RATED"},[{"$set":{"rated":"NOT_RATED"}}])
-	db.movies.updateMany({"rated":"Not Rated"},[{"$set":{"rated":"NOT_RATED"}}])
-	db.movies.updateMany({"rated":"PG-13"},[{"$set":{"rated":"PG_13"}}])
-	db.movies.updateMany({"rated":"TV-14"},[{"$set":{"rated":"TV_14"}}])
-	db.movies.updateMany({"rated":"TV-G"},[{"$set":{"rated":"TV_G"}}])
-	db.movies.updateMany({"rated":"TV-MA"},[{"$set":{"rated":"TV_MA"}}])
-	db.movies.updateMany({"rated":"TV-PG"},[{"$set":{"rated":"TV_PG"}}])
-	db.movies.updateMany({"rated":"TV-Y7"},[{"$set":{"rated":"TV_Y7"}}])
-	var schema = <movies schema>
-	db.movies.deleteMany({$nor:[schema]})
-})()
+> var schema = <replace this with movies schema>
+> db.movies.deleteMany({$nor:[schema]})
 ```
 
 ## POJO specifications for each collection
