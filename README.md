@@ -23,7 +23,7 @@
 	db.movies.updateMany({"rated":"TV-MA"},[{"$set":{"rated":"TV_MA"}}])
 	db.movies.updateMany({"rated":"TV-PG"},[{"$set":{"rated":"TV_PG"}}])
 	db.movies.updateMany({"rated":"TV-Y7"},[{"$set":{"rated":"TV_Y7"}}])
-    db.users.updateMany({},[{"$set":{"role":"USER"}}], {})
+    	db.users.updateMany({},[{"$set":{"role":"USER"}}], {})
 })()
 ```
 - Add the following validations rules for the following collections
