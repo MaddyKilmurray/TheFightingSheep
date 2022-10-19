@@ -7,22 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
-public class WebController {
+public class UserWebController {
 
     @Autowired
     private UserRepository repo;
     private final UserDAO userDAO;
 
 
-    public WebController(UserDAO userDAO) {
+    public UserWebController(UserDAO userDAO) {
         this.userDAO = userDAO;
     }
 
@@ -86,7 +82,7 @@ public class WebController {
 //        return "";
 //    }
 //
-//
+
 
 
 
