@@ -334,7 +334,7 @@ class Address {
 
 class Geo {
 	List<Double> coordinates;
-	String type;
+	final String type = "Point";
 }
 ```
 ### The `users` collection
