@@ -42,7 +42,7 @@ public class UserDAO {
         return result;
     }
 
-    public List<UserDTO> finaAll(){
+    public List<UserDTO> findAll(){
         List<UserDTO> userDTOList = new ArrayList<>();
         List<User> userList = userRepo.findAll();
         userList.forEach(p->userDTOList.add(new UserDTO(p.getId(), (p.getName()), (p.getEmail()), (p.getPassword()))));
