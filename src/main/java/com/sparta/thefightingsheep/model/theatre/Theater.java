@@ -1,6 +1,6 @@
 package com.sparta.thefightingsheep.model.theatre;
 
-import com.sparta.thefightingsheep.modelm.entity.theater.Location;
+import com.sparta.thefightingsheep.model.theatre.location.Location;
 import lombok.Data;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -15,11 +15,11 @@ public class Theater {
     @MongoId
     private ObjectId id;
     private Integer theaterId;
-    private com.sparta.thefightingsheep.modelm.entity.theater.Location location;
+    private Location location;
 
     public Theater() {}
 
-    public Theater(Integer theaterId, com.sparta.thefightingsheep.modelm.entity.theater.Location location) {
+    public Theater(Integer theaterId, Location location) {
         this.theaterId = theaterId;
         this.location = location;
     }
@@ -27,6 +27,30 @@ public class Theater {
     public Theater(ObjectId id, Integer theaterId, Location location) {
         this.id = id;
         this.theaterId = theaterId;
+        this.location = location;
+    }
+
+    public ObjectId getId() {
+        return id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
+    }
+
+    public Integer getTheaterId() {
+        return theaterId;
+    }
+
+    public void setTheaterId(Integer theaterId) {
+        this.theaterId = theaterId;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
         this.location = location;
     }
 }
