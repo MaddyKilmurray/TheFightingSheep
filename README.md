@@ -6,19 +6,42 @@
 ## MongoDB setup
 - Load the sample database
 - Set your user permissions to admin
-- Create `showings` and `authorisedusers` collections in `sample_mflix`
+- Create `authorisedusers`, `roles` and `showings` collections in `sample_mflix`
+- Run the following commands in `mongosh`:
+```js
+> use sample_mflix
+> (()=>{
+	db.movies.updateMany({},{$unset:{"imdb.rating":"","imdb.votes":""}},{})
+	db.movies.updateMany({"lastupdated":{"$type":"string"}},[{"$set":{"lastupdated":{"$dateFromString":{"dateString":"$lastupdated"}}}}])
+	db.movies.updateMany({"rated":"Approved"},[{"$set":{"rated":"APPROVED"}}])
+	db.movies.updateMany({"rated":"NC-17"},[{"$set":{"rated":"NC_17"}}])
+	db.movies.updateMany({"rated":"NOT RATED"},[{"$set":{"rated":"NOT_RATED"}}])
+	db.movies.updateMany({"rated":"Not Rated"},[{"$set":{"rated":"NOT_RATED"}}])
+	db.movies.updateMany({"rated":"PG-13"},[{"$set":{"rated":"PG_13"}}])
+	db.movies.updateMany({"rated":"TV-14"},[{"$set":{"rated":"TV_14"}}])
+	db.movies.updateMany({"rated":"TV-G"},[{"$set":{"rated":"TV_G"}}])
+	db.movies.updateMany({"rated":"TV-MA"},[{"$set":{"rated":"TV_MA"}}])
+	db.movies.updateMany({"rated":"TV-PG"},[{"$set":{"rated":"TV_PG"}}])
+	db.movies.updateMany({"rated":"TV-Y7"},[{"$set":{"rated":"TV_Y7"}}])
+})()
+```
 - Add the following validations rules for the following collections
   + `authorisedusers`:
   ```js
   {
     $jsonSchema: {
       bsonType: "object",
-      required: ["_id", "username", "password", "userRoles"],
+      required: ["_id", "username", "password", "userRole"],
       properties: {
         _id: { bsonType: "objectId" },
+        _class: { bsonType: "string" },
         username: { bsonType: "string" },
         password: { bsonType: "string" },
-        userRoles: { enum: ["ADMIN", "USER"] }
+        userRole: {
+          bsonType: "object",
+          required: ["$ref", "$id"],
+          properties: { $ref: { enum: ["roles"] }, $id: { bsonType: "objectId" } }
+        }
       }
     }
   }
@@ -31,6 +54,7 @@
       required: ["_id", "date", "email", "movie_id", "name", "text"],
       properties: {
         _id: { bsonType: "objectId" },
+        _class: { bsonType: "string" },
         date: { bsonType: "date" },
         email: { bsonType: "string" },
         movie_id: { bsonType: "objectId" },
@@ -48,6 +72,7 @@
       required: ["_id", "awards", "imdb", "lastupdated", "num_mflix_comments", "title", "type", "year"],
       properties: {
         _id: { bsonType: "objectId" },
+        _class: { bsonType: "string" },
         awards: {
           bsonType: "object",
           required: ["wins", "nominations", "text"],
@@ -77,7 +102,7 @@
             critic: { bsonType: "object", properties: { meter: { bsonType: "int" }, numReviews: { bsonType: "int" }, rating: { bsonType: "double" } } },
             dvd: { bsonType: "date" },
             fresh: { bsonType: "int" },
-            lastupdated: { bsonType: "date"  },
+            lastUpdated: { bsonType: "date"  },
             production: { bsonType: "string" },
             rotten: { bsonType: "int" },
             viewer: { bsonType: "object", required: ["numReviews"], properties: { meter: { bsonType: "int" }, numReviews: { bsonType: "int" }, rating: { bsonType: "double" } } },
@@ -93,25 +118,46 @@
     }
   }
   ```
+  + `roles`:
+  ```js
+  {
+    $jsonSchema: {
+      bsonType: 'object',
+      required: ['_id','role',],
+      properties: {
+        _id: {bsonType: 'objectId'},
+        _class: {bsonType: 'string'},
+        role: { bsonType: "string" }
+      }
+    }
+  }
+  ```
   + `showings`:
   ```js
   {
     $jsonSchema: {
-      bsonType: "object",
-      required: ["_id", "showing_date", "movie", "theater"],
+      bsonType: 'object',
+      required: ['_id', 'showing_date', 'movie', 'theater'],
       properties: {
-        _id: { bsonType: "objectId" },
-        showing_date: { bsonType: "date" },
+        _id: { bsonType: 'objectId' },
+        _class: { bsonType: 'string' },
+        showing_date: { bsonType: 'date' },
         movie: {
-          bsonType: "object",
-          required: ["$ref", "$id"],
-          properties: { $ref: { enum: ["movies"] }, $id: { bsonType: "objectId" } }
+          bsonType: 'object',
+          required: ['$ref', '$id'],
+          properties: {
+            $ref: { 'enum': ['movies'] },
+            $id: { bsonType: 'objectId' }
+          }
         },
         theater: {
-          bsonType: "object",
-          required: ["$ref", "$id"],
-          properties: { $ref: { enum: ["theaters"] }, $id: { bsonType: "objectId" } }
-        },
+          bsonType: 'object',
+          required: ['$ref', '$id'],
+          properties: {
+            $ref: { 'enum': ['theaters'] },
+            $id: { bsonType: 'objectId'}
+          }
+        }
       }
     }
   }
@@ -124,6 +170,7 @@
       required: ['_id', 'theaterId', 'location'],
       properties: {
         _id: { bsonType: 'objectId' },
+        _class: { bsonType: "string" },
         theaterId: { bsonType: 'int' },
         location: {
           bsonType: 'object',
@@ -137,7 +184,7 @@
             geo: {
               bsonType: "object",
               required: ["coordinates", "type"],
-              properties: { coordinates: { bsonType: "array", items: [{ bsonType: "double" }, { bsonType: "double" }], additionalItems: false }, type: { bsonType: "string" } }
+              properties: { coordinates: { bsonType: "array", items: [{ bsonType: "double" }, { bsonType: "double" }], additionalItems: false }, type: { enum: ["Point"] } }
             }
           }
         }
@@ -148,11 +195,12 @@
   + `users`:
   ```js
   {
-  $jsonSchema: {
+    $jsonSchema: {
       bsonType: "object",
       required: ["_id", "email", "name", "password"],
       properties: {
         _id: { bsonType: "objectId" },
+        _class: { bsonType: "string" },
         email: { bsonType: "string" },
         name: { bsonType: "string" },
         password: { bsonType: "string" },
@@ -164,19 +212,8 @@
 ```js
 > use sample_mflix
 > (()=>{
-	db.movies.updateMany({},{$unset:{"imdb.rating":"","imdb.votes":""}},{})
-	db.movies.updateMany({"lastupdated":{"$type":"string"}},[{"$set":{"lastupdated":{"$dateFromString":{"dateString":"$lastupdated"}}}}])
-	db.movies.updateMany({"rated":"Approved"},[{"$set":{"rated":"APPROVED"}}])
-	db.movies.updateMany({"rated":"NC-17"},[{"$set":{"rated":"NC_17"}}])
-	db.movies.updateMany({"rated":"NOT RATED"},[{"$set":{"rated":"NOT_RATED"}}])
-	db.movies.updateMany({"rated":"Not Rated"},[{"$set":{"rated":"NOT_RATED"}}])
-	db.movies.updateMany({"rated":"PG-13"},[{"$set":{"rated":"PG_13"}}])
-	db.movies.updateMany({"rated":"TV-14"},[{"$set":{"rated":"TV_14"}}])
-	db.movies.updateMany({"rated":"TV-G"},[{"$set":{"rated":"TV_G"}}])
-	db.movies.updateMany({"rated":"TV-MA"},[{"$set":{"rated":"TV_MA"}}])
-	db.movies.updateMany({"rated":"TV-PG"},[{"$set":{"rated":"TV_PG"}}])
-	db.movies.updateMany({"rated":"TV-Y7"},[{"$set":{"rated":"TV_Y7"}}])
-	var schema = <movies schema>
+	db.roles.insertMany([{"role": "ADMIN"}, {"role": "USER"}],{})
+	var schema = <replace this with movies schema>
 	db.movies.deleteMany({$nor:[schema]})
 })()
 ```
@@ -186,47 +223,42 @@ The following is the boilerplate-free outline for what each Entity POJO should l
 
 ### The `authorisedusers` collection
 ```java
-@Document
+@Document(collection="authorisedusers")
 class AuthorisedUser {
 	@MongoId ObjectId id;
 	String username;
 	String password;
-	UserRole userRoles;
-}
-
-enum UserRole {
-    ADMIN,
-    USER
+	@DBRef Role userRole;
 }
 ```
 ### The `comments` collection
 ```java
-@Document
+@Document("comments")
 class Comment {
 	@MongoId ObjectId id;
-	Date date;
+	LocalDateTime date;
 	String email;
-	ObjectId movie_id;
+	@Field("movie_id") ObjectId movieId;
 	String name;
 	String text;
 }
 ```
 ### The `movies` collection
 ```java
-@Document
+@Document(collection="movies")
 class Movie {
 	@MongoId ObjectId id;
 	Awards awards;
 	@Nullable List<String> cast;
 	@Nullable List<String> countries;
 	@Nullable List<String> directors;
-	@Nullable String fullPlot;
+	@Nullable @Field("fullplot") String fullPlot;
 	@Nullable List<String> genres;
 	Imdb imdb;
-	Date lastUpdated;
-	Integer numMflixComments;
+	@Field("lastupdated") LocalDateTime lastUpdated;
+	@Field("num_mflix_comments") Integer numMflixComments;
 	@Nullable String plot;
-	@Nullable Rating rated;
+	@Nullable @Field("rated") Rating rating;
 	@Nullable Integer runtime;
 	String title;
 	@Nullable Tomatoes tomatoes;
@@ -244,7 +276,7 @@ class Awards {
 }
 
 class Imdb {
-	Integer id;
+	@Field("id") Integer id;
 	@Nullable Double rating;
 	@Nullable Integer votes;
 }
@@ -274,9 +306,9 @@ enum Rating {
 class Tomatoes {
 	@Nullable String consensus;
 	@Nullable Critic critic;
-	@Nullable Date dvd;
+	@Nullable LocalDateTime dvd;
 	@Nullable Integer fresh;
-	Date lastUpdated;
+	LocalDateTime lastUpdated;
 	@Nullable String production;
 	@Nullable Integer rotten;
 	@Nullable Viewer viewer;
@@ -295,19 +327,27 @@ class Viewer {
 	@Nullable Double rating;
 }
 ```
+### The `roles` collection
+```java
+@Document(collection="roles")
+class Role {
+	@MongoId ObjectId id;
+	String role;
+}
+```
 ### The `showings` collection
 ```java
-@Document
+@Document(collection="showings")
 class Showing {
 	@MongoId ObjectId id;
-	Date showingDate;
+	@Field("showing_date") LocalDateTime showingDate;
 	@DBRef Movie movie;
 	@DBRef Theater theater;
 }
 ```
 ### The `theaters` collection
 ```java
-@Document
+@Document(collection="theaters")
 class Theater {
 	@MongoId ObjectId id;
 	Integer theaterId;
@@ -322,18 +362,18 @@ class Location {
 class Address {
 	String city;
 	String state;
-	String streetOne;
-	String zipCode;
+	@Field("street1") String streetOne;
+	@Field("zipcode") String zipCode;
 }
 
 class Geo {
 	List<Double> coordinates;
-	String type;
+	final String type = "Point";
 }
 ```
 ### The `users` collection
 ```java
-@Document
+@Document(collection="users")
 class User {
 	@MongoId ObjectId id;
 	String email;

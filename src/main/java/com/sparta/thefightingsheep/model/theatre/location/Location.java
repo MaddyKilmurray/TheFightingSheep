@@ -9,9 +9,9 @@ public class Location {
 
     private Geo geo;
 
-    public Location(String street1, String city, String state, int zipcode, String type, int[] coordinates) {
-        this.address = new Address(street1, city, state, zipcode) ;
-        this.geo = new Geo(type, coordinates);
+    public Location(Address address, Geo geo) {
+        this.address = address ;
+        this.geo = geo;
     }
 
     public Address getAddress() {
