@@ -142,7 +142,7 @@
             geo: {
               bsonType: "object",
               required: ["coordinates", "type"],
-              properties: { coordinates: { bsonType: "array", items: [{ bsonType: "double" }, { bsonType: "double" }], additionalItems: false }, type: { bsonType: "string" } }
+              properties: { coordinates: { bsonType: "array", items: [{ bsonType: "double" }, { bsonType: "double" }], additionalItems: false }, type: { enum: ["Point"] } }
             }
           }
         }
