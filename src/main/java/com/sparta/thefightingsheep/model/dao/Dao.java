@@ -45,11 +45,11 @@ public interface Dao<T extends Dto> {
 
     /**
      * Deletes an item in the database.
-     * @param item the item to be deleted
-     * @return the {@code id} of the deleted item if deleted successfully<br>
-     * {@code null} if not
+     * @param id the {@code id} of the item to be deleted
+     * @return {@code true} if deleted successfully<br>
+     * {@code false} if not
      */
-    String delete(T item);
+    boolean delete(String id);
 
     /**
      * Deletes all items in the database.
