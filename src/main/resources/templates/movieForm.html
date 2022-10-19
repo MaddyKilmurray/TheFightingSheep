@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Display Name</title>
+    </head>
+    <body>
+    <div class = "container mx  -auto px-6 py-3"> </div>
+    <form action="#" th:action="@{/movie/form/create}" method="post" th:object="${movie}">
+        <label for="id">id:</label>
+        <input type = "text" id="id" th:field="*{id}"><br>
+        <label for="awards">awards:</label>
+        <input type = "text" id="awards" th:field="*{awards}"><br>
+        <label for="directors">directors:</label>
+        <input type = "text" id="directors" th:field="*{directors}"><br>
+        <label for="fullplot">full plot:</label>
+        <input type = "text" id="fullplot" th:field="*{fullplot}"><br>
+        <label for="languages">languages:</label>
+        <input type = "text" id="languages" th:field="*{languages}"><br>
+        <label for="numMflixComments">number of comments:</label>
+        <input type = "text" id="numMflixComments" th:field="*{numMflixComments}"><br>
+        <label for="plot">plot:</label>
+        <input type = "text" id="plot" th:field="*{plot}"><br>
+        <label for="title">title:</label>
+        <input type = "text" id="title" th:field="*{title}"><br>
+        <label for="writers">writers:</label>
+        <input type = "text" id="writers" th:field="*{writers}"><br>
+        <label for="genres">genres:</label>
+        <input type = "text" id="genres" th:field="*{genres}"><br>
+        <label for="lastupdated">lastupdated:</label>
+        <input type = "text" id="lastupdated" th:field="*{lastupdated}"><br>
+        <label for="poster">poster:</label>
+        <input type = "text" id="poster" th:field="*{poster}"><br>
+        <label for="tomatoes">rotten tomatoes score:</label>
+        <input type = "text" id="tomatoes" th:field="*{tomatoes}"><br>
+        <label for="year">year of release:</label>
+        <input type = "text" id="year" th:field="*{year}"><br>
+        <label for="imdb">imdb score:</label>
+        <input type = "text" id="imdb" th:field="*{imdb}"><br>
+        <label for=rated>rated:</label>
+        <input type = "text" id="rated" th:field="*{imdb}"><br>
+        <label for=released>date released:</label>
+        <input type = "text" id="released" th:field="*{released}"><br>
+        <label for=cast> cast:</label>
+        <input type = "text" id="cast" th:field="*{cast}"><br>
+        <label for=runtime> runtime:</label>
+        <input type = "text" id="runtime" th:field="*{runtime}"><br>
+        <label for=countries> countries:</label>
+        <input type = "text" id="countries" th:field="*{countries}"><br>
+        <label for=type> type:</label>
+        <input type = "text" id="type" th:field="*{type}"><br>
+        <button type="submit" th:name="action" th:value="in">Submit</button>
+    </form>
+    </body>
+</html>
