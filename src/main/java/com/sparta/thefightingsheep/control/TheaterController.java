@@ -1,8 +1,7 @@
 package com.sparta.thefightingsheep.control;
 
-import com.sparta.thefightingsheep.model.theatre.Theater;
-import com.sparta.thefightingsheep.model.theatre.TheaterDAO;
-import com.sparta.thefightingsheep.model.theatre.TheaterRepository;
+import com.sparta.thefightingsheep.model.entity.theater.Theater;
+import com.sparta.thefightingsheep.model.repository.TheaterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,8 +16,8 @@ public class TheaterController {
     @Autowired
     private TheaterRepository theaterRepo;
 
-    @Autowired
-    private TheaterDAO dao;
+//    @Autowired
+//    private TheaterDao dao;
 
     @GetMapping("/all")
     public List<Theater> getAllTheaters() {

@@ -1,9 +1,11 @@
 package com.sparta.thefightingsheep.control;
 
-import com.sparta.thefightingsheep.model.movie.Movies;
-import com.sparta.thefightingsheep.model.movie.MoviesDAO;
-import com.sparta.thefightingsheep.model.movie.MoviesDto;
-import com.sparta.thefightingsheep.model.movie.repo.MoviesRepository;
+import com.sparta.thefightingsheep.model.entity.movie.Movie;
+
+import com.sparta.thefightingsheep.model.dao.MoviesDao;
+import com.sparta.thefightingsheep.model.dto.MovieDto;
+
+import com.sparta.thefightingsheep.model.repository.MovieRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,25 +17,24 @@ import java.util.List;
 @Controller
 public class MovieWebController {
     @Autowired
-    private MoviesRepository movieRepo;
+    private MovieRepository movieRepo;
 
     @Autowired
-    private MoviesDAO movieDAO;
+    private MoviesDao movieDAO;
     @GetMapping("/movie")
     public String findMovie(String id, Model model)
     {
-        Movies result = movieRepo.findById(id).get();
+        Movie result = movieRepo.findById(new ObjectId(id)).get();
         model.addAttribute("movie",result);
         return "displayMovie";
     }
     @GetMapping("/movie/{id}")
-    public MoviesDto getMovieById(@PathVariable int id){
-        MoviesDto result = new MoviesDto(String.valueOf(id),null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null);
-        result = movieDAO.findById(new ObjectId(String.valueOf(id)));
+    public MovieDto getMovieById(@PathVariable String id){
+        MovieDto result = movieDAO.findById(id);
         return result;
     }
     @GetMapping("/movie/all")
-    public List<Movies> findAllMovies()
+    public List<Movie> findAllMovies()
     {
         return movieRepo.findAll();
     }
@@ -41,7 +42,7 @@ public class MovieWebController {
     @GetMapping("/movie/form/create")
     public String movieForm(Model model)
     {
-        Movies movie = new Movies();
+        Movie movie = new Movie();
         model.addAttribute("movie",movie);
         return "movieForm";
     }
@@ -50,8 +51,8 @@ public class MovieWebController {
     public String accessDenied(){
         return "accessDenied";
     }
-    @GetMapping("/login")
-    public String login() {
-        return "login";
-    }
+//    @GetMapping("/login")
+//    public String login() {
+//        return "login";
+//    }
 }

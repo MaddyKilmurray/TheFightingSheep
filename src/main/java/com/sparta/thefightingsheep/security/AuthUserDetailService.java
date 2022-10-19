@@ -1,43 +1,32 @@
 package com.sparta.thefightingsheep.security;
 
-import com.sparta.thefightingsheep.model.user.AuthorisedUser;
-import com.sparta.thefightingsheep.model.user.repository.AuthorisedUserRepository;
-import com.sparta.thefightingsheep.model.user.repository.RoleRepository;
-import org.springframework.security.core.GrantedAuthority;
+import com.sparta.thefightingsheep.model.entity.user.User;
+import com.sparta.thefightingsheep.model.repository.UserRepository;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
 public class AuthUserDetailService implements UserDetailsService {
 
-    private final RoleRepository roleRepository;
-    private final AuthorisedUserRepository authorisedUserRepository;
+    private final UserRepository repository;
 
-    public AuthUserDetailService(RoleRepository roleRepository, AuthorisedUserRepository authorisedUserRepository) {
-        this.roleRepository = roleRepository;
-        this.authorisedUserRepository = authorisedUserRepository;
+    public AuthUserDetailService(UserRepository repository) {
+        this.repository = repository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        AuthorisedUser authUser = authorisedUserRepository.findAuthorisedUserByUsername(username);
-        System.out.println(authUser.toString());
-        if (authUser == null) {
+        Optional<User> wrappedUser = repository.findUserByEmail(username);
+        if (!wrappedUser.isPresent())
             throw new UsernameNotFoundException("Username not found");
-        }
+        User user = wrappedUser.get();
 
-        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-
-        grantedAuthorities.add(new SimpleGrantedAuthority(authUser.getRoles().getRole()));
-
-        User newUser = new User(authUser.getUsername(), authUser.getPassword(), grantedAuthorities);
-        return newUser;
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), Set.of(new SimpleGrantedAuthority(user.getRole().name())));
     }
 }

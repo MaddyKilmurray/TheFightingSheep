@@ -1,14 +1,12 @@
 package com.sparta.thefightingsheep.control;
 
 
-import com.sparta.thefightingsheep.model.user.User;
-import com.sparta.thefightingsheep.model.user.UserDAO;
-import com.sparta.thefightingsheep.model.user.UserDTO;
-import com.sparta.thefightingsheep.model.user.repository.UserRepository;
+import com.sparta.thefightingsheep.model.entity.user.User;
+import com.sparta.thefightingsheep.model.repository.UserRepository;
+import com.sparta.thefightingsheep.model.dao.UserDao;
+import com.sparta.thefightingsheep.model.dto.UserDto;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,43 +18,43 @@ public class UserApiController {
     private UserRepository userRepo;
 
     @Autowired
-    private UserDAO userDAO;
+    private UserDao userDAO;
 
 
     @GetMapping("/user/find/{id}")
-    public UserDTO getUserById(@PathVariable ObjectId id){
-        UserDTO userDTO = userDAO.findById(id);
+    public UserDto getUserById(@PathVariable String id){
+        UserDto userDTO = userDAO.findById(id);
         return userDTO;
     }
 
     @GetMapping("/user/find/all")
-    public List<UserDTO> getAllCustomers(){
-        List<UserDTO> userDTOList = userDAO.findAll();
+    public List<UserDto> getAllCustomers(){
+        List<UserDto> userDTOList = userDAO.findAll();
         return userDTOList;
     }
 
     @DeleteMapping("/user/delete/{id}")
-    public ObjectId deleteById(@PathVariable ObjectId id){
-        User user = userRepo.findById(String.valueOf(id)).get();
+    public ObjectId deleteById(@PathVariable String id){
+        User user = userRepo.findById(new ObjectId(id)).get();
         userDAO.delete(id);
         return user.getId();
     }
 
     @PostMapping("/user/add/{id}/{name}/{email}/{password}")
-    public UserDTO addUser(@PathVariable ObjectId id, @PathVariable String name, @PathVariable String email, @PathVariable String password){
-        UserDTO userDTO = userDAO.addUser(id, name, email, password);
+    public UserDto addUser(@PathVariable String id, @PathVariable String name, @PathVariable String email, @PathVariable String password){
+        UserDto userDTO = userDAO.addUser(id, name, email, password);
         return userDTO;
     }
     @PatchMapping("/user/{id}/name/{newname}")
-    public UserDTO updateName(@PathVariable ObjectId id, @PathVariable String newname){
-        UserDTO userDTO = new UserDTO(id, newname, null, null);
+    public UserDto updateName(@PathVariable String id, @PathVariable String newname){
+        UserDto userDTO = new UserDto(id, newname, null, null);
         userDTO = userDAO.update(userDTO);
         return userDTO;
     }
 
     @PatchMapping("/user/{id}/password/{newpassword}")
-    public UserDTO updatePassword(@PathVariable ObjectId id, @PathVariable String newpassword){
-        UserDTO userDTO = new UserDTO(id, null, null, newpassword);
+    public UserDto updatePassword(@PathVariable String id, @PathVariable String newpassword){
+        UserDto userDTO = new UserDto(id, null, null, newpassword);
         userDTO = userDAO.update(userDTO);
         return userDTO;
     }
