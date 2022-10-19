@@ -1,60 +1,30 @@
 package com.sparta.thefightingsheep.model.user;
 
+
+import lombok.Data;
 import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.core.mapping.MongoId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.IndexDirection;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Objects;
 import java.util.Set;
 
-public class AuthorisedUser implements UserDetails {
-    private @MongoId ObjectId id;
+@Data
+@Document(collection = "authorisedusers")
+public class AuthorisedUser {
+    @Id
+    private ObjectId id;
+    @Indexed(unique = true, direction = IndexDirection.DESCENDING, dropDups = true)
     private String username;
     private String password;
-    private Set<UserRole> userRoles;
-
-    public AuthorisedUser(ObjectId id, String username, String password, Set userRoles) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.userRoles = userRoles;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return userRoles;
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public String getUsername() {
-        return username;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
+    @DBRef
+    private Set<ObjectId> userRoles;
 
     public ObjectId getId() {
         return id;
@@ -64,19 +34,27 @@ public class AuthorisedUser implements UserDetails {
         this.id = id;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public Set<UserRole> getUserRoles() {
+    public Set<ObjectId> getRoles() {
         return userRoles;
     }
 
-    public void setUserRoles(Set<UserRole> userRoles) {
-        this.userRoles = userRoles;
+    public void setRoles(Set<ObjectId> roles) {
+        this.userRoles = roles;
     }
 }
