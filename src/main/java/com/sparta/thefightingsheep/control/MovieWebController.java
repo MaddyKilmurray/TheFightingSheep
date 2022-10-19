@@ -2,7 +2,7 @@ package com.sparta.thefightingsheep.control;
 
 import com.sparta.thefightingsheep.model.entity.movie.Movie;
 
-import com.sparta.thefightingsheep.model.dao.MoviesDao;
+import com.sparta.thefightingsheep.model.dao.MovieDao;
 import com.sparta.thefightingsheep.model.dto.MovieDto;
 
 import com.sparta.thefightingsheep.model.repository.MovieRepository;
@@ -20,7 +20,7 @@ public class MovieWebController {
     private MovieRepository movieRepo;
 
     @Autowired
-    private MoviesDao movieDAO;
+    private MovieDao movieDAO;
     @GetMapping("/movie")
     public String findMovie(String id, Model model)
     {
