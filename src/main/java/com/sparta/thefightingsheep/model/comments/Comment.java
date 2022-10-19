@@ -1,10 +1,14 @@
 package com.sparta.thefightingsheep.model.comments;
 
+import lombok.Data;
 import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.time.Instant;
 
+@Data
+@Document(collection = "comments")
 public class Comment {
 
     private @MongoId ObjectId _id;
@@ -13,7 +17,7 @@ public class Comment {
 
     private String email;
 
-    private @MongoId ObjectId movie_id;
+    private ObjectId movie_id;
 
     private String name;
 
