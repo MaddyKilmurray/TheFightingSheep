@@ -4,6 +4,12 @@ import com.sparta.thefightingsheep.model.theatre.location.Location;
 
 public class TheaterDTO {
 
+    private String _id;
+
+    public String get_id() {
+        return _id;
+    }
+
     private int theaterId;
 
     private Location location;
