@@ -1,32 +1,23 @@
 package com.sparta.thefightingsheep.model.theatre.location;
 
-import com.sparta.thefightingsheep.model.theatre.location.address.Address;
-import com.sparta.thefightingsheep.model.theatre.location.geo.Geo;
+import org.springframework.data.mongodb.core.mapping.Field;
+
+import java.util.List;
 
 public class Location {
 
-    private Address address;
-
-    private Geo geo;
-
-    public Location(Address address, Geo geo) {
-        this.address = address ;
-        this.geo = geo;
+    class Address {
+        String city;
+        String state;
+        @Field("street1") String streetOne;
+        @Field("zipcode") String zipCode;
     }
 
-    public Address getAddress() {
-        return address;
+    class Geo {
+        List<Double> coordinates;
+        final String type = "Point";
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public Geo getGeo() {
-        return geo;
-    }
-
-    public void setGeo(Geo geo) {
-        this.geo = geo;
-    }
+    Address address;
+    Geo geo;
 }

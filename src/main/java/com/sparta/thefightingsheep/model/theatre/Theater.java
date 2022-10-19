@@ -12,14 +12,11 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 @Document(collection = "theaters")
 public class Theater {
 
-    @Field
+    @Field("_id")
     @MongoId
     private ObjectId id;
 
-    @Field
     private String theaterId;
-
-    @Field
     private Location location;
 
 }

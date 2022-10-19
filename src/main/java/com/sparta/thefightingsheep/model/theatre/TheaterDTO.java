@@ -1,5 +1,6 @@
 package com.sparta.thefightingsheep.model.theatre;
 
+
 import com.sparta.thefightingsheep.model.theatre.location.Location;
 import org.bson.types.ObjectId;
 
