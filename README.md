@@ -228,12 +228,7 @@ class AuthorisedUser {
 	@MongoId ObjectId id;
 	String username;
 	String password;
-	@Field("userRoles") UserRole userRole;
-}
-
-enum UserRole {
-    ADMIN,
-    USER
+	@DBRef Role userRole;
 }
 ```
 ### The `comments` collection
