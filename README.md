@@ -16,7 +16,7 @@
       required: ["_id", "username", "password", "userRoles"],
       properties: {
         _id: { bsonType: "objectId" },
-	_class: { bsonType: "string" },
+        _class: { bsonType: "string" },
         username: { bsonType: "string" },
         password: { bsonType: "string" },
         userRoles: { enum: ["ADMIN", "USER"] }
@@ -32,7 +32,7 @@
       required: ["_id", "date", "email", "movie_id", "name", "text"],
       properties: {
         _id: { bsonType: "objectId" },
-	_class: { bsonType: "string" },
+        _class: { bsonType: "string" },
         date: { bsonType: "date" },
         email: { bsonType: "string" },
         movie_id: { bsonType: "objectId" },
@@ -50,7 +50,7 @@
       required: ["_id", "awards", "imdb", "lastupdated", "num_mflix_comments", "title", "type", "year"],
       properties: {
         _id: { bsonType: "objectId" },
-	_class: { bsonType: "string" },
+        _class: { bsonType: "string" },
         awards: {
           bsonType: "object",
           required: ["wins", "nominations", "text"],
@@ -104,7 +104,7 @@
       required: ["_id", "showing_date", "movie", "theater"],
       properties: {
         _id: { bsonType: "objectId" },
-	_class: { bsonType: "string" },
+        _class: { bsonType: "string" },
         showing_date: { bsonType: "date" },
         movie: {
           bsonType: "object",
@@ -128,7 +128,7 @@
       required: ['_id', 'theaterId', 'location'],
       properties: {
         _id: { bsonType: 'objectId' },
-	_class: { bsonType: "string" },
+        _class: { bsonType: "string" },
         theaterId: { bsonType: 'int' },
         location: {
           bsonType: 'object',
@@ -153,12 +153,12 @@
   + `users`:
   ```js
   {
-  $jsonSchema: {
+    $jsonSchema: {
       bsonType: "object",
       required: ["_id", "email", "name", "password"],
       properties: {
         _id: { bsonType: "objectId" },
-	_class: { bsonType: "string" },
+        _class: { bsonType: "string" },
         email: { bsonType: "string" },
         name: { bsonType: "string" },
         password: { bsonType: "string" },
