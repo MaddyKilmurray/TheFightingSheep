@@ -31,13 +31,17 @@
   {
     $jsonSchema: {
       bsonType: "object",
-      required: ["_id", "username", "password", "userRoles"],
+      required: ["_id", "username", "password", "userRole"],
       properties: {
         _id: { bsonType: "objectId" },
         _class: { bsonType: "string" },
         username: { bsonType: "string" },
         password: { bsonType: "string" },
-        userRoles: { enum: ["ADMIN", "USER"] }
+        userRole: {
+          bsonType: "object",
+          required: ["$ref", "$id"],
+          properties: { $ref: { enum: ["roles"] }, $id: { bsonType: "objectId" } }
+        }
       }
     }
   }
@@ -132,17 +136,27 @@
   ```js
   {
     $jsonSchema: {
-      bsonType: "object",
-      required: ["_id", "username", "password", "userRole"],
+      bsonType: 'object',
+      required: ['_id', 'showing_date', 'movie', 'theater'],
       properties: {
-        _id: { bsonType: "objectId" },
-        _class: { bsonType: "string" },
-        username: { bsonType: "string" },
-        password: { bsonType: "string" },
-        userRole: {
-          bsonType: "object",
-          required: ["$ref", "$id"],
-          properties: { $ref: { enum: ["roles"] }, $id: { bsonType: "objectId" } }
+        _id: { bsonType: 'objectId' },
+        _class: { bsonType: 'string' },
+        showing_date: { bsonType: 'date' },
+        movie: {
+          bsonType: 'object',
+          required: ['$ref', '$id'],
+          properties: {
+            $ref: { 'enum': ['movies'] },
+            $id: { bsonType: 'objectId' }
+          }
+        },
+        theater: {
+          bsonType: 'object',
+          required: ['$ref', '$id'],
+          properties: {
+            $ref: { 'enum': ['theaters'] },
+            $id: { bsonType: 'objectId'}
+          }
         }
       }
     }
@@ -197,8 +211,11 @@
 - Run the following commands in `mongosh`:
 ```js
 > use sample_mflix
-> var schema = <replace this with movies schema>
-> db.movies.deleteMany({$nor:[schema]})
+> (()=>{
+	db.roles.insertMany([{"role": "ADMIN"}, {"role": "USER"}],{})
+	var schema = <replace this with movies schema>
+	db.movies.deleteMany({$nor:[schema]})
+})()
 ```
 
 ## POJO specifications for each collection
@@ -211,12 +228,7 @@ class AuthorisedUser {
 	@MongoId ObjectId id;
 	String username;
 	String password;
-	@Field("userRoles") UserRole userRole;
-}
-
-enum UserRole {
-    ADMIN,
-    USER
+	@DBRef Role userRole;
 }
 ```
 ### The `comments` collection
@@ -313,6 +325,14 @@ class Viewer {
 	@Nullable Integer meter;
 	Integer numReviews;
 	@Nullable Double rating;
+}
+```
+### The `roles` collection
+```java
+@Document(collection="roles")
+class Role {
+	@MongoId ObjectId id;
+	String role;
 }
 ```
 ### The `showings` collection
