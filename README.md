@@ -328,6 +328,6 @@ class User {
 	String email;
 	String name;
 	String password;
-    Role role;
+    	Role role;
 }
 ```
