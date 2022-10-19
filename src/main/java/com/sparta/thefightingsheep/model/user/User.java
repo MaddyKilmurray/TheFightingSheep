@@ -3,6 +3,9 @@ package com.sparta.thefightingsheep.model.user;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 public class User {
 	private String password;
 	private String name;

@@ -1,127 +1,92 @@
 package com.sparta.thefightingsheep.model.movie;
 
-import javax.persistence.*;
-import java.sql.Date;
-import java.util.List;
-import java.util.Set;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
-@Entity
-@Table(name = "movies", schema = "sample_mflix")
+import javax.persistence.*;
+import java.sql.Array;
+import java.sql.Date;
+
+@Document(collection="movies")
 public class MoviesEntity {
-    @Id
-    @Column(name = "_id", nullable = false)
+    @MongoId
     private String id;
-    @Basic
-    @Column(name = "awards")
+
     private Object awards;
-    @Basic
-    @Column(name = "fullplot")
+
     private String fullplot;
-    @Basic
-    @Column(name = "num_mflix_comments")
+
     private Integer numMflixComments;
-    @Basic
-    @Column(name = "plot")
+
     private String plot;
-    @Basic
-    @Column(name = "title")
+
     private String title;
-    @Basic
-    @Column(name = "awards.nominations")
+
     private Integer awardsNominations;
-    @Basic
-    @Column(name = "lastupdated")
+
     private String lastupdated;
-    @Basic
-    @Column(name = "poster")
+
     private String poster;
-    @Basic
-    @Column(name = "tomatoes")
+
     private Object tomatoes;
-    @Basic
-    @Column(name = "year")
+
     private Integer year;
-    @Basic
-    @Column(name = "awards.text")
+
     private String awardsText;
-    @Basic
-    @Column(name = "imdb")
+
     private Object imdb;
-    @Basic
-    @Column(name = "rated")
+
     private String rated;
-    @Basic
-    @Column(name = "tomatoes.consensus")
+
     private String tomatoesConsensus;
-    @Basic
-    @Column(name = "awards.wins")
+
     private Integer awardsWins;
-    @Basic
-    @Column(name = "imdb.id")
+
     private Integer imdbId;
-    @Basic
-    @Column(name = "released")
+
     private Date released;
-    @Basic
-    @Column(name = "tomatoes.critic")
+
     private Object tomatoesCritic;
-    @Basic
-    @Column(name = "imdb.rating")
+
     private Double imdbRating;
-    @Basic
-    @Column(name = "runtime")
+
     private Integer runtime;
-    @Basic
-    @Column(name = "tomatoes.critic.meter")
+
     private Integer tomatoesCriticMeter;
-    @Basic
-    @Column(name = "imdb.votes")
+
     private Integer imdbVotes;
-    @Basic
-    @Column(name = "tomatoes.critic.numReviews")
+
     private Integer tomatoesCriticNumReviews;
-    @Basic
-    @Column(name = "tomatoes.critic.rating")
+
     private Double tomatoesCriticRating;
-    @Basic
-    @Column(name = "tomatoes.dvd")
+
     private Date tomatoesDvd;
-    @Basic
-    @Column(name = "tomatoes.fresh")
+
     private Integer tomatoesFresh;
-    @Basic
-    @Column(name = "tomatoes.lastUpdated")
+
     private Date tomatoesLastUpdated;
-    @Basic
-    @Column(name = "tomatoes.production")
+
     private String tomatoesProduction;
-    @Basic
-    @Column(name = "tomatoes.rotten")
+
     private Integer tomatoesRotten;
-    @Basic
-    @Column(name = "tomatoes.viewer")
+
     private Object tomatoesViewer;
-    @Basic
-    @Column(name = "tomatoes.viewer.meter")
+
     private Integer tomatoesViewerMeter;
-    @Basic
-    @Column(name = "tomatoes.viewer.numReviews")
+
     private Integer tomatoesViewerNumReviews;
-    @Basic
-    @Column(name = "tomatoes.viewer.rating")
+
     private Double tomatoesViewerRating;
-    @Basic
-    @Column(name = "tomatoes.website")
+
     private String tomatoesWebsite;
-    @Basic
-    @Column(name = "type")
+
     private String type;
-    private Object directors;
-    private Object languages;
-    private Object writers;
-    private Object genres;
-    private Object cast;
-    private Object countries;
+    private Array directors;
+    private Array languages;
+    private Array writers;
+    private Array genres;
+    private Array cast;
+    private Array countries;
 
     public String getId() {
         return id;
@@ -411,155 +376,51 @@ public class MoviesEntity {
         this.type = type;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        MoviesEntity that = (MoviesEntity) o;
-
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (awards != null ? !awards.equals(that.awards) : that.awards != null) return false;
-        if (fullplot != null ? !fullplot.equals(that.fullplot) : that.fullplot != null) return false;
-        if (numMflixComments != null ? !numMflixComments.equals(that.numMflixComments) : that.numMflixComments != null)
-            return false;
-        if (plot != null ? !plot.equals(that.plot) : that.plot != null) return false;
-        if (title != null ? !title.equals(that.title) : that.title != null) return false;
-        if (awardsNominations != null ? !awardsNominations.equals(that.awardsNominations) : that.awardsNominations != null)
-            return false;
-        if (lastupdated != null ? !lastupdated.equals(that.lastupdated) : that.lastupdated != null) return false;
-        if (poster != null ? !poster.equals(that.poster) : that.poster != null) return false;
-        if (tomatoes != null ? !tomatoes.equals(that.tomatoes) : that.tomatoes != null) return false;
-        if (year != null ? !year.equals(that.year) : that.year != null) return false;
-        if (awardsText != null ? !awardsText.equals(that.awardsText) : that.awardsText != null) return false;
-        if (imdb != null ? !imdb.equals(that.imdb) : that.imdb != null) return false;
-        if (rated != null ? !rated.equals(that.rated) : that.rated != null) return false;
-        if (tomatoesConsensus != null ? !tomatoesConsensus.equals(that.tomatoesConsensus) : that.tomatoesConsensus != null)
-            return false;
-        if (awardsWins != null ? !awardsWins.equals(that.awardsWins) : that.awardsWins != null) return false;
-        if (imdbId != null ? !imdbId.equals(that.imdbId) : that.imdbId != null) return false;
-        if (released != null ? !released.equals(that.released) : that.released != null) return false;
-        if (tomatoesCritic != null ? !tomatoesCritic.equals(that.tomatoesCritic) : that.tomatoesCritic != null)
-            return false;
-        if (imdbRating != null ? !imdbRating.equals(that.imdbRating) : that.imdbRating != null) return false;
-        if (runtime != null ? !runtime.equals(that.runtime) : that.runtime != null) return false;
-        if (tomatoesCriticMeter != null ? !tomatoesCriticMeter.equals(that.tomatoesCriticMeter) : that.tomatoesCriticMeter != null)
-            return false;
-        if (imdbVotes != null ? !imdbVotes.equals(that.imdbVotes) : that.imdbVotes != null) return false;
-        if (tomatoesCriticNumReviews != null ? !tomatoesCriticNumReviews.equals(that.tomatoesCriticNumReviews) : that.tomatoesCriticNumReviews != null)
-            return false;
-        if (tomatoesCriticRating != null ? !tomatoesCriticRating.equals(that.tomatoesCriticRating) : that.tomatoesCriticRating != null)
-            return false;
-        if (tomatoesDvd != null ? !tomatoesDvd.equals(that.tomatoesDvd) : that.tomatoesDvd != null) return false;
-        if (tomatoesFresh != null ? !tomatoesFresh.equals(that.tomatoesFresh) : that.tomatoesFresh != null)
-            return false;
-        if (tomatoesLastUpdated != null ? !tomatoesLastUpdated.equals(that.tomatoesLastUpdated) : that.tomatoesLastUpdated != null)
-            return false;
-        if (tomatoesProduction != null ? !tomatoesProduction.equals(that.tomatoesProduction) : that.tomatoesProduction != null)
-            return false;
-        if (tomatoesRotten != null ? !tomatoesRotten.equals(that.tomatoesRotten) : that.tomatoesRotten != null)
-            return false;
-        if (tomatoesViewer != null ? !tomatoesViewer.equals(that.tomatoesViewer) : that.tomatoesViewer != null)
-            return false;
-        if (tomatoesViewerMeter != null ? !tomatoesViewerMeter.equals(that.tomatoesViewerMeter) : that.tomatoesViewerMeter != null)
-            return false;
-        if (tomatoesViewerNumReviews != null ? !tomatoesViewerNumReviews.equals(that.tomatoesViewerNumReviews) : that.tomatoesViewerNumReviews != null)
-            return false;
-        if (tomatoesViewerRating != null ? !tomatoesViewerRating.equals(that.tomatoesViewerRating) : that.tomatoesViewerRating != null)
-            return false;
-        if (tomatoesWebsite != null ? !tomatoesWebsite.equals(that.tomatoesWebsite) : that.tomatoesWebsite != null)
-            return false;
-        if (type != null ? !type.equals(that.type) : that.type != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (awards != null ? awards.hashCode() : 0);
-        result = 31 * result + (fullplot != null ? fullplot.hashCode() : 0);
-        result = 31 * result + (numMflixComments != null ? numMflixComments.hashCode() : 0);
-        result = 31 * result + (plot != null ? plot.hashCode() : 0);
-        result = 31 * result + (title != null ? title.hashCode() : 0);
-        result = 31 * result + (awardsNominations != null ? awardsNominations.hashCode() : 0);
-        result = 31 * result + (lastupdated != null ? lastupdated.hashCode() : 0);
-        result = 31 * result + (poster != null ? poster.hashCode() : 0);
-        result = 31 * result + (tomatoes != null ? tomatoes.hashCode() : 0);
-        result = 31 * result + (year != null ? year.hashCode() : 0);
-        result = 31 * result + (awardsText != null ? awardsText.hashCode() : 0);
-        result = 31 * result + (imdb != null ? imdb.hashCode() : 0);
-        result = 31 * result + (rated != null ? rated.hashCode() : 0);
-        result = 31 * result + (tomatoesConsensus != null ? tomatoesConsensus.hashCode() : 0);
-        result = 31 * result + (awardsWins != null ? awardsWins.hashCode() : 0);
-        result = 31 * result + (imdbId != null ? imdbId.hashCode() : 0);
-        result = 31 * result + (released != null ? released.hashCode() : 0);
-        result = 31 * result + (tomatoesCritic != null ? tomatoesCritic.hashCode() : 0);
-        result = 31 * result + (imdbRating != null ? imdbRating.hashCode() : 0);
-        result = 31 * result + (runtime != null ? runtime.hashCode() : 0);
-        result = 31 * result + (tomatoesCriticMeter != null ? tomatoesCriticMeter.hashCode() : 0);
-        result = 31 * result + (imdbVotes != null ? imdbVotes.hashCode() : 0);
-        result = 31 * result + (tomatoesCriticNumReviews != null ? tomatoesCriticNumReviews.hashCode() : 0);
-        result = 31 * result + (tomatoesCriticRating != null ? tomatoesCriticRating.hashCode() : 0);
-        result = 31 * result + (tomatoesDvd != null ? tomatoesDvd.hashCode() : 0);
-        result = 31 * result + (tomatoesFresh != null ? tomatoesFresh.hashCode() : 0);
-        result = 31 * result + (tomatoesLastUpdated != null ? tomatoesLastUpdated.hashCode() : 0);
-        result = 31 * result + (tomatoesProduction != null ? tomatoesProduction.hashCode() : 0);
-        result = 31 * result + (tomatoesRotten != null ? tomatoesRotten.hashCode() : 0);
-        result = 31 * result + (tomatoesViewer != null ? tomatoesViewer.hashCode() : 0);
-        result = 31 * result + (tomatoesViewerMeter != null ? tomatoesViewerMeter.hashCode() : 0);
-        result = 31 * result + (tomatoesViewerNumReviews != null ? tomatoesViewerNumReviews.hashCode() : 0);
-        result = 31 * result + (tomatoesViewerRating != null ? tomatoesViewerRating.hashCode() : 0);
-        result = 31 * result + (tomatoesWebsite != null ? tomatoesWebsite.hashCode() : 0);
-        result = 31 * result + (type != null ? type.hashCode() : 0);
-        return result;
-    }
-
-    public Object getDirectors() {
+    public Array getDirectors() {
         return directors;
     }
 
-    public void setDirectors(Object directors) {
+    public void setDirectors(Array directors) {
         this.directors = directors;
     }
 
-    public Object getLanguages() {
+    public Array getLanguages() {
         return languages;
     }
 
-    public void setLanguages(Object languages) {
+    public void setLanguages(Array languages) {
         this.languages = languages;
     }
 
-    public Object getWriters() {
+    public Array getWriters() {
         return writers;
     }
 
-    public void setWriters(Object writers) {
+    public void setWriters(Array writers) {
         this.writers = writers;
     }
 
-    public Object getGenres() {
+    public Array getGenres() {
         return genres;
     }
 
-    public void setGenres(Object genres) {
+    public void setGenres(Array genres) {
         this.genres = genres;
     }
 
-    public Object getCast() {
+    public Array getCast() {
         return cast;
     }
 
-    public void setCast(Object cast) {
+    public void setCast(Array cast) {
         this.cast = cast;
     }
 
-    public Object getCountries() {
+    public Array getCountries() {
         return countries;
     }
 
-    public void setCountries(Object countries) {
+    public void setCountries(Array countries) {
         this.countries = countries;
     }
 }

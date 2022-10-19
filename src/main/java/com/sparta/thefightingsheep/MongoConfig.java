@@ -18,7 +18,7 @@ import java.util.Collections;
 public class MongoConfig {
     @Bean
     public MongoClient mongo() {
-        ConnectionString connectionString = new ConnectionString("mongodb+srv://hamza2ali:Zahirs12@thefightingsheep.8nvddvb.mongodb.net/test");
+        ConnectionString connectionString = new ConnectionString("mongodb+srv://daniel:99poke99@thefightingsheep.8nvddvb.mongodb.net/test");
         MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
                 .applyConnectionString(connectionString)
                 .build();
