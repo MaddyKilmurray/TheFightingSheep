@@ -80,7 +80,7 @@
             critic: { bsonType: "object", properties: { meter: { bsonType: "int" }, numReviews: { bsonType: "int" }, rating: { bsonType: "double" } } },
             dvd: { bsonType: "date" },
             fresh: { bsonType: "int" },
-            lastupdated: { bsonType: "date"  },
+            lastUpdated: { bsonType: "date"  },
             production: { bsonType: "string" },
             rotten: { bsonType: "int" },
             viewer: { bsonType: "object", required: ["numReviews"], properties: { meter: { bsonType: "int" }, numReviews: { bsonType: "int" }, rating: { bsonType: "double" } } },
