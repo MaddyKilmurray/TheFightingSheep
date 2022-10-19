@@ -1,75 +1,73 @@
 package com.sparta.thefightingsheep.model.dao;
 
-import com.sparta.thefightingsheep.model.dto.UserDto;
+import com.sparta.thefightingsheep.model.dto.user.UserDto;
 import com.sparta.thefightingsheep.model.entity.user.User;
 import com.sparta.thefightingsheep.model.repository.UserRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserDao {
+public class UserDao implements Dao<UserDto> {
 
     private final UserRepository repository;
+    private final Assembler assembler;
 
     @Autowired
-    public UserDao(UserRepository repository) {
+    public UserDao(UserRepository repository, Assembler assembler) {
         this.repository = repository;
+        this.assembler = assembler;
     }
 
-    public UserDto update(UserDto userDTO){
-        Optional<User> optional = repository.findById(new ObjectId(userDTO.getId()));
-        User user = null;
-        if(optional.isPresent())
-            user = optional.get();
-        else
-            return new UserDto(null, null, null, null);
-        if(userDTO.getName()!= null)
-            user.setName(userDTO.getName());
-        repository.save(user);
-        user = repository.findById(new ObjectId(userDTO.getId())).get();
-        return new UserDto(user.getId().toHexString(), user.getName(), user.getEmail(), user.getPassword());
+    @Override
+    public String insert(UserDto item) {
+        try {
+            User user = assembler.disassembleUser(item);
+            repository.insert(user);
+            return user.getId().toHexString();
+        } catch (Exception e) { return null; }
     }
 
-
-
-    public UserDto findById(String id){
-        Optional<User> optional = repository.findById(new ObjectId(id));
-        User user = null;
-        if(!optional.isPresent())
-            return new UserDto(null, null, null, null);
-        else {
-            user = optional.get();
-            // UserDTO result = new UserDTO(id,null,null,null);
-            // user = userRepo.findById(id).get();
-            UserDto result = new UserDto(user.getId().toHexString(), user.getName(), user.getEmail(), user.getPassword());
-            return result;
-        }
+    @Override
+    public Optional<UserDto> findById(String id) {
+        try {
+            return Optional.of(assembler.assembleUser(repository.findById(new ObjectId(id)).get()));
+        } catch (Exception e) { return Optional.empty(); }
     }
 
-    public List<UserDto> findAll(){
-        List<UserDto> userDTOList = new ArrayList<>();
-        List<User> userList = repository.findAll();
-        userList.forEach(p->userDTOList.add(new UserDto(p.getId().toHexString(), (p.getName()), (p.getEmail()), (p.getPassword()))));
-        return userDTOList;
+    @Override
+    public List<UserDto> findAll() {
+        try {
+            return repository.findAll().stream().map(assembler::assembleUser).toList();
+        } catch (Exception e) { return List.of(); }
     }
 
-    public void delete(String id){
-        repository.deleteById(new ObjectId(id));
+    @Override
+    public boolean update(UserDto item) {
+        try {
+            repository.findById(new ObjectId(item.getId())).get();
+            repository.save(assembler.disassembleUser(item));
+            return true;
+        } catch (Exception e) { return false; }
     }
 
-    public UserDto addUser(String id, String name, String email, String password){
-        User user = null;
-        UserDto newUser = new UserDto(id,name,email,password);
-        user.setId(new ObjectId(newUser.getId()));
-        user.setName(newUser.getName());
-        user.setEmail(newUser.getEmail());
-        user.setPassword(newUser.getPassword());
-        repository.save(user);
-        return newUser;
+    @Override
+    public String delete(UserDto item) {
+        try {
+            User user = repository.findById(new ObjectId(item.getId())).get();
+            repository.delete(user);
+            return user.getId().toHexString();
+        } catch (Exception e) { return null; }
+    }
+
+    @Override
+    public boolean deleteAll() {
+        try {
+            repository.deleteAll();
+            return true;
+        } catch (Exception e) { return false; }
     }
 }
