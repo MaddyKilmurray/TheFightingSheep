@@ -34,3 +34,4 @@ build/
 
 application.properties
 application.yml
+src/main/java/com/sparta/thefightingsheep/MongoConfig.java

@@ -1,14 +1,10 @@
 package com.sparta.thefightingsheep.control;
 
 
-import com.sparta.thefightingsheep.model.user.User;
-import com.sparta.thefightingsheep.model.user.UserDAO;
-import com.sparta.thefightingsheep.model.user.UserDTO;
-import com.sparta.thefightingsheep.model.user.repository.UserRepository;
-import org.bson.types.ObjectId;
+import com.sparta.thefightingsheep.model.entity.user.User;
+import com.sparta.thefightingsheep.model.repository.UserRepository;
+import com.sparta.thefightingsheep.model.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,7 +16,7 @@ public class UserApiController {
     private UserRepository userRepo;
 
     @Autowired
-    private UserDAO userDAO;
+    private UserDao userDAO;
 
 
 //    @GetMapping("/user/find/{id}")

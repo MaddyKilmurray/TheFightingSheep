@@ -1,7 +1,7 @@
 package com.sparta.thefightingsheep.control;
 
-import com.sparta.thefightingsheep.model.movie.Movie;
-import com.sparta.thefightingsheep.model.movie.repository.MovieRepository;
+import com.sparta.thefightingsheep.model.entity.movie.Movie;
+import com.sparta.thefightingsheep.model.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
