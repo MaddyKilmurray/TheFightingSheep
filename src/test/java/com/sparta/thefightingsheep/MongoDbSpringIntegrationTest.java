@@ -2,6 +2,7 @@ package com.sparta.thefightingsheep;
 
 import com.mongodb.BasicDBObjectBuilder;
 import com.mongodb.DBObject;
+import com.sparta.thefightingsheep.model.comments.Comment;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

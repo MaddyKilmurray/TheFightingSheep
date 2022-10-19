@@ -8,9 +8,9 @@ public class TheaterDTO {
 
     private Location location;
 
-    public TheaterDTO(int id, String street1, String city, String state, int zipcode, String type, int[] coordinates) {
+    public TheaterDTO(int id, Location location) {
         this.theaterId = id;
-        this.location = new Location(street1, city, state, zipcode, type, coordinates);
+        this.location = location;
     }
 
     public int getTheaterId() {
