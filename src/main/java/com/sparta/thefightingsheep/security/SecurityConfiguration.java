@@ -1,6 +1,5 @@
 package com.sparta.thefightingsheep.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,11 +10,12 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true, jsr250Enabled = true)
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class SecurityConfiguration {
 
     private final AuthUserDetailService authUserDetailService;
 
@@ -24,8 +24,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public AuthenticationManager customAuthenticationManager() throws Exception {
-        return authenticationManager();
+    public AuthenticationManager customAuthenticationManager(HttpSecurity http) throws Exception {
+        AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject
+                (AuthenticationManagerBuilder.class);
+        authenticationManagerBuilder.userDetailsService(authUserDetailService)
+                .passwordEncoder(bCryptPasswordEncoder());
+        return authenticationManagerBuilder.build();
     }
 
     @Bean
@@ -33,29 +37,25 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @Override
-    protected void configure(@Autowired AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(authUserDetailService)
-                .passwordEncoder(bCryptPasswordEncoder());
-    }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf()
                 .disable()
                 .authorizeRequests()
+                .and()
+                .authorizeRequests()
                 .anyRequest()
-//                .permitAll() // comment to turn security on
-                .authenticated() // uncomment to turn security on
+                .hasAnyAuthority("ADMIN","USER")
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/home")
+                .defaultSuccessUrl("/user")
                 .failureUrl("/accessdenied")
                 .permitAll()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        return http.build();
     }
 
 }

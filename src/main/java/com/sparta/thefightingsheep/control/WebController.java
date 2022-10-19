@@ -95,8 +95,9 @@ public class WebController {
     }
 
     @GetMapping("/accessdenied")
-    public String accessDenied() {
-        return "accessdenied";
+    public String accessDenied(Model model) {
+        model.addAttribute("loginError", true);
+        return "login";
     }
 
 }

@@ -12,6 +12,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -24,7 +25,7 @@ public class AuthorisedUser {
     private String username;
     private String password;
     @DBRef
-    private Set<ObjectId> userRoles;
+    private List<Role> userRole;
 
     public ObjectId getId() {
         return id;
@@ -50,11 +51,11 @@ public class AuthorisedUser {
         this.password = password;
     }
 
-    public Set<ObjectId> getRoles() {
-        return userRoles;
+    public List<Role> getRoles() {
+        return userRole;
     }
 
-    public void setRoles(Set<ObjectId> roles) {
-        this.userRoles = roles;
+    public void setRoles(List<Role> roles) {
+        this.userRole = roles;
     }
 }
