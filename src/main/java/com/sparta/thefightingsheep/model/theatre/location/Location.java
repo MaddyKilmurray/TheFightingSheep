@@ -1,18 +1,10 @@
 package com.sparta.thefightingsheep.model.theatre.location;
+import lombok.Data;
 
-import com.sparta.thefightingsheep.model.theatre.location.address.Address;
-import com.sparta.thefightingsheep.model.theatre.location.geo.Geo;
-
+@Data
 public class Location {
-
     private Address address;
-
     private Geo geo;
-
-    public Location(Address address, Geo geo) {
-        this.address = address ;
-        this.geo = geo;
-    }
 
     public Address getAddress() {
         return address;
@@ -27,6 +19,13 @@ public class Location {
     }
 
     public void setGeo(Geo geo) {
+        this.geo = geo;
+    }
+
+    public Location() {}
+
+    public Location(Address address, Geo geo) {
+        this.address = address;
         this.geo = geo;
     }
 }

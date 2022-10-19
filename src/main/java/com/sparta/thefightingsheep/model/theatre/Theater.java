@@ -1,27 +1,48 @@
 package com.sparta.thefightingsheep.model.theatre;
 
 import com.sparta.thefightingsheep.model.theatre.location.Location;
-import com.sparta.thefightingsheep.model.theatre.location.address.Address;
-import com.sparta.thefightingsheep.model.theatre.location.geo.Geo;
+import lombok.Data;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
+@Data
+@Document(collection = "theaters")
 public class Theater {
 
-    @Id
-    private int theaterId;
-
+    @MongoId
+    private ObjectId id;
+    private Integer theaterId;
     private Location location;
 
-    public Theater(int id, Location location) {
-        this.theaterId = id;
+    public Theater() {}
+
+    public Theater(Integer theaterId, Location location) {
+        this.theaterId = theaterId;
         this.location = location;
     }
 
-    public int getTheaterId() {
+    public Theater(ObjectId id, Integer theaterId, Location location) {
+        this.id = id;
+        this.theaterId = theaterId;
+        this.location = location;
+    }
+
+    public ObjectId getId() {
+        return id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
+    }
+
+    public Integer getTheaterId() {
         return theaterId;
     }
 
-    public void setTheaterId(int theaterId) {
+    public void setTheaterId(Integer theaterId) {
         this.theaterId = theaterId;
     }
 
@@ -31,13 +52,5 @@ public class Theater {
 
     public void setLocation(Location location) {
         this.location = location;
-    }
-
-    @Override
-    public String toString() {
-        return "Response {" +
-                "theaterId=" + theaterId +
-                ", location=" + location +
-                '}';
     }
 }

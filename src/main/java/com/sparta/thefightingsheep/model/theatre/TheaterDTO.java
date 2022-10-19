@@ -1,8 +1,16 @@
 package com.sparta.thefightingsheep.model.theatre;
 
+
 import com.sparta.thefightingsheep.model.theatre.location.Location;
+import org.bson.types.ObjectId;
 
 public class TheaterDTO {
+
+    private ObjectId id;
+
+    public String get_id() {
+        return id.toString();
+    }
 
     private int theaterId;
 
