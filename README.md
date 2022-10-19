@@ -236,7 +236,7 @@ class AuthorisedUser {
 @Document("comments")
 class Comment {
 	@MongoId ObjectId id;
-	LocalDateTime date;
+	Instant date;
 	String email;
 	@Field("movie_id") ObjectId movieId;
 	String name;
@@ -255,7 +255,7 @@ class Movie {
 	@Nullable @Field("fullplot") String fullPlot;
 	@Nullable List<String> genres;
 	Imdb imdb;
-	@Field("lastupdated") LocalDateTime lastUpdated;
+	@Field("lastupdated") Instant lastUpdated;
 	@Field("num_mflix_comments") Integer numMflixComments;
 	@Nullable String plot;
 	@Nullable @Field("rated") Rating rating;
@@ -306,9 +306,9 @@ enum Rating {
 class Tomatoes {
 	@Nullable String consensus;
 	@Nullable Critic critic;
-	@Nullable LocalDateTime dvd;
+	@Nullable Instant dvd;
 	@Nullable Integer fresh;
-	LocalDateTime lastUpdated;
+	Instant lastUpdated;
 	@Nullable String production;
 	@Nullable Integer rotten;
 	@Nullable Viewer viewer;
@@ -340,7 +340,7 @@ class Role {
 @Document(collection="showings")
 class Showing {
 	@MongoId ObjectId id;
-	@Field("showing_date") LocalDateTime showingDate;
+	@Field("showing_date") Instant showingDate;
 	@DBRef Movie movie;
 	@DBRef Theater theater;
 }
