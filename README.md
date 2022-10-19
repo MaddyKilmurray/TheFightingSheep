@@ -6,7 +6,7 @@
 ## MongoDB setup
 - Load the sample database
 - Set your user permissions to admin
-- Create `showings` and `authorisedusers` collections in `sample_mflix`
+- Create `authorisedusers`, `roles` and `showings` collections in `sample_mflix`
 - Run the following commands in `mongosh`:
 ```js
 > use sample_mflix
@@ -114,26 +114,36 @@
     }
   }
   ```
+  + `roles`:
+  ```js
+  {
+    $jsonSchema: {
+      bsonType: 'object',
+      required: ['_id','role',],
+      properties: {
+        _id: {bsonType: 'objectId'},
+        _class: {bsonType: 'string'},
+        role: { bsonType: "string" }
+      }
+    }
+  }
+  ```
   + `showings`:
   ```js
   {
     $jsonSchema: {
       bsonType: "object",
-      required: ["_id", "showing_date", "movie", "theater"],
+      required: ["_id", "username", "password", "userRole"],
       properties: {
         _id: { bsonType: "objectId" },
         _class: { bsonType: "string" },
-        showing_date: { bsonType: "date" },
-        movie: {
+        username: { bsonType: "string" },
+        password: { bsonType: "string" },
+        userRole: {
           bsonType: "object",
           required: ["$ref", "$id"],
-          properties: { $ref: { enum: ["movies"] }, $id: { bsonType: "objectId" } }
-        },
-        theater: {
-          bsonType: "object",
-          required: ["$ref", "$id"],
-          properties: { $ref: { enum: ["theaters"] }, $id: { bsonType: "objectId" } }
-        },
+          properties: { $ref: { enum: ["roles"] }, $id: { bsonType: "objectId" } }
+        }
       }
     }
   }
