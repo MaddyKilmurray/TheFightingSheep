@@ -1,7 +1,6 @@
 package com.sparta.thefightingsheep.security;
 
 import com.sparta.thefightingsheep.model.user.AuthorisedUser;
-import com.sparta.thefightingsheep.model.user.Role;
 import com.sparta.thefightingsheep.model.user.repository.AuthorisedUserRepository;
 import com.sparta.thefightingsheep.model.user.repository.RoleRepository;
 import org.springframework.security.core.GrantedAuthority;
@@ -35,11 +34,9 @@ public class AuthUserDetailService implements UserDetailsService {
         }
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        System.out.println(authUser.getRoles());
-        authUser.getRoles()
-                .forEach(role -> {
-                    grantedAuthorities.add(new SimpleGrantedAuthority(role.getRole()));
-                });
+
+        grantedAuthorities.add(new SimpleGrantedAuthority(authUser.getRoles().getRole()));
+
         User newUser = new User(authUser.getUsername(), authUser.getPassword(), grantedAuthorities);
         return newUser;
     }

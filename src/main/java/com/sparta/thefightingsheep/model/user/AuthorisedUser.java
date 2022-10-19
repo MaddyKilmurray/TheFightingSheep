@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.index.IndexDirection;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -19,13 +20,19 @@ import java.util.Set;
 @Data
 @Document(collection = "authorisedusers")
 public class AuthorisedUser {
-    @Id
+    @MongoId
     private ObjectId id;
-    @Indexed(unique = true, direction = IndexDirection.DESCENDING, dropDups = true)
     private String username;
     private String password;
     @DBRef
-    private List<Role> userRole;
+    private Role userRole;
+
+    public AuthorisedUser(ObjectId id, String username, String password, Role userRole) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.userRole = userRole;
+    }
 
     public ObjectId getId() {
         return id;
@@ -51,11 +58,11 @@ public class AuthorisedUser {
         this.password = password;
     }
 
-    public List<Role> getRoles() {
+    public Role getRoles() {
         return userRole;
     }
 
-    public void setRoles(List<Role> roles) {
+    public void setRoles(Role roles) {
         this.userRole = roles;
     }
 }
