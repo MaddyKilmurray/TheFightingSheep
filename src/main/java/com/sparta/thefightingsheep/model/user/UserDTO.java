@@ -3,23 +3,23 @@ package com.sparta.thefightingsheep.model.user;
 import org.bson.types.ObjectId;
 
 public class UserDTO {
-    private ObjectId id;
+    private String id;
     private String name;
     private String email;
     private String password;
 
-    public UserDTO(ObjectId id, String name, String email, String password) {
+    public UserDTO(String id, String name, String email, String password) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
     }
 
-    public ObjectId getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(ObjectId id) {
+    public void setId(String id) {
         this.id = id;
     }
 

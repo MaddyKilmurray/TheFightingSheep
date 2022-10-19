@@ -18,7 +18,7 @@ import java.util.Collections;
 public class MongoConfig {
     @Bean
     public MongoClient mongo() {
-        ConnectionString connectionString = new ConnectionString("mongodb+srv://hamza2ali:Zahirs12@thefightingsheep.8nvddvb.mongodb.net/test");
+        ConnectionString connectionString = new ConnectionString("mongodb+srv://root:password3@cluster0.mcuh1ji.mongodb.net/");
         MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
                 .applyConnectionString(connectionString)
                 .build();
@@ -30,4 +30,5 @@ public class MongoConfig {
     public MongoTemplate mongoTemplate() throws Exception {
         return new MongoTemplate(mongo(), "sample_mflix");
     }
+
 }
