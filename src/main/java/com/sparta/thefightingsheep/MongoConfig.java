@@ -8,12 +8,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
-
 @Configuration
 public class MongoConfig {
     @Bean
     public MongoClient mongo() {
-        ConnectionString connectionString = new ConnectionString("mongodb+srv://root:password3@cluster0.mcuh1ji.mongodb.net/");
+        ConnectionString connectionString = new ConnectionString("mongodb+srv://MaddyMcmurray:Password123@thefightingsheep.8nvddvb.mongodb.net/");
         MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
                 .applyConnectionString(connectionString)
                 .build();
