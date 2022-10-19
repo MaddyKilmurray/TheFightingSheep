@@ -192,12 +192,12 @@ The following is the boilerplate-free outline for what each Entity POJO should l
 
 ### The `authorisedusers` collection
 ```java
-@Document
+@Document(collection="authorisedusers")
 class AuthorisedUser {
 	@MongoId ObjectId id;
 	String username;
 	String password;
-	UserRole userRoles;
+	@Field("userRoles") UserRole userRole;
 }
 
 enum UserRole {
@@ -207,32 +207,32 @@ enum UserRole {
 ```
 ### The `comments` collection
 ```java
-@Document
+@Document("comments")
 class Comment {
 	@MongoId ObjectId id;
-	Date date;
+	LocalDateTime date;
 	String email;
-	ObjectId movie_id;
+	@Field("movie_id") ObjectId movieId;
 	String name;
 	String text;
 }
 ```
 ### The `movies` collection
 ```java
-@Document
+@Document(collection="movies")
 class Movie {
 	@MongoId ObjectId id;
 	Awards awards;
 	@Nullable List<String> cast;
 	@Nullable List<String> countries;
 	@Nullable List<String> directors;
-	@Nullable String fullPlot;
+	@Nullable @Field("fullplot") String fullPlot;
 	@Nullable List<String> genres;
 	Imdb imdb;
-	Date lastUpdated;
-	Integer numMflixComments;
+	@Field("lastupdated") LocalDateTime lastUpdated;
+	@Field("num_mflix_comments") Integer numMflixComments;
 	@Nullable String plot;
-	@Nullable Rating rated;
+	@Nullable @Field("rated") Rating rating;
 	@Nullable Integer runtime;
 	String title;
 	@Nullable Tomatoes tomatoes;
@@ -250,7 +250,7 @@ class Awards {
 }
 
 class Imdb {
-	Integer id;
+	@Field("id") Integer id;
 	@Nullable Double rating;
 	@Nullable Integer votes;
 }
@@ -280,9 +280,9 @@ enum Rating {
 class Tomatoes {
 	@Nullable String consensus;
 	@Nullable Critic critic;
-	@Nullable Date dvd;
+	@Nullable LocalDateTime dvd;
 	@Nullable Integer fresh;
-	Date lastUpdated;
+	LocalDateTime lastUpdated;
 	@Nullable String production;
 	@Nullable Integer rotten;
 	@Nullable Viewer viewer;
@@ -303,17 +303,17 @@ class Viewer {
 ```
 ### The `showings` collection
 ```java
-@Document
+@Document(collection="showings")
 class Showing {
 	@MongoId ObjectId id;
-	Date showingDate;
+	@Field("showing_date") LocalDateTime showingDate;
 	@DBRef Movie movie;
 	@DBRef Theater theater;
 }
 ```
 ### The `theaters` collection
 ```java
-@Document
+@Document(collection="theaters")
 class Theater {
 	@MongoId ObjectId id;
 	Integer theaterId;
@@ -328,8 +328,8 @@ class Location {
 class Address {
 	String city;
 	String state;
-	String streetOne;
-	String zipCode;
+	@Field("street1") String streetOne;
+	@Field("zipcode") String zipCode;
 }
 
 class Geo {
@@ -339,7 +339,7 @@ class Geo {
 ```
 ### The `users` collection
 ```java
-@Document
+@Document(collection="users")
 class User {
 	@MongoId ObjectId id;
 	String email;
