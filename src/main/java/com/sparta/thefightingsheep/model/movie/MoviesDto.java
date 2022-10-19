@@ -6,9 +6,9 @@ import java.sql.Date;
 import java.util.Objects;
 
 /**
- * A DTO for the {@link MoviesEntity} entity
+ * A DTO for the {@link Movies} entity
  */
-public class MoviesEntityDto implements Serializable {
+public class MoviesDto implements Serializable {
     private final String id;
     private final Object awards;
     private final String fullplot;
@@ -30,7 +30,7 @@ public class MoviesEntityDto implements Serializable {
     private final Array cast;
     private final Array countries;
 
-    public MoviesEntityDto(String id, Object awards, Array directors, String fullplot, Array languages, Integer numMflixComments, String plot, String title, Array writers, Array genres, String lastupdated, String poster, Object tomatoes, Integer year, Object imdb, String rated, Date imdbId, Array cast, Integer runtime, Array countries, String type) {
+    public MoviesDto(String id, Object awards, Array directors, String fullplot, Array languages, Integer numMflixComments, String plot, String title, Array writers, Array genres, String lastupdated, String poster, Object tomatoes, Integer year, Object imdb, String rated, Date imdbId, Array cast, Integer runtime, Array countries, String type) {
         this.id = id;
         this.awards = awards;
         this.fullplot = fullplot;
@@ -133,7 +133,7 @@ public class MoviesEntityDto implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        MoviesEntityDto entity = (MoviesEntityDto) o;
+        MoviesDto entity = (MoviesDto) o;
         return Objects.equals(this.id, entity.id) &&
                 Objects.equals(this.awards, entity.awards) &&
                 Objects.equals(this.fullplot, entity.fullplot) &&

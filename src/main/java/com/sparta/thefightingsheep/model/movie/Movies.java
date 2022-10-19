@@ -3,12 +3,11 @@ package com.sparta.thefightingsheep.model.movie;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
-import javax.persistence.*;
 import java.sql.Array;
 import java.sql.Date;
 
 @Document(collection="movies")
-public class MoviesEntity {
+public class Movies {
     @MongoId
     private String id;
 
