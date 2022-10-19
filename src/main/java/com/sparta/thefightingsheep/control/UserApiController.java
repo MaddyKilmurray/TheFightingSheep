@@ -23,44 +23,47 @@ public class UserApiController {
     private UserDAO userDAO;
 
 
-//    @GetMapping("/user/find/{id}")
-//    public UserDTO getUserById(@PathVariable String id){
-//        UserDTO userDTO = new UserDTO(new ObjectId(id),null, null, null);
-//        userDTO = userDAO.findById(new ObjectId(id));
-//        return userDTO;
-//    }
-
-    @GetMapping("/user/all")
-    public List<User> getAllCustomers(){
-//        userRepo repo = userRepo.getInstance();
-        System.out.println(userRepo.findAll());
-        return userRepo.findAll();
+    @GetMapping("/user/find/{id}")
+    public UserDTO getUserById(@PathVariable ObjectId id){
+        UserDTO userDTO = userDAO.findById(id);
+        return userDTO;
     }
 
-//    @DeleteMapping("/user/delete/{id}")
-//    public ObjectId deleteById(@PathVariable ObjectId id){
-//        User user = userRepo.findById(String.valueOf(id)).get();
-//        userDAO.delete(id);
-//        return user.getId();
-//    }
+    @GetMapping("/user/find/all")
+    public List<UserDTO> getAllCustomers(){
+        List<UserDTO> userDTOList = userDAO.findAll();
+        return userDTOList;
+    }
 
-//    @PatchMapping("/user/{id}/name/{newname}")
-//    public UserDTO updateName(@PathVariable ObjectId id, @PathVariable String newname){
-//        UserDTO userDTO = new UserDTO(id, newname, null, null);
-//        userDTO = userDAO.update(userDTO);
-//        return userDTO;
-//    }
+    @DeleteMapping("/user/delete/{id}")
+    public ObjectId deleteById(@PathVariable ObjectId id){
+        User user = userRepo.findById(String.valueOf(id)).get();
+        userDAO.delete(id);
+        return user.getId();
+    }
 
-//    @PatchMapping("/user/{id}/password/{newpassword}")
-//    public UserDTO updatePassword(@PathVariable ObjectId id, @PathVariable String newpassword){
-//        UserDTO userDTO = new UserDTO(id, null, null, newpassword);
-//        userDTO = userDAO.update(userDTO);
-//        return userDTO;
-//    }
+    @PostMapping("/user/add/{id}/{name}/{email}/{password}")
+    public UserDTO addUser(@PathVariable ObjectId id, @PathVariable String name, @PathVariable String email, @PathVariable String password){
+        UserDTO userDTO = userDAO.addUser(id, name, email, password);
+        return userDTO;
+    }
+    @PatchMapping("/user/{id}/name/{newname}")
+    public UserDTO updateName(@PathVariable ObjectId id, @PathVariable String newname){
+        UserDTO userDTO = new UserDTO(id, newname, null, null);
+        userDTO = userDAO.update(userDTO);
+        return userDTO;
+    }
+
+    @PatchMapping("/user/{id}/password/{newpassword}")
+    public UserDTO updatePassword(@PathVariable ObjectId id, @PathVariable String newpassword){
+        UserDTO userDTO = new UserDTO(id, null, null, newpassword);
+        userDTO = userDAO.update(userDTO);
+        return userDTO;
+    }
 
 //    @PutMapping("/user/put/{id}/name/{newName}")
-//    public void edditOrAdduser(@PathVariable int id, @PathVariable String newName) {
-//        User user = userRepo.findById(String.valueOf(id)).get();
+//    public void edditOrAdduser(@PathVariable String id, @PathVariable String newName) {
+//        User user = userRepo.findById(id).get();
 //
 //        product.setProductName(newProductName);
 //        productRepo.save(product);
