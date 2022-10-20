@@ -46,13 +46,4 @@ public class MovieWebController {
         model.addAttribute("movie",movie);
         return "movieForm";
     }
-
-    @GetMapping("/accessDenied")
-    public String accessDenied(){
-        return "accessDenied";
-    }
-//    @GetMapping("/login")
-//    public String login() {
-//        return "login";
-//    }
 }
