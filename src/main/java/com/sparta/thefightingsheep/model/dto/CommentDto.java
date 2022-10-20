@@ -33,4 +33,7 @@ public class CommentDto extends Dto {
         this.name = name;
         this.text = text;
     }
+
+    public CommentDto(String id, String date, String email, String movieId, String name, String text) {
+    }
 }
