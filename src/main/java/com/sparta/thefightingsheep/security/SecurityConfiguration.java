@@ -46,7 +46,7 @@ public class SecurityConfiguration {
                 .requestCache()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/signup")
+                .antMatchers("/signup","/web/user/signup")
                 .permitAll()
                 .and()
                 .authorizeRequests()

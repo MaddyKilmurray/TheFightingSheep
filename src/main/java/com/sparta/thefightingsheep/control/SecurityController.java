@@ -1,5 +1,6 @@
 package com.sparta.thefightingsheep.control;
 
+import com.sparta.thefightingsheep.model.entity.user.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +21,8 @@ public class SecurityController {
     }
 
     @GetMapping("/signup")
-    public String signup() {
+    public String signup(Model model) {
+        model.addAttribute("newUser", new User());
         return "signup";
     }
 

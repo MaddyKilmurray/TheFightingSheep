@@ -9,16 +9,17 @@
 <body>
 <div class="signup_form">
     <h1>Sign Up</h1>
-<!--    <form th:action="@{/users/newUser}" th:object="newUser" method="post">-->
-<!--        <label for="email">Email</label>:-->
-<!--        <input type="email" id="email" name="email" autofocus="autofocus" /> <br />-->
-<!--        <label for="name">Name</label>:-->
-<!--        <input type="text" id="name" name="name" /> <br />-->
-<!--        <label for="password">Password</label>:-->
-<!--        <input type="password" id="password" name="password" /> <br />-->
-<!--        <input type="text" id="role" name="role" value="USER"/> <br />-->
-<!--        <input type="submit" value="Sign Up" />-->
-<!--    </form>-->
+    <p th:if="${userRegistered}">Sign up failed. Please try again.</p>
+    <form action="#" th:action="@{/web/user/signup}" th:object="${newUser}" method="post">
+        <label for="email">Email</label>:
+        <input type="text" id="email" name="email" th:field="*{email}"/>
+        <label for="name">Name</label>:
+        <input type="text" id="name" name="name" th:field="*{name}"/>
+        <label for="password">Password</label>:
+        <input type="password" id="password" name="password" th:field="*{password}"/>
+        <input type="hidden" th:value="${'USER'}" th:attr="name='role'"/>
+        <input type="submit" value="Sign Up" />
+    </form>
 </div>
 
 
