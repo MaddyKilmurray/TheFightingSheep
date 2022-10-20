@@ -4,11 +4,12 @@ import com.sparta.thefightingsheep.model.dto.CommentDto;
 import com.sparta.thefightingsheep.model.dto.MovieDto;
 import com.sparta.thefightingsheep.model.dto.ShowingDto;
 import com.sparta.thefightingsheep.model.dto.TheaterDto;
-import com.sparta.thefightingsheep.model.dto.user.UserDto;
+import com.sparta.thefightingsheep.model.dto.UserDto;
 import com.sparta.thefightingsheep.model.entity.comment.Comment;
 import com.sparta.thefightingsheep.model.entity.movie.Movie;
 import com.sparta.thefightingsheep.model.entity.showing.Showing;
 import com.sparta.thefightingsheep.model.entity.theater.Theater;
+import com.sparta.thefightingsheep.model.entity.user.Role;
 import com.sparta.thefightingsheep.model.entity.user.User;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
@@ -37,7 +38,7 @@ class Assembler {
                 user.getName(),
                 user.getEmail(),
                 user.getPassword(),
-                com.sparta.thefightingsheep.model.dto.user.Role.valueOf(user.getRole().name())
+                user.getRole().name()
         );
     }
 
@@ -63,7 +64,7 @@ class Assembler {
                 user.getName(),
                 user.getEmail(),
                 user.getPassword(),
-                com.sparta.thefightingsheep.model.entity.user.Role.valueOf(user.getRole().name())
+                Role.valueOf(user.getRole().name())
         );
     }
 }

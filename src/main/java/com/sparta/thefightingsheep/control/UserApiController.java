@@ -1,11 +1,9 @@
 package com.sparta.thefightingsheep.control;
 
-
-import com.sparta.thefightingsheep.model.dto.user.Role;
 import com.sparta.thefightingsheep.model.entity.user.User;
 import com.sparta.thefightingsheep.model.repository.UserRepository;
 import com.sparta.thefightingsheep.model.dao.UserDao;
-import com.sparta.thefightingsheep.model.dto.user.UserDto;
+import com.sparta.thefightingsheep.model.dto.UserDto;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -43,7 +41,7 @@ public class UserApiController {
 
     @PostMapping("/user/add/{id}/{name}/{email}/{password}")
     public String addUser(@PathVariable String id, @PathVariable String name, @PathVariable String email, @PathVariable String password){
-        UserDto userDto = new UserDto(id, name, email, password, Role.USER);
+        UserDto userDto = new UserDto(id, name, email, password, "USER");
         userDAO.insert(userDto);
         return userDAO.insert(userDto);
     }
