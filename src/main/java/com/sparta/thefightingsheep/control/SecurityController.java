@@ -12,6 +12,17 @@ public class SecurityController {
         return "login";
     }
 
+    @GetMapping("/login-error")
+    public String loginError(Model model) {
+        model.addAttribute("loginError",true);
+        return "login";
+    }
+
+    @GetMapping("/signup")
+    public String signup() {
+        return "signup";
+    }
+
     @GetMapping("/accessdenied")
     public String accessDenied(Model model) {
         model.addAttribute("loginError", true);
@@ -19,5 +30,5 @@ public class SecurityController {
     }
 
     @GetMapping("/")
-    public String main() { return "main"; }
+    public String main(Model model) { return "Main"; }
 }
