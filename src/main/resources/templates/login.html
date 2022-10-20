@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
+    <link rel="stylesheet" type="text/css" href="../static/styles/style.css">
     <meta charset="UTF-8">
     <title>The Fighting Sheep Movie Database - Login</title>
     <link th:href="@{/static/styles/style.css}" rel="stylesheet"/>
@@ -17,12 +18,12 @@
         <input type="password" id="password" name="password" /> <br />
         <input type="submit" value="Log in" />
     </form>
+    <a th:href="@{/signup}">
+        <button id="signup_button" type="button" class="btn btn-info">Not registered? Sign up here
+        </button>
+    </a>
 </div>
 
-<a th:href="@{/signup}">
-    <button id="signup_button" type="button" class="btn btn-info">Not registered? Sign up here
-    </button>
-</a>
 
 
 </body>
