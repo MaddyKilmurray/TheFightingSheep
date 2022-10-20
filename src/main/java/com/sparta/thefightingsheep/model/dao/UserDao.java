@@ -54,6 +54,16 @@ public class UserDao implements Dao<UserDto> {
         } catch (Exception e) { return false; }
     }
 
+    public String forceUpdate(UserDto item) {
+        try {
+            repository.findById(new ObjectId(item.getId())).get();
+            repository.save(assembler.disassembleUser(item));
+            return "Updated user";
+        } catch (Exception e) { User user = assembler.disassembleUser(item);
+            repository.insert(user);
+            return "Created new user"; }
+    }
+
     @Override
     public boolean delete(String id) {
         try {
