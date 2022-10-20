@@ -56,11 +56,4 @@ public class MovieWebController {
         movieDAO.insert(movieDto);
         return movieDAO.insert(movieDto);
     }
-
-    @PatchMapping("/movie/{id}/{newimdb}")
-    public MovieDto updateName(@PathVariable String id, @PathVariable String newimdbRating, @PathVariable Integer newimdbVotes){
-        MovieDto movieDto = new MovieDto(id,null,null,null,null,null,null,null,null,null,newimdbRating,newimdbVotes,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null);
-        movieDAO.update(movieDto);
-        return movieDto;
-    }
 }

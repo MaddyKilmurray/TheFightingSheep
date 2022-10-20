@@ -21,7 +21,7 @@ import java.util.List;
 public class ShowingWebController {
     @Autowired
     private ShowingRepository showingRepo;
-
+/*
     @Autowired
     private ShowingDao showingDAO;
 
@@ -53,5 +53,5 @@ public class ShowingWebController {
         ShowingDto showingDto = new ShowingDto(id,showingDate,movie,theater);
         showingDAO.insert(showingDto);
         return showingDAO.insert(showingDto);
-    }
+    }*/
 }
