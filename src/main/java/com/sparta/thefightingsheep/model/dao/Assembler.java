@@ -8,6 +8,9 @@ import com.sparta.thefightingsheep.model.dto.UserDto;
 import com.sparta.thefightingsheep.model.entity.comment.Comment;
 import com.sparta.thefightingsheep.model.entity.movie.*;
 import com.sparta.thefightingsheep.model.entity.showing.Showing;
+import com.sparta.thefightingsheep.model.entity.theater.Address;
+import com.sparta.thefightingsheep.model.entity.theater.Geo;
+import com.sparta.thefightingsheep.model.entity.theater.Location;
 import com.sparta.thefightingsheep.model.entity.theater.Theater;
 import com.sparta.thefightingsheep.model.entity.user.Role;
 import com.sparta.thefightingsheep.model.entity.user.User;
@@ -69,11 +72,24 @@ class Assembler {
     }
 
     ShowingDto assembleShowing(Showing showing) {
-        return null;
+        return new ShowingDto(
+                showing.getId()==null?null:showing.getId().toHexString(),
+                showing.getShowingDate(),
+                showing.getMovie()==null?null:this.assembleMovie(showing.getMovie()),
+                showing.getTheater()==null?null:this.assembleTheater(showing.getTheater())
+        );
     }
 
     TheaterDto assembleTheater(Theater theater) {
-        return null;
+        return new TheaterDto(
+                theater.getId()==null?null:theater.getId().toHexString(),
+                theater.getTheaterId(),
+                theater.getLocation()==null||theater.getLocation().getAddress()==null?null:theater.getLocation().getAddress().getCity(),
+                theater.getLocation()==null||theater.getLocation().getAddress()==null?null:theater.getLocation().getAddress().getState(),
+                theater.getLocation()==null||theater.getLocation().getAddress()==null?null:theater.getLocation().getAddress().getStreetOne(),
+                theater.getLocation()==null||theater.getLocation().getAddress()==null?null:theater.getLocation().getAddress().getZipCode(),
+                theater.getLocation()==null||theater.getLocation().getGeo()==null?null:theater.getLocation().getGeo().getCoordinates()
+        );
     }
 
     UserDto assembleUser(User user) {
@@ -118,7 +134,7 @@ class Assembler {
                 movie.getLastUpdated()==null?null:movie.getLastUpdated(),
                 movie.getNumMflixComments()==null?null:movie.getNumMflixComments(),
                 movie.getPlot()==null?null:movie.getPlot(),
-                movie.getRating()==null?null:Rating.valueOf(movie.getRating().name()),
+                movie.getRating()==null?null: Rating.valueOf(movie.getRating().name()),
                 movie.getRuntime()==null?null:movie.getRuntime(),
                 movie.getTitle()==null?null:movie.getTitle(),
                 movie.getTomatoes()==null?null:new Tomatoes(
@@ -149,11 +165,30 @@ class Assembler {
     }
 
     Showing disassembleShowing(ShowingDto showing) {
-        return null;
+        return new Showing(
+                showing.getId()==null?null:new ObjectId(showing.getId()),
+                showing.getShowingDate(),
+                showing.getMovie()==null?null:this.disassembleMovie(showing.getMovie()),
+                showing.getTheater()==null?null:this.disassembleTheater(showing.getTheater())
+        );
     }
 
     Theater disassembleTheater(TheaterDto theater) {
-        return null;
+        return new Theater(
+                theater.getId()==null?null:new ObjectId(theater.getId()),
+                theater.getTheaterId(),
+                theater.getLocation()==null?null:new Location(
+                        theater.getLocation().getAddress()==null?null:new Address(
+                                theater.getLocation().getAddress().getCity(),
+                                theater.getLocation().getAddress().getState(),
+                                theater.getLocation().getAddress().getStreetOne(),
+                                theater.getLocation().getAddress().getZipCode()
+                        ),
+                        theater.getLocation().getGeo()==null?null:new Geo(
+                                theater.getLocation().getGeo().getCoordinates()
+                        )
+                )
+        );
     }
 
     User disassembleUser(UserDto user) {
