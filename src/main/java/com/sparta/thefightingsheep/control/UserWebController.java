@@ -1,12 +1,13 @@
 package com.sparta.thefightingsheep.control;
 
+import com.sparta.thefightingsheep.model.dto.UserDto;
 import com.sparta.thefightingsheep.model.entity.user.User;
 import com.sparta.thefightingsheep.model.repository.UserRepository;
 import com.sparta.thefightingsheep.model.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,57 +24,57 @@ public class UserWebController {
     }
 
     //READ USERS
-    @GetMapping("/users")
+    @GetMapping("/web/user/find/all")
     public String displayUsers(Model model){
         List<User> allUsers = repo.findAll();
         model.addAttribute("allUsers", allUsers);
         return "Users";
     }
-//
-//    @GetMapping("/users/id/{id}")
-//    public String displayById(@PathVariable String id, Model model) {
-//        Optional<User> Users = repo.findById(id);
-//        model.addAttribute("allUsers", Users);
-//        return "Users";
-//    }
-//
-//    //CREATE USER
-//    @GetMapping("/users/newUser")
-//    public String newUserForm(Model model) {
-//        User user = new User();
-//        model.addAttribute("user", user);
-//        return "";
-//    }
-//
+
+    @GetMapping("web/user/find/{id}")
+    public String getUserById(@PathVariable String id, Model model){
+        UserDto userDTO = userDAO.findById(id).get();
+        model.addAttribute("User", userDTO);
+        return "User";
+    }
+
+
+    @GetMapping("/web/user/add")
+    @ResponseBody
+    public String addUser(@RequestParam String id, @RequestParam String name, @RequestParam String email, @RequestParam String password, Model model){
+        UserDto userDTO = new UserDto(id, name, email, password, "USER");
+        model.addAttribute("User", userDTO);
+        return "User";
+    }
+
 //    @PostMapping("/users/newUser")
 //    public String createNewUser(@ModelAttribute User user, Model model){
-//        UserDTO savedUser = userDAO.addNewUser(user);
+//        UserDto savedUser = userDAO.addNewUser(user);
 //        model.addAttribute("user", savedUser);
-//        return "";
+//        return "AddUser";
 //    }
-//
-//    //DELETE USER
-//    @GetMapping("/users/deleteUser/{id}")
-//    public String deleteUser(@PathVariable String id, Model model){
-//        UserDTO user = userDAO.getUserById(id);
-//        model.addAttribute("user", user);
-//        return "";
-//    }
-//
+
+    //DELETE USER
+    @GetMapping("/user/delete/{id}")
+    public String deleteById(@PathVariable String id){
+        userDAO.delete(id);
+        return "successful";
+    }
+
 //    @PostMapping("/users/delete")
 //    public String userDeleted(@ModelAttribute User user, Model model){
-//        UserDTO deletedUser = userDAO.deleteUser(user.getId());
+//        UserDto deletedUser = userDAO.deleteUser(user.getId());
 //        model.addAttribute("user", deletedUser);
 //        return "";
 //    }
 //
 //    //UPDATE USER
-//    @GetMapping("/users/edit/{id}")
-//    public String editUser(@PathVariable String id, Model model){
-//        UserDTO user = userDAO.getUserById(id);
-//        model.addAttribute("user", user);
-//        return "";
-//    }
+    @GetMapping("/users/edit/{id}")
+    public String editUser(@PathVariable String id, Model model){
+        UserDto user = userDAO.findById(id).get();
+        model.addAttribute("user", user);
+        return "User";
+    }
 //
 //    @PostMapping("/users/edit")
 //    public String UserEdited(@ModelAttribute User user, Model model){

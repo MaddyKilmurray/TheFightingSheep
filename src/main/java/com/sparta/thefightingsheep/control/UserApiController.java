@@ -33,17 +33,15 @@ public class UserApiController {
     }
 
     @DeleteMapping("/user/delete/{id}")
-    public ObjectId deleteById(@PathVariable String id){
-        User user = userRepo.findById(new ObjectId(id)).get();
-        userDAO.delete(id);
-        return user.getId();
+    public Boolean deleteById(@PathVariable String id){
+        return(userDAO.delete(id));
     }
 
-    @PostMapping("/user/add/{id}/{name}/{email}/{password}")
-    public String addUser(@PathVariable String id, @PathVariable String name, @PathVariable String email, @PathVariable String password){
+    @PostMapping("/user/add")
+    @ResponseBody
+    public String addUser(@RequestParam String id, @RequestParam String name, @RequestParam String email, @RequestParam String password){
         UserDto userDto = new UserDto(id, name, email, password, "USER");
-        userDAO.insert(userDto);
-        return userDAO.insert(userDto);
+        return (userDAO.insert(userDto));
     }
     @PatchMapping("/user/{id}/name/{newname}")
     public UserDto updateName(@PathVariable String id, @PathVariable String newname){
@@ -58,6 +56,13 @@ public class UserApiController {
         userDTO.setPassword(newpassword);
         userDAO.update(userDTO);
         return userDTO;
+    }
+
+    @PutMapping("/user/force")
+    @ResponseBody
+    public String forceUpdatePassword(@RequestParam String id, @RequestParam String name, @RequestParam String email, @RequestParam String password){
+        UserDto userDTO = new UserDto(id, name, email, password);
+        return (userDAO.forceUpdate(userDTO));
     }
 
 }

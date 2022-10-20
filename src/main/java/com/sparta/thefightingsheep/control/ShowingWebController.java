@@ -1,24 +1,24 @@
-package com.sparta.thefightingsheep.control;
-
-import com.sparta.thefightingsheep.model.dao.CommentDao;
-import com.sparta.thefightingsheep.model.dto.CommentDto;
-import com.sparta.thefightingsheep.model.dto.MovieDto;
-import com.sparta.thefightingsheep.model.dto.ShowingDto;
-import com.sparta.thefightingsheep.model.entity.comment.Comment;
-import com.sparta.thefightingsheep.model.entity.movie.Movie;
-import com.sparta.thefightingsheep.model.entity.showing.Showing;
-import com.sparta.thefightingsheep.model.entity.theater.Theater;
-import com.sparta.thefightingsheep.model.repository.CommentRepository;
-import com.sparta.thefightingsheep.model.repository.ShowingRepository;
-import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.time.Instant;
-import java.util.List;
-
-@RestController
-public class ShowingWebController {
+//package com.sparta.thefightingsheep.control;
+//
+//import com.sparta.thefightingsheep.model.dao.CommentDao;
+//import com.sparta.thefightingsheep.model.dto.CommentDto;
+//import com.sparta.thefightingsheep.model.dto.MovieDto;
+//import com.sparta.thefightingsheep.model.dto.ShowingDto;
+//import com.sparta.thefightingsheep.model.entity.comment.Comment;
+//import com.sparta.thefightingsheep.model.entity.movie.Movie;
+//import com.sparta.thefightingsheep.model.entity.showing.Showing;
+//import com.sparta.thefightingsheep.model.entity.theater.Theater;
+//import com.sparta.thefightingsheep.model.repository.CommentRepository;
+//import com.sparta.thefightingsheep.model.repository.ShowingRepository;
+//import org.bson.types.ObjectId;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.web.bind.annotation.*;
+//
+//import java.time.Instant;
+//import java.util.List;
+//
+//@RestController
+//public class ShowingWebController {
 //    @Autowired
 //    private ShowingRepository showingRepo;
 //
@@ -62,4 +62,4 @@ public class ShowingWebController {
 //    movieDAO.update(movieDto);
 //    return movieDto;
 //        }
-}
+//}
