@@ -19,5 +19,5 @@ public class SecurityController {
     }
 
     @GetMapping("/")
-    public String main() { return "main"; }
+    public String main(Model model) { return "main"; }
 }
