@@ -15,6 +15,7 @@ import java.time.Instant;
 import java.util.List;
 
 @RestController
+@RequestMapping("/comment")
 public class CommentWebController {
 
     @Autowired
@@ -24,9 +25,9 @@ public class CommentWebController {
     private CommentDao commentDAO;
 
     @GetMapping("/comment/{id}")
-    public CommentDto getCommentById(@PathVariable String id){
-        CommentDto result = commentDAO.findById(id);
-        return result;
+    public Comment getCommentById(@PathVariable String id){
+        Comment comment = commentRepo.findById(new ObjectId(id).get()).get();
+        return comment;
     }
 
     @GetMapping("/comment/all")
@@ -45,14 +46,7 @@ public class CommentWebController {
 
     @PostMapping("/comment/add/{id}/{date}/{email}/{movieId}/{name}/{text}")
     public String addComment(@PathVariable Instant id,@PathVariable Instant date, @PathVariable String email, @PathVariable String movieId, @PathVariable String name, @PathVariable String text){
-        CommentDto commentDto = new CommentDto(String.valueOf(id),date,email,movieId,name,text);
-        commentDAO.insert(commentDto);
-        return commentDAO.insert(commentDto);
-    }
-
-    @PostMapping("/comment/add/{date}/{email}/{movieId}/{name}/{text}")
-    public String addComment(@PathVariable Instant date, @PathVariable String email, @PathVariable String movieId, @PathVariable String name, @PathVariable String text){
-        CommentDto commentDto = new CommentDto(date,email,movieId,name,text);
+        CommentDto commentDto = new CommentDto(String.valueOf(id), String.valueOf(date),email,movieId,name,text);
         commentDAO.insert(commentDto);
         return commentDAO.insert(commentDto);
     }
