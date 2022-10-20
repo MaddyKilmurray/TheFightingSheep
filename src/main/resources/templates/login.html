@@ -4,17 +4,25 @@
     <meta charset="UTF-8">
     <title>The Fighting Sheep Movie Database - Login</title>
     <link th:href="@{/static/styles/style.css}" rel="stylesheet"/>
-    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.2/css/bootstrap.min.css} "/>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.2/css/bootstrap.min.css}" />
 </head>
 <body>
 <div class="login_form">
-    <h1>Login</h1>
-    <form th:action="@{/login}" method="POST">
-        <label>Username<input class="form-control" type="text" name="username"/></label></br>
-        <label>Password<input class="form-control" type="password" name="password"/></label></br>
-        <input class="btn btn-info" type="submit" value="Sign In"/>
+    <h1>Login page</h1>
+    <p th:if="${loginError}" class="error">Wrong user or password</p>
+    <form th:action="@{/login}" method="post">
+        <label for="username">Username</label>:
+        <input type="text" id="username" name="username" autofocus="autofocus" /> <br />
+        <label for="password">Password</label>:
+        <input type="password" id="password" name="password" /> <br />
+        <input type="submit" value="Log in" />
     </form>
 </div>
+
+<a th:href="@{/signup}">
+    <button id="signup_button" type="button" class="btn btn-info">Not registered? Sign up here
+    </button>
+</a>
 
 
 </body>

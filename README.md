@@ -6,7 +6,7 @@
 ## MongoDB setup
 - Load the sample database
 - Set your user permissions to admin
-- Create `authorisedusers`, `roles` and `showings` collections in `sample_mflix`
+- Create `showings` collection in `sample_mflix`
 - Run the following commands in `mongosh`:
 ```js
 > use sample_mflix
@@ -23,29 +23,10 @@
 	db.movies.updateMany({"rated":"TV-MA"},[{"$set":{"rated":"TV_MA"}}])
 	db.movies.updateMany({"rated":"TV-PG"},[{"$set":{"rated":"TV_PG"}}])
 	db.movies.updateMany({"rated":"TV-Y7"},[{"$set":{"rated":"TV_Y7"}}])
+    	db.users.updateMany({},[{"$set":{"role":"USER"}}], {})
 })()
 ```
 - Add the following validations rules for the following collections
-  + `authorisedusers`:
-  ```js
-  {
-    $jsonSchema: {
-      bsonType: "object",
-      required: ["_id", "username", "password", "userRole"],
-      properties: {
-        _id: { bsonType: "objectId" },
-        _class: { bsonType: "string" },
-        username: { bsonType: "string" },
-        password: { bsonType: "string" },
-        userRole: {
-          bsonType: "object",
-          required: ["$ref", "$id"],
-          properties: { $ref: { enum: ["roles"] }, $id: { bsonType: "objectId" } }
-        }
-      }
-    }
-  }
-  ```
   + `comments`:
   ```js
   {
@@ -118,20 +99,6 @@
     }
   }
   ```
-  + `roles`:
-  ```js
-  {
-    $jsonSchema: {
-      bsonType: 'object',
-      required: ['_id','role',],
-      properties: {
-        _id: {bsonType: 'objectId'},
-        _class: {bsonType: 'string'},
-        role: { bsonType: "string" }
-      }
-    }
-  }
-  ```
   + `showings`:
   ```js
   {
@@ -197,13 +164,14 @@
   {
     $jsonSchema: {
       bsonType: "object",
-      required: ["_id", "email", "name", "password"],
+      required: ["_id", "email", "name", "password", "role"],
       properties: {
         _id: { bsonType: "objectId" },
         _class: { bsonType: "string" },
         email: { bsonType: "string" },
         name: { bsonType: "string" },
         password: { bsonType: "string" },
+        role: { enum: ["USER", "ADMIN"] }
       }
     }
   }
@@ -212,7 +180,6 @@
 ```js
 > use sample_mflix
 > (()=>{
-	db.roles.insertMany([{"role": "ADMIN"}, {"role": "USER"}],{})
 	var schema = <replace this with movies schema>
 	db.movies.deleteMany({$nor:[schema]})
 })()
@@ -221,22 +188,12 @@
 ## POJO specifications for each collection
 The following is the boilerplate-free outline for what each Entity POJO should look like. When actually implementing, add appropriate access modifiers, constructors, getters and setters, additional methods and annotations.
 
-### The `authorisedusers` collection
-```java
-@Document(collection="authorisedusers")
-class AuthorisedUser {
-	@MongoId ObjectId id;
-	String username;
-	String password;
-	@DBRef Role userRole;
-}
-```
 ### The `comments` collection
 ```java
 @Document("comments")
 class Comment {
 	@MongoId ObjectId id;
-	LocalDateTime date;
+	Instant date;
 	String email;
 	@Field("movie_id") ObjectId movieId;
 	String name;
@@ -255,7 +212,7 @@ class Movie {
 	@Nullable @Field("fullplot") String fullPlot;
 	@Nullable List<String> genres;
 	Imdb imdb;
-	@Field("lastupdated") LocalDateTime lastUpdated;
+	@Field("lastupdated") Instant lastUpdated;
 	@Field("num_mflix_comments") Integer numMflixComments;
 	@Nullable String plot;
 	@Nullable @Field("rated") Rating rating;
@@ -306,9 +263,9 @@ enum Rating {
 class Tomatoes {
 	@Nullable String consensus;
 	@Nullable Critic critic;
-	@Nullable LocalDateTime dvd;
+	@Nullable Instant dvd;
 	@Nullable Integer fresh;
-	LocalDateTime lastUpdated;
+	Instant lastUpdated;
 	@Nullable String production;
 	@Nullable Integer rotten;
 	@Nullable Viewer viewer;
@@ -327,20 +284,12 @@ class Viewer {
 	@Nullable Double rating;
 }
 ```
-### The `roles` collection
-```java
-@Document(collection="roles")
-class Role {
-	@MongoId ObjectId id;
-	String role;
-}
-```
 ### The `showings` collection
 ```java
 @Document(collection="showings")
 class Showing {
 	@MongoId ObjectId id;
-	@Field("showing_date") LocalDateTime showingDate;
+	@Field("showing_date") Instant showingDate;
 	@DBRef Movie movie;
 	@DBRef Theater theater;
 }
@@ -379,5 +328,18 @@ class User {
 	String email;
 	String name;
 	String password;
+    	Role role;
 }
 ```
+
+### Retrieve Username of logged in User 
+
+Add Authentication (org.springframework.security.core.Authentication) to the method request, as follows
+
+```java
+public String currentUserName(Authentication authentication) {
+        return authentication.getName();
+}
+```
+
+Can be added as an additional argument to any method
