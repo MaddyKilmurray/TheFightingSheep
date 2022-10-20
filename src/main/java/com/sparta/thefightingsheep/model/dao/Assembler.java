@@ -17,7 +17,14 @@ import org.springframework.stereotype.Service;
 @Service
 class Assembler {
     CommentDto assembleComment(Comment comment) {
-        return null;
+        return new CommentDto(
+                comment.getId()==null?null:comment.getId().toHexString(),
+                comment.getDate(),
+                comment.getEmail(),
+                comment.getMovieId()==null?null:comment.getMovieId().toHexString(),
+                comment.getName(),
+                comment.getText()
+        );
     }
 
     MovieDto assembleMovie(Movie movie) {
@@ -80,7 +87,14 @@ class Assembler {
     }
 
     Comment disassembleComment(CommentDto comment) {
-        return null;
+        return new Comment(
+                comment.getId()==null?null:new ObjectId(comment.getId()),
+                comment.getDate(),
+                comment.getEmail(),
+                comment.getId()==null?null:new ObjectId(comment.getMovieId()),
+                comment.getName(),
+                comment.getText()
+        );
     }
 
     Movie disassembleMovie(MovieDto movie) {

@@ -2,7 +2,6 @@ package com.sparta.thefightingsheep.model.dto;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.bson.types.ObjectId;
 
 import java.time.Instant;
 
@@ -32,8 +31,5 @@ public class CommentDto extends Dto {
         this.movieId = movieId;
         this.name = name;
         this.text = text;
-    }
-
-    public CommentDto(String id, String date, String email, String movieId, String name, String text) {
     }
 }
