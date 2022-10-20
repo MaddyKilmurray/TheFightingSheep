@@ -47,8 +47,8 @@ public class SecurityConfiguration {
                 .hasAnyAuthority("ADMIN","USER")
                 .and()
                 .formLogin()
-//                .loginPage("/login")
-                .defaultSuccessUrl("/user")
+                .loginPage("/login")
+                .defaultSuccessUrl("/")
                 .permitAll()
                 .and()
                 .exceptionHandling().accessDeniedPage("/accessdenied");
