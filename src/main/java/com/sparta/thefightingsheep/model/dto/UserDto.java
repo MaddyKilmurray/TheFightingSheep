@@ -43,6 +43,13 @@ public class UserDto extends Dto {
         } catch (Exception e) { return false; }
     }
 
+    /**
+     * Sets the role of the user to null.
+     */
+    public void setRoleNull() {
+        role = null;
+    }
+
     public UserDto() {}
 
     public UserDto(String name, String email, String password, String role) {
