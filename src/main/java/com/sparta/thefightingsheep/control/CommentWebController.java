@@ -43,26 +43,26 @@ public class CommentWebController {
         return comment.getId();
     }
 
-    @PostMapping("/comment/add/{id}/{date}/{email}/{movieId}/{name}/{text}")
-    public String addComment(@PathVariable Instant id,@PathVariable Instant date, @PathVariable String email, @PathVariable String movieId, @PathVariable String name, @PathVariable String text){
-        CommentDto commentDto = new CommentDto(String.valueOf(id),date,email,movieId,name,text);
-        commentDAO.insert(commentDto);
-        return commentDAO.insert(commentDto);
-    }
-
-    @PostMapping("/comment/add/{date}/{email}/{movieId}/{name}/{text}")
-    public String addComment(@PathVariable Instant date, @PathVariable String email, @PathVariable String movieId, @PathVariable String name, @PathVariable String text){
-        CommentDto commentDto = new CommentDto(date,email,movieId,name,text);
-        commentDAO.insert(commentDto);
-        return commentDAO.insert(commentDto);
-    }
-
-    @PatchMapping("/user/{id}/{newdate}/{newtext}")
-    public CommentDto editComment(@PathVariable String id, @PathVariable String newtext, @PathVariable String newdate){
-        CommentDto commentDto = new CommentDto(id, newdate, null,null,null,newtext);
-        commentDAO.update(commentDto);
-        return commentDto;
-    }
+//    @PostMapping("/comment/add/{id}/{date}/{email}/{movieId}/{name}/{text}")
+//    public String addComment(@PathVariable Instant id,@PathVariable Instant date, @PathVariable String email, @PathVariable String movieId, @PathVariable String name, @PathVariable String text){
+//        CommentDto commentDto = new CommentDto(String.valueOf(id),date,email,movieId,name,text);
+//        commentDAO.insert(commentDto);
+//        return commentDAO.insert(commentDto);
+//    }
+//
+//    @PostMapping("/comment/add/{date}/{email}/{movieId}/{name}/{text}")
+//    public String addComment(@PathVariable Instant date, @PathVariable String email, @PathVariable String movieId, @PathVariable String name, @PathVariable String text){
+//        CommentDto commentDto = new CommentDto(date,email,movieId,name,text);
+//        commentDAO.insert(commentDto);
+//        return commentDAO.insert(commentDto);
+//    }
+//
+//    @PatchMapping("/user/{id}/{newdate}/{newtext}")
+//    public CommentDto editComment(@PathVariable String id, @PathVariable String newtext, @PathVariable String newdate){
+//        CommentDto commentDto = new CommentDto(id, newdate, null,null,null,newtext);
+//        commentDAO.update(commentDto);
+//        return commentDto;
+//    }
 
 
 }
