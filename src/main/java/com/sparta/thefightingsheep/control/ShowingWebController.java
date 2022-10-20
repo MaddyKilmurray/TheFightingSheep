@@ -41,6 +41,12 @@ public class ShowingWebController {
         showingRepo.delete(showing);
         return showing.getId();
     }
+    @PatchMapping("/showing/{id}/{movie}")
+    public MovieDto changeMovie(@PathVariable String id, @PathVariable String newMovie){
+        MovieDto movieDto = new MovieDto(id, null,newMovie,null);
+        movieDAO.update(movieDto);
+        return movieDto;
+    }
 
     @PostMapping("/showing/add/{id}/{showingDate}/{movie}/{theater}")
     public String addShowingID(@PathVariable String id, @PathVariable String showingDate, @PathVariable String movie, @PathVariable String theater){
@@ -48,18 +54,4 @@ public class ShowingWebController {
         showingDAO.insert(showingDto);
         return showingDAO.insert(showingDto);
     }
-
-    @PostMapping("/showing/add/{showingDate}/{movie}/{theater}")
-    public String addShowing{@PathVariable String showingDate, @PathVariable String movie, @PathVariable String theater){
-        ShowingDto showingDto = new ShowingDto(showingDate,movie,theater);
-        showingDAO.insert(showingDto);
-        return showingDAO.insert(showingDto);
-    }
-
-    @PatchMapping("/showing/{id}/{movie}")
-    public MovieDto changeMovie(@PathVariable String id, @PathVariable String newMovie){
-    MovieDto movieDto = new MovieDto(id, null,newMovie,null);
-    movieDAO.update(movieDto);
-    return movieDto;
-        }
 }
