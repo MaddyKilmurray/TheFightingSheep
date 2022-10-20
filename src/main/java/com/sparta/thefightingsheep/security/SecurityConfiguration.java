@@ -41,6 +41,8 @@ public class SecurityConfiguration {
         http.csrf()
                 .disable()
                 .authorizeRequests()
+                .antMatchers("/signup")
+                .permitAll()
                 .and()
                 .authorizeRequests()
                 .anyRequest()
@@ -48,8 +50,12 @@ public class SecurityConfiguration {
                 .and()
                 .formLogin()
 //                .loginPage("/login")
-                .defaultSuccessUrl("/user")
+//                .defaultSuccessUrl("/")
+//                .failureUrl("/login-error")
                 .permitAll()
+                .and()
+                .logout()
+                .logoutSuccessUrl("/")
                 .and()
                 .exceptionHandling().accessDeniedPage("/accessdenied");
         return http.build();

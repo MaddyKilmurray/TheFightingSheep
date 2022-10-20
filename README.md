@@ -331,3 +331,15 @@ class User {
     	Role role;
 }
 ```
+
+### Retrieve Username of logged in User 
+
+Add Authentication (org.springframework.security.core.Authentication) to the method request, as follows
+
+```java
+public String currentUserName(Authentication authentication) {
+        return authentication.getName();
+}
+```
+
+Can be added as an additional argument to any method

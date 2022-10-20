@@ -83,17 +83,4 @@ public class UserWebController {
 //    }
 //
 
-
-
-    @GetMapping("/login")
-    public String login() {
-        return "login";
-    }
-
-    @GetMapping("/accessdenied")
-    public String accessDenied(Model model) {
-        model.addAttribute("loginError", true);
-        return "login";
-    }
-
 }
