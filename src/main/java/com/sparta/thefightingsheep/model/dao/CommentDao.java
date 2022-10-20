@@ -7,14 +7,13 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class CommentDao implements Dao<CommentDto> {
 
-    private CommentRepository repository;
+    private final CommentRepository repository;
     private final Assembler assembler;
 
     @Autowired
@@ -29,14 +28,14 @@ public class CommentDao implements Dao<CommentDto> {
             Comment comment = assembler.disassembleComment(item);
             repository.insert(comment);
             return comment.getId().toHexString();
-        } catch (Exception e){ return null;}
+        } catch (Exception e) { return null; }
     }
 
     @Override
     public Optional<CommentDto> findById(String id) {
         try {
             return Optional.of(assembler.assembleComment(repository.findById(new ObjectId(id)).get()));
-        } catch (Exception e) { return Optional.empty();}
+        } catch (Exception e) { return Optional.empty(); }
     }
 
     @Override
@@ -52,7 +51,7 @@ public class CommentDao implements Dao<CommentDto> {
             repository.findById(new ObjectId(item.getId())).get();
             repository.save(assembler.disassembleComment(item));
             return true;
-        } catch (Exception e) { return false;}
+        } catch (Exception e) { return false; }
     }
 
     @Override
@@ -71,38 +70,4 @@ public class CommentDao implements Dao<CommentDto> {
             return true;
         } catch (Exception e) { return false; }
     }
-//
-//    public List<CommentDto> findAll() {
-//        List<CommentDto> commentDTOList = new ArrayList<>();
-//        List<Comment> commentList = repository.findAll();
-//        commentList.forEach(co -> commentDTOList.add(new CommentDto(co.getId().toHexString(),co.getDate(),co.getEmail(),co.getMovieId().toHexString(),co.getName(),co.getText())));
-//        return commentDTOList;
-//    }
-//
-//    public CommentDto findById(String id) {
-//        CommentDto commentDTO = new CommentDto();
-//        Comment comment = repository.findById(new ObjectId(commentDTO.getId())).get();
-//        CommentDto result = new CommentDto(comment.getId().toHexString(),comment.getDate(),comment.getEmail(),comment.getMovieId().toHexString(),comment.getName(),comment.getText());
-//        return result;
-//    }
-//
-//
-//    public CommentDto update(CommentDto commentDTO) {
-//        Optional<Comment> optional = repository.findById(new ObjectId(commentDTO.getId()));
-//        Comment comment;
-//        if(optional.isPresent())
-//            comment = optional.get();
-//        else
-//            return new CommentDto();
-//        if (commentDTO.getName()!= null)
-//            comment.setName(commentDTO.getName());
-//        repository.save(comment);
-//        comment = repository.findById(new ObjectId(commentDTO.getId())).get();
-//        return new CommentDto(comment.getId().toHexString(),comment.getDate(),comment.getEmail(),comment.getMovieId().toHexString(),comment.getName(),comment.getText());
-//    }
-//
-//    public void delete(String id) {
-//        repository.deleteById(new ObjectId(id));
-//    }
-
 }
