@@ -6,9 +6,7 @@ import com.sparta.thefightingsheep.model.dao.MovieDao;
 import com.sparta.thefightingsheep.model.dto.MovieDto;
 
 import com.sparta.thefightingsheep.model.repository.MovieRepository;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
