@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" type="text/css" href="../static/styles/style.css">
     <link th:rel="stylesheet" type="text/css" th:href="@{/styles/style.css}">
     <meta charset="UTF-8">
     <title>Main Page</title>
@@ -15,10 +16,13 @@
     <a href="logout">Log Out</a>
 
 </div>
-<p> User Page</p>
+<h1> User Page</h1>
+<p>User :</p>
 <div th:text="${User.id}"></div>
+<p> Your name :</p>
 <div th:text="${User.name}"> </div>
+<p> Your Email :</p>
 <div th:text="${User.email}"></div>
-<div th:text="${User.password}"> </div>
+
 </body>
 </html>
