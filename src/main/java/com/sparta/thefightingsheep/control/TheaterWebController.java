@@ -15,9 +15,24 @@ public class TheaterWebController {
     @Autowired
     private TheaterDao dao;
 
+    @GetMapping("/")
+    public String theaterMainPage(Model model) {
+        return "theaterMain";
+    }
 
     @GetMapping("/{id}")
     public String getTheaterById(@PathVariable String id, Model model) {
+        Optional<TheaterDto> result = dao.findById(id);
+        if (result.isPresent()) {
+            model.addAttribute("theater", result.get());
+            return "displayTheater";
+        } else
+            return "notFound";
+
+    }
+
+    @GetMapping("/?id={id}")
+    public String getTheaterByIdId(@PathVariable String id, Model model) {
         Optional<TheaterDto> result = dao.findById(id);
         if (result.isPresent()) {
             model.addAttribute("theater", result.get());
@@ -44,15 +59,15 @@ public class TheaterWebController {
     public String addNewTheaterForm(Model model) {
         TheaterDto theaterDto = new TheaterDto();
         model.addAttribute("theater", theaterDto);
-        return "";
+        return "AddTheater";
     }
 
     @PostMapping("/add")
     public String addNewTheater(@ModelAttribute TheaterDto theaterDto, Model model) {
         String newTheaterId = dao.insert(theaterDto);
         Optional<TheaterDto> theaterDto1 = dao.findById(newTheaterId);
-        model.addAttribute("theater", theaterDto1);
-        return "";
+        model.addAttribute("theater", theaterDto1.get());
+        return "theaterAdded";
     }
 
     @GetMapping("/all")
