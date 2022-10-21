@@ -71,4 +71,12 @@ public class MovieDao implements Dao<MovieDto> {
             return true;
         } catch (Exception e) { return false; }
     }
+
+    public Optional<MovieDto> findByName(String name) {
+        try {
+            return Optional.of(assembler.assembleMovie(repository.findByTitle(name).get()));
+        } catch (Exception e) {
+            return Optional.empty();
+        }
+    }
 }

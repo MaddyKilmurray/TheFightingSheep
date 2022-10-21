@@ -6,15 +6,14 @@
     </head>
     <body>
     <div class = "container mx  -auto px-6 py-3"> </div>
-    <form action="#" th:action="@{/movie/form/create}" method="post" th:object="${movie}">
+    <div th:if="${createdMovie.getId() != null}"><p>Movie created!</p></div>
+    <form action="#" th:action="@{/movie/form/create}" th:method="post" th:object="${createdMovie}">
         <label for="id">id:</label>
         <input type = "text" id="id" th:field="*{id}"><br>
         <label for="awards">awards:</label>
         <input type = "text" id="awards" th:field="*{awards}"><br>
         <label for="directors">directors:</label>
         <input type = "text" id="directors" th:field="*{directors}"><br>
-        <label for="fullplot">full plot:</label>
-        <input type = "text" id="fullplot" th:field="*{fullplot}"><br>
         <label for="languages">languages:</label>
         <input type = "text" id="languages" th:field="*{languages}"><br>
         <label for="numMflixComments">number of comments:</label>
@@ -27,8 +26,6 @@
         <input type = "text" id="writers" th:field="*{writers}"><br>
         <label for="genres">genres:</label>
         <input type = "text" id="genres" th:field="*{genres}"><br>
-        <label for="lastupdated">lastupdated:</label>
-        <input type = "text" id="lastupdated" th:field="*{lastupdated}"><br>
         <label for="poster">poster:</label>
         <input type = "text" id="poster" th:field="*{poster}"><br>
         <label for="tomatoes">rotten tomatoes score:</label>
@@ -39,8 +36,6 @@
         <input type = "text" id="imdb" th:field="*{imdb}"><br>
         <label for=rated>rated:</label>
         <input type = "text" id="rated" th:field="*{imdb}"><br>
-        <label for=released>date released:</label>
-        <input type = "text" id="released" th:field="*{released}"><br>
         <label for=cast> cast:</label>
         <input type = "text" id="cast" th:field="*{cast}"><br>
         <label for=runtime> runtime:</label>
