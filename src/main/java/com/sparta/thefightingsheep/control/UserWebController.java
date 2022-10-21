@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 public class UserWebController {
 
@@ -19,12 +21,12 @@ public class UserWebController {
     }
 
     //READ USERS
-//    @GetMapping("/web/user/find/all")
-//    public String displayUsers(Model model){
-//        List<User> allUsers = repo.findAll();
-//        model.addAttribute("allUsers", allUsers);
-//        return "Users";
-//    }
+    @GetMapping("/web/user/find/all")
+    public String displayUsers(Model model){
+        List<UserDto> userDTOList = userDao.findAll();
+        model.addAttribute("allUsers", userDTOList);
+        return "Users";
+    }
 
     @GetMapping("web/user/find/{id}")
     public String getUserById(@PathVariable String id, Model model){
@@ -63,10 +65,12 @@ public class UserWebController {
 //    }
 
     //DELETE USER
-    @GetMapping("/user/delete/{id}")
+    @GetMapping("/web/user/delete/{id}")
     public String deleteById(@PathVariable String id){
-        userDao.delete(id);
-        return "Successful";
+        if(userDao.delete(id))
+            return "Successful";
+        else
+            return "Unsuccessful";
     }
 
 //    @PostMapping("/users/delete")
@@ -77,9 +81,10 @@ public class UserWebController {
 //    }
 //
 //    //UPDATE USER
-    @GetMapping("/users/edit/{id}")
-    public String editUser(@PathVariable String id, Model model){
-        UserDto user = userDao.findById(id).get();
+    @GetMapping("/users/edit/{userDto}")
+    public String editUser(@PathVariable UserDto userDto, Model model){
+        userDao.update(userDto);
+        UserDto user = userDao.findById(userDto.getId()).get();
         model.addAttribute("user", user);
         return "User";
     }
