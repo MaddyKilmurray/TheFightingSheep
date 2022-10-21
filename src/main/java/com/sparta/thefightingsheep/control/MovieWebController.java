@@ -8,6 +8,7 @@ import com.sparta.thefightingsheep.model.dto.MovieDto;
 import com.sparta.thefightingsheep.model.repository.MovieRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -60,10 +61,9 @@ public class MovieWebController {
         return "allMovies";
     }
 
-    @DeleteMapping("/displaymovie/delete")
-    public String deleteById(@RequestParam String id, Model model){
-        Movie movie = movieRepo.findById(new ObjectId(id)).get();
-        movieRepo.delete(movie);
+    @DeleteMapping("/displaymovie/delete/{id}")
+    public String deleteById(@PathVariable String id, Model model){
+        movieDAO.delete(id);
         model.addAttribute("foundMovie", new Movie());
         model.addAttribute("movieDeleted",true);
         return "displayMovie";

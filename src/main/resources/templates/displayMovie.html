@@ -3,9 +3,22 @@
 <head>
   <link rel="stylesheet" type="text/css" href="../static/styles/style.css">
   <meta charset="UTF-8">
-  <title>Display Name</title>
+  <title>The Fighting Sheep File Centre - Display Movies</title>
+  <link th:rel="stylesheet" type="text/css" th:href="@{/styles/style.css}">
 </head>
 <body>
+<div class="topnav">
+  <a class="active" href="#home">Home</a>
+  <a href="displaymovie">Movies</a>
+  <a href="#schedule">Schedule</a>
+  <a href="#theater">Theater</a>
+  <a href="#myAccount">My Account</a>
+  <a href="logout">Log Out</a>
+
+</div>
+
+<!--<a href="/movies/all"><button>Show All Movies</button></a>-->
+<a href="/movie/form"><button>Add A New Movie</button></a>
 
 <div>
   <h1>Search for a movie by ID</h1>
@@ -42,8 +55,8 @@
 
 </div>
 
-<form action="#" th:action="@{'/displaymovie/delete/' + ${foundMovie.id}}" th:method="delete" >
-  <button type="submit">Delete</button>
-</form>
+<!--<form action="#" th:if="${foundMovie.getId() != null}" th:action="@{'/displaymovie/delete/{id}'(id=${foundMovie.id})}" th:method="delete" >-->
+<!--  <button type="submit">Delete</button>-->
+<!--</form>-->
 </body>
 </html>
