@@ -10,24 +10,24 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 public class User {
     @MongoId
     private ObjectId id;
-    private String email;
     private String name;
+    private String email;
     private String password;
     private Role role;
 
     public User() {}
 
-    public User(String email, String name, String password, Role role) {
-        this.email = email;
+    public User(String name, String email, String password, Role role) {
         this.name = name;
+        this.email = email;
         this.password = password;
         this.role = role;
     }
 
-    public User(ObjectId id, String email, String name, String password, Role role) {
+    public User(ObjectId id, String name, String email, String password, Role role) {
         this.id = id;
-        this.email = email;
         this.name = name;
+        this.email = email;
         this.password = password;
         this.role = role;
     }
