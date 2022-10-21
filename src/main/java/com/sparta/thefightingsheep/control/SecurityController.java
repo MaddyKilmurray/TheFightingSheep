@@ -1,6 +1,7 @@
 package com.sparta.thefightingsheep.control;
 
 import com.sparta.thefightingsheep.model.entity.user.User;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,5 +34,6 @@ public class SecurityController {
     }
 
     @GetMapping("/")
-    public String main(Model model) { return "Main"; }
+    public String main(Model model) {
+        return "Main"; }
 }

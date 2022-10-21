@@ -1,12 +1,8 @@
 package com.sparta.thefightingsheep.control;
 
 import com.sparta.thefightingsheep.model.dao.CommentDao;
-import com.sparta.thefightingsheep.model.dao.MovieDao;
 import com.sparta.thefightingsheep.model.dto.CommentDto;
-import com.sparta.thefightingsheep.model.dto.MovieDto;
-import com.sparta.thefightingsheep.model.dto.UserDto;
 import com.sparta.thefightingsheep.model.entity.comment.Comment;
-import com.sparta.thefightingsheep.model.entity.movie.Movie;
 import com.sparta.thefightingsheep.model.repository.CommentRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class CommentWebController {
