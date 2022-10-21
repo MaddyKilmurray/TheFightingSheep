@@ -26,7 +26,7 @@ public class UserDao implements Dao<UserDto> {
     public String insert(UserDto item) {
         try {
             User user = assembler.disassembleUser(item);
-            repository.insert(user);
+            repository.save(user);
             return user.getId().toHexString();
         } catch (Exception e) { return null; }
     }
