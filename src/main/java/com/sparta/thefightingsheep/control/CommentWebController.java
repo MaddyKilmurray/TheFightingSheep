@@ -1,6 +1,7 @@
 package com.sparta.thefightingsheep.control;
 
 import com.sparta.thefightingsheep.model.dao.CommentDao;
+import com.sparta.thefightingsheep.model.dao.MovieDao;
 import com.sparta.thefightingsheep.model.dto.CommentDto;
 import com.sparta.thefightingsheep.model.dto.MovieDto;
 import com.sparta.thefightingsheep.model.dto.UserDto;
@@ -9,13 +10,15 @@ import com.sparta.thefightingsheep.model.entity.movie.Movie;
 import com.sparta.thefightingsheep.model.repository.CommentRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 
-@RestController
-@RequestMapping("web/comment")
+@Controller
 public class CommentWebController {
 
     @Autowired
@@ -23,23 +26,22 @@ public class CommentWebController {
 
     @Autowired
     private CommentDao commentDAO;
+    private CommentDto commentDto;
 
-    @GetMapping("/comment/{id}")
-    public Comment getCommentById(@PathVariable String id) {
-        Comment comment = commentRepo.findById(new ObjectId(id).get()).get();
+    @GetMapping("/comment/{movie_id}")
+    public Comment getCommentByMovieId(@PathVariable String id, Model model) {
+        Comment comment = commentRepo.findById(new ObjectId(commentDto.getMovieId())).get();
         return comment;
     }
 
     @GetMapping("/comment/all")
     public List<Comment> getAllComments() {
-//        Optional<Comment> optional = commentRepo.findAll(String.valueOf(commentDTO.getText()));
-
         return commentRepo.findAll();
     }
 
-    @DeleteMapping("/comment/delete/{id}")
+    @DeleteMapping("/comment/delete/{movie_id}")
     public ObjectId deleteById(@PathVariable String id) {
-        Comment comment = commentRepo.findById(new ObjectId(id)).get();
+        Comment comment = commentRepo.findById(new ObjectId(commentDto.getMovieId())).get();
         commentRepo.delete(comment);
         return comment.getId();
     }
@@ -50,13 +52,6 @@ public class CommentWebController {
         commentDAO.insert(commentDto);
         return commentDAO.insert(commentDto);
     }
-
-//    @PatchMapping("/user/{id}/{newdate}/{newtext}")
-//    public CommentDto editComment(@PathVariable String id, @PathVariable String newtext, @PathVariable String newdate){
-//        CommentDto commentDto = new CommentDto(id, newdate, null,null,null,newtext);
-//        commentDAO.update(commentDto);
-//        return commentDto;
-//    }
 
     @PostMapping("/comment/add/{date}/{email}/{movieId}/{name}/{text}")
     public String addComment(@PathVariable Instant date, @PathVariable String email, @PathVariable String movieId, @PathVariable String name, @PathVariable String text){
