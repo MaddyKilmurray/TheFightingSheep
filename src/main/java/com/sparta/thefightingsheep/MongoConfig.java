@@ -12,17 +12,14 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 public class MongoConfig {
     @Bean
     public MongoClient mongo() {
-        ConnectionString connectionString = new ConnectionString("mongodb+srv://MaddyMcmurray:Password123@thefightingsheep.8nvddvb.mongodb.net/");
+        ConnectionString connectionString = new ConnectionString("mongodb+srv://hamza2ali:Zahirs12@thefightingsheep.8nvddvb.mongodb.net/");
         MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
                 .applyConnectionString(connectionString)
                 .build();
-
         return MongoClients.create(mongoClientSettings);
     }
-
     @Bean
     public MongoTemplate mongoTemplate() throws Exception {
         return new MongoTemplate(mongo(), "sample_mflix");
     }
-
 }

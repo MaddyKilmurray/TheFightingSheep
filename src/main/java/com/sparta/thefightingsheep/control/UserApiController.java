@@ -59,7 +59,7 @@ public class UserApiController {
 
     @PutMapping("/user/force")
     @ResponseBody
-    public String forceUpdatePassword(@RequestParam UserDto userDto){;
+    public String forceUpdatePassword(@RequestParam UserDto userDto){
         return (userDAO.forceUpdate(userDto));
     }
 
