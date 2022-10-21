@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Showings</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+<body class="bg-light">
+<div class="container">
+    <div class="row text-center p-3 bg-dark">
+        <p class="display-3 text-light">Showings Section</p>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col d-flex justify-content-center align-items-center border-end">
+            <h4>Get Back Home</h4>
+        </div>
+        <div class="col d-flex justify-content-center">
+            <a href="/" class="btn btn-outline-primary">Go</a>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col d-flex justify-content-center align-items-center border-end">
+            <h4>Get All</h4>
+        </div>
+        <div class="col d-flex justify-content-center">
+            <a href="/showing/all" class="btn btn-outline-primary">Go</a>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col d-flex justify-content-center border-end">
+            <h4>Get By ID</h4>
+        </div>
+        <div class="col d-flex justify-content-center border-end">
+            <label for="showingID"><input id="showingID" class="form-control"></label>
+        </div>
+        <div class="col d-flex justify-content-center">
+            <button onclick="(()=>{let inp;window.location.href = `/showing/id/${(inp=document.getElementById('showingID').value)===''?'empty':inp}`})()" type="button" class="btn btn-outline-primary">
+                Go
+            </button>
+        </div>
+    </div>
+    <hr>
+</div>
+</body>
+</html>
