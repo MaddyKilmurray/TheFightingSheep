@@ -35,15 +35,26 @@ public class TheaterController {
 
     @GetMapping("/find/{id}")
     public Theater getTheaterById(@PathVariable String id) {
-        Theater theater = theaterRepo.findById(new ObjectId(id).get()).get();
-        return theater;
+        Optional<Theater> theaterOp = theaterRepo.findById(new ObjectId(id));
+        if (theaterOp.isPresent()) {
+            Theater theater = theaterOp.get();
+            theaterRepo.findById(theater.getId());
+            return theater;
+        }
+        else { return new Theater(null, null, null); }
+
     }
 
     @DeleteMapping("/delete/{id}")
     public ObjectId deleteById(@PathVariable String id){
-        Theater theater = theaterRepo.findById(new ObjectId(id)).get();
-        theaterRepo.delete(theater);
-        return theater.getId();
+        Optional<Theater> theaterOp = theaterRepo.findById(new ObjectId(id));
+        if (theaterOp.isPresent()) {
+            Theater theater = theaterOp.get();
+            theaterRepo.delete(theater);
+            return theater.getId();
+        }
+        else { return new Theater(null, null, null).getId(); }
+
     }
 
 //    @PostMapping("/add/{id}/{theaterId}/{street1}/{city}/{state}/{zipcode}/{coord1}/{coord2}")
