@@ -43,7 +43,8 @@ public class UserWebController {
     }
 
     @PostMapping("/web/user/signup")
-    public String signup(@ModelAttribute UserDto user, Model model){
+    public String signup(@ModelAttribute UserDto user, Model model) {
+        System.out.println(user);
         String userInsert = userDao.insert(user);
         if (userInsert == null) {
             model.addAttribute("newUser", new User());
