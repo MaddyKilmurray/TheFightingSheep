@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"  lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Theater</title>
+</head>
+<body>
+<div th:text="${theater.theaterId}"></div>
+<div th:text="${theater.location.address.city}"></div>
+<div th:text="${theater.location.address.state}"></div>
+<div th:text="${theater.location.address.streetOne}"></div>
+<div th:text="${theater.location.address.zipCode}"></div>
+<img src="../static/Movie-cineplex-theatre.webp" alt="Theater picture" width="800" height="auto">
+<form action="#" method="post" th:action="@{/web/theater/delete}" th:object="${theater}">
+    <input type="hidden" th:value="*{id}" name="id">
+    <button name="action" type="submit">Delete</button>
+</form>
+</body>
+</html>

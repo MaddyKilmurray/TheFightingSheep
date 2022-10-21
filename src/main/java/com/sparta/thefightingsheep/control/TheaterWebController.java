@@ -1,6 +1,7 @@
 package com.sparta.thefightingsheep.control;
 import com.sparta.thefightingsheep.model.dao.TheaterDao;
 import com.sparta.thefightingsheep.model.dto.TheaterDto;
+import com.sparta.thefightingsheep.model.entity.theater.Theater;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,21 +20,21 @@ public class TheaterWebController {
     public String getTheaterById(@PathVariable String id, Model model) {
         Optional<TheaterDto> result = dao.findById(id);
         if (result.isPresent()) {
-            model.addAttribute("theater", result);
-            return "";
+            model.addAttribute("theater", result.get());
+            return "displayTheater";
         } else
             return "notFound";
 
     }
 
     //DELETE
-    @PostMapping("/delete/{id}")
-    public String deleteById(@PathVariable String id, Model model) {
-        Optional<TheaterDto> theaterDto = dao.findById(id);
+    @PostMapping("/delete")
+    public String deleteById(@ModelAttribute TheaterDto theater, Model model) {
+        Optional<TheaterDto> theaterDto = dao.findById(theater.getId());
         if (theaterDto.isPresent()) {
-            model.addAttribute("theater", theaterDto);
-            dao.delete(id);
-            return "";
+            model.addAttribute("theater", theaterDto.get());
+            dao.delete(theater.getId());
+            return "theaterDeleted";
         } else
             return "notFound";
     }
