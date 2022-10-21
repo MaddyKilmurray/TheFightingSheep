@@ -33,5 +33,5 @@ public class SecurityController {
     }
 
     @GetMapping("/")
-    public String main(Model model) { return "Main"; }
+    public String main(Model model) { return "index"; }
 }
