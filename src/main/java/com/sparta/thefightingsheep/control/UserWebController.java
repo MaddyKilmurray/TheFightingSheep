@@ -39,12 +39,25 @@ public class UserWebController {
     }
 
 
-    @GetMapping("/web/user/add")
-    @ResponseBody
-    public String addUser(@RequestParam String id, @RequestParam String name, @RequestParam String email, @RequestParam String password, Model model){
-        UserDto userDTO = new UserDto(id, name, email, password, "USER");
-        model.addAttribute("User", userDTO);
+    @PostMapping("/web/user/add")
+    public String addUser(@ModelAttribute User newUser, Model model){
+        UserDto userDto = new UserDto(newUser.getName(),newUser.getEmail(),newUser.getPassword(),newUser.getRole().name());
+        userDAO.insert(userDto);
+        model.addAttribute("newUser", userDto);
         return "User";
+    }
+
+    @PostMapping("/web/user/signup")
+    public String signup(@ModelAttribute UserDto user, Model model){
+        String userInsert = userDAO.insert(user);
+        if (userInsert == null) {
+            model.addAttribute("newUser", new User());
+            model.addAttribute("userRegistered",false);
+            return "signup";
+        }
+        model.addAttribute("newUser", user);
+        model.addAttribute("userRegistered",true);
+        return "login";
     }
 
 //    @PostMapping("/users/newUser")
@@ -58,7 +71,7 @@ public class UserWebController {
     @GetMapping("/user/delete/{id}")
     public String deleteById(@PathVariable String id){
         userDAO.delete(id);
-        return "successful";
+        return "Successful";
     }
 
 //    @PostMapping("/users/delete")

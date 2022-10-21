@@ -1,6 +1,7 @@
 package com.sparta.thefightingsheep.model.dao;
 
 import com.sparta.thefightingsheep.model.dto.UserDto;
+import com.sparta.thefightingsheep.model.entity.user.Role;
 import com.sparta.thefightingsheep.model.entity.user.User;
 import com.sparta.thefightingsheep.model.repository.UserRepository;
 import org.bson.types.ObjectId;
@@ -26,7 +27,7 @@ public class UserDao implements Dao<UserDto> {
     public String insert(UserDto item) {
         try {
             User user = assembler.disassembleUser(item);
-            repository.insert(user);
+            repository.save(user);
             return user.getId().toHexString();
         } catch (Exception e) { return null; }
     }

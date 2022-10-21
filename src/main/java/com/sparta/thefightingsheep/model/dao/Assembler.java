@@ -197,7 +197,7 @@ class Assembler {
                 user.getName(),
                 user.getEmail(),
                 user.getPassword(),
-                Role.valueOf(user.getRole().name())
+                Role.valueOf(user.getRole())
         );
     }
 }
