@@ -28,10 +28,11 @@ public class CommentWebController {
     private CommentDao commentDAO;
     private CommentDto commentDto;
 
-    @GetMapping("/comment/{movie_id}")
-    public Comment getCommentByMovieId(@PathVariable String id, Model model) {
-        Comment comment = commentRepo.findById(new ObjectId(commentDto.getMovieId())).get();
-        return comment;
+    @GetMapping("/comment/{id}")
+    public String getCommentByMovieId(@PathVariable String id, Model model) {
+        CommentDto commentDto = commentDAO.findById(id).get();
+        model.addAttribute("Comment", commentDto);
+        return "Comment";
     }
 
     @GetMapping("/comment/all")
