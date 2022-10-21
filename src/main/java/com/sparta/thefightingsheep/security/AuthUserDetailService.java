@@ -20,8 +20,6 @@ public class AuthUserDetailService implements UserDetailsService {
         this.repository = repository;
     }
 
-
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> wrappedUser = repository.findByEmail(username);
