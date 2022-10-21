@@ -22,7 +22,7 @@ public class TheaterWebController {
             model.addAttribute("theater", result);
             return "";
         } else
-            return "notFound";
+            return "not-found";
 
     }
 
@@ -35,7 +35,7 @@ public class TheaterWebController {
             dao.delete(id);
             return "";
         } else
-            return "notFound";
+            return "not-found";
     }
 
     //CREATE
