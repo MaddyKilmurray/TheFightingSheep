@@ -9,30 +9,31 @@
 <table>
     <thead>
     <tr>
-        <th>id</th>
-        <th>awards</th>
-        <th>directors</th>
-        <th>full plot</th>
-        <th>languages</th>
-        <th>number of Comments</th>
-        <th>plot</th>
-        <th>title</th>
-        <th>writers</th>
-        <th>genres</th>
-        <th>last updated</th>
-        <th>poster</th>
-        <th>tomatoes</th>
-        <th>year</th>
-        <th>imdb</th>
-        <th>rated</th>
-        <th>released</th>
-        <th>cast</th>
-        <th>runtime</th>
-        <th>countries</th>
-        <th>type</th>
+        <th>Title</th>
+        <th>Directors</th>
+        <th>Awards Won</th>
+        <th>Languages</th>
+        <th>Plot</th>
+        <th>Writers</th>
+        <th>Genres</th>
+        <th>Rotten Tomatoes Rating</th>
+        <th>Year of Release</th>
+        <th>Runtime</th>
     </tr>
     </thead>
-    <tr th:each="movie : ${movies}"></tr>
+    <tr th:each="movie : ${allMovies}">
+        <td th:text="${movie.title}">This movie's title</td>
+        <td th:text="${movie.directors}">The movie's directors</td>
+        <td th:text="${movie.awards.getWins()}">The movie's awards</td>
+        <td th:text="${movie.languages}">The movie's languages</td>
+        <td th:text="${movie.plot}">The movie's plot</td>
+        <td th:text="${movie.writers}">The movie's writers</td>
+        <td th:text="${movie.genres}">The movie's genres</td>
+        <td th:if="${movie.tomatoes.getViewer().getRating() != null}" th:text="${movie.tomatoes.getViewer().getRating()}">The movie's rotten tomatoes score</td>
+        <td th:if="${movie.tomatoes.getViewer().getRating() == null}">N/A</td>
+        <td th:text="${movie.year}">The movie's year of release</td>
+        <td th:text="${movie.runtime}">The movie's run time</td>
+    </tr>
 </table>
 </body>
 </html>
