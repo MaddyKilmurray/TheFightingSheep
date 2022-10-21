@@ -6,28 +6,44 @@
   <title>Display Name</title>
 </head>
 <body>
-<div th:text="${movie.id}">This 's id</div>
-<div th:text="${movie.title}">This movie's title</div>
-<div th:text="${movie.directors}">The movie's directors</div>
-<div th:text="${movie.awards}">The movie's awards</div>
-<div th:text="${movie.fullplot}">The movie's plot</div>
-<div th:text="${movie.languages}">The movie's languages</div>
-<div th:text="${movie.numMflixComments}">The movie's number of comments</div>
-<div th:text="${movie.plot}">The movie's plot</div>
-<div th:text="${movie.title}">The movie's title</div>
-<div th:text="${movie.writers}">The movie's writers</div>
-<div th:text="${movie.writers}">The movie's writers</div>
-<div th:text="${movie.genres}">The movie's genres</div>
-<div th:text="${movie.lastupdated}">The movie's latest update</div>
-<div th:text="${movie.poster}">The movie's poster</div>
-<div th:text="${movie.tomatoes}">The movie's rotten tomatoes score</div>
-<div th:text="${movie.year}">The movie's year of release</div>
-<div th:text="${movie.imdb}">The movie's imdb</div>
-<div th:text="${movie.rated}">The movie's rating</div>
-<div th:text="${movie.released}">When the movie was released</div>
-<div th:text="${movie.cast}">The movie's cast</div>
-<div th:text="${movie.runtime}">The movie's run time</div>
-<div th:text="${movie.countries}">The movie's country</div>
-<div th:text="${movie.type}">The movie's type</div>
+
+<div>
+  <h1>Search for a movie by ID</h1>
+  <form action="#" th:action="@{/web/movie/byid}" th:object="${foundMovie}" method="get">
+    <label for="id" hidden>Movie ID: </label>
+    <input type="text" id="id" name="id" placeholder="Movie ID" th:value="${id}"/>
+    <input type="submit" value="Submit"/>
+  </form>
+</div>
+
+<div>
+  <h1>Search for a movie by Name</h1>
+  <form action="#" th:action="@{/web/movie/byname}" th:object="${foundMovie}" method="get">
+    <label for="name" hidden>Movie Name: </label>
+    <input type="text" id="name" name="name" placeholder="Movie Name" th:value="${name}"/>
+    <input type="submit" value="Submit"/>
+  </form>
+</div>
+
+<div th:if="${movieDeleted}"><p>Movie Deleted!</p></div>
+
+<div th:if="${foundMovie.getId() != null}">
+  <img th:src="${foundMovie.poster}" alt="Movie poster">
+<div th:text="${'Title: ' + foundMovie.title}">This movie's title</div>
+<div th:text="${'Directors: '+ foundMovie.directors}">The movie's directors</div>
+<div th:text="${'Awards Won: '+ foundMovie.awards.getWins()}">The movie's awards</div>
+<div th:text="${'Languages: ' + foundMovie.languages}">The movie's languages</div>
+<div th:text="${'Plot: ' + foundMovie.plot}">The movie's plot</div>
+<div th:text="${'Writers: ' + foundMovie.writers}">The movie's writers</div>
+<div th:text="${'Genres: ' + foundMovie.genres}">The movie's genres</div>
+<div th:if="${foundMovie.tomatoes.getViewer().getRating() != null}" th:text="${'Tomatoes Rating:' + foundMovie.tomatoes.getViewer().getRating()}">The movie's rotten tomatoes score</div>
+<div th:text="${'Year of release: ' + foundMovie.year}">The movie's year of release</div>
+<div th:text="${'Runtime: '+foundMovie.runtime}">The movie's run time</div>
+
+</div>
+
+<form action="#" th:action="@{'/displaymovie/delete/' + ${foundMovie.id}}" th:method="delete" >
+  <button type="submit">Delete</button>
+</form>
 </body>
 </html>
