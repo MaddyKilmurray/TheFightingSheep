@@ -38,7 +38,7 @@ public class TheaterWebController {
             model.addAttribute("theater", result.get());
             return "displayTheater";
         } else
-            return "notFound";
+            return "not-found";
 
     }
 
@@ -51,7 +51,7 @@ public class TheaterWebController {
             dao.delete(theater.getId());
             return "theaterDeleted";
         } else
-            return "notFound";
+            return "not-found";
     }
 
     //CREATE
