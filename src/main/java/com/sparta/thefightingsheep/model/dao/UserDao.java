@@ -1,7 +1,6 @@
 package com.sparta.thefightingsheep.model.dao;
 
 import com.sparta.thefightingsheep.model.dto.UserDto;
-import com.sparta.thefightingsheep.model.entity.user.Role;
 import com.sparta.thefightingsheep.model.entity.user.User;
 import com.sparta.thefightingsheep.model.repository.UserRepository;
 import org.bson.types.ObjectId;
