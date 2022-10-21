@@ -8,27 +8,27 @@ import lombok.Getter;
 @EqualsAndHashCode(callSuper=false)
 public class UserDto extends Dto {
 
-//    public enum Role {
-//        USER("User"),
-//        ADMIN("Admin");
-//
-//        @Getter
-//        private final String type;
-//
-//        Role(String role) {
-//            this.type = role;
-//        }
-//
-//        @Override
-//        public String toString() {
-//            return type;
-//        }
-//    }
+    public enum Role {
+        USER("User"),
+        ADMIN("Admin");
+
+        @Getter
+        private final String type;
+
+        Role(String role) {
+            this.type = role;
+        }
+
+        @Override
+        public String toString() {
+            return type;
+        }
+    }
 
     private String name;
     private String email;
     private String password;
-    private String role;
+    private Role role;
 
     /**
      * Sets the role of the user.
@@ -38,7 +38,7 @@ public class UserDto extends Dto {
      */
     public boolean setRole(String role) {
         try {
-            this.role = role;
+            this.role = Role.valueOf(role);
             return true;
         } catch (Exception e) { return false; }
     }
