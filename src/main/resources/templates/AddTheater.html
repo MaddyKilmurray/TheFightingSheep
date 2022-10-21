@@ -1,33 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link th:rel="stylesheet" type="text/css" th:href="@{/styles/style.css}">
     <link rel="stylesheet" type="text/css" href="../static/styles/style.css">
     <meta charset="UTF-8">
     <title>AddPage</title>
 </head>
 <body>
+<div class = "addTheater">
 <form>
-    <div>
+    <div class="street1">
         <label>Street1</label>
         <input>
     </div>
-    <div>
+    <div class="city">
     <label>City</label>
     <input>
     </div>
-    <div>
+    <div class="state">
     <label>State</label>
     <input>
     </div>
-    <div>
+    <div class="zip">
     <label>Zip Code</label>
         <input>
     </div>
-    <div>
-        <label>Zip Code</label>
-        <input>
-    </div>
-    <div>
+    <div class = "coordinates">
         <label> Cordinates Latitude</label>
         <input>
         <label> Cordinates Longitude</label>
@@ -36,5 +34,6 @@
 
     <button>Submit</button>
 </form>
+</div>
 </body>
 </html>
