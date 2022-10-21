@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
     <head>
+        <link th:rel="stylesheet" type="text/css" th:href="@{/styles/style.css}">
+        <link rel="stylesheet" type="text/css" href="../static/styles/style.css">
         <meta charset="UTF-8">
         <title>The Fighting Sheep File Centre - Add Movie</title>
         <link th:rel="stylesheet" type="text/css" th:href="@{/styles/style.css}">
     </head>
     <body>
     <div class = "container mx  -auto px-6 py-3"> </div>
+    <div class = "title">
     <div th:if="${createdMovie.getId() != null}"><p>Movie created!</p></div>
+    </div>
+    <div class = form >
     <form action="#" th:action="@{/movie/form/create}" th:method="post" th:object="${createdMovie}">
         <label for="id">id:</label>
         <input type = "text" id="id" th:field="*{id}"><br>
@@ -47,5 +52,6 @@
         <input type = "text" id="type" th:field="*{type}"><br>
         <button type="submit" th:name="action" th:value="in">Submit</button>
     </form>
+    </div>
     </body>
 </html>

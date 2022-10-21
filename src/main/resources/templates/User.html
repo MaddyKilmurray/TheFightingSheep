@@ -1,10 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link th:rel="stylesheet" type="text/css" th:href="@{/styles/style.css}">
     <meta charset="UTF-8">
-    <title>User</title>
+    <title>Main Page</title>
 </head>
 <body>
+<div class="topnav">
+    <a class="active" href="#home">Home</a>
+    <a href="displaymovie">Movies</a>
+    <a href="#schedule">Schedule</a>
+    <a href="#theater">Theater</a>
+    <a href="#myAccount">My Account</a>
+    <a href="logout">Log Out</a>
+
+</div>
+<p> User Page</p>
 <div th:text="${User.id}"></div>
 <div th:text="${User.name}"> </div>
 <div th:text="${User.email}"></div>
