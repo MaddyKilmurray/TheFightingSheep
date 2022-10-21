@@ -39,8 +39,7 @@ public class UserApiController {
 
     @PostMapping("/user/add")
     @ResponseBody
-    public String addUser(@RequestParam String id, @RequestParam String name, @RequestParam String email, @RequestParam String password){
-        UserDto userDto = new UserDto(id, name, email, password, "USER");
+    public String addUser(@RequestParam UserDto userDto){
         return (userDAO.insert(userDto));
     }
     @PatchMapping("/user/{id}/name/{newname}")
@@ -60,9 +59,8 @@ public class UserApiController {
 
     @PutMapping("/user/force")
     @ResponseBody
-    public String forceUpdatePassword(@RequestParam String id, @RequestParam String name, @RequestParam String email, @RequestParam String password){
-        UserDto userDTO = new UserDto(id, name, email, password);
-        return (userDAO.forceUpdate(userDTO));
+    public String forceUpdatePassword(@RequestParam UserDto userDto){
+        return (userDAO.forceUpdate(userDto));
     }
 
 }
