@@ -87,3 +87,18 @@ h1{
     transform: translate(-50%, 50%);
     box-sizing: border-box;
 }
+.form{
+    width: 320px;
+    height: 600px;
+    background-color: rgba(220, 39, 60, 0.25);
+    color: #fff;
+    top: 1%;
+    left: 15%;
+    position: absolute;
+    transform: translate(-50%, 50%);
+    box-sizing: border-box;
+}
+.title{
+    position: center;
+    font-size: 34px;
+}
