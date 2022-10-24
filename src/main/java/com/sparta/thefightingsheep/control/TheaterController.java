@@ -34,26 +34,26 @@ public class TheaterController {
     }
 
     @GetMapping("/find/{id}")
-    public Theater getTheaterById(@PathVariable String id) {
-        Optional<Theater> theaterOp = theaterRepo.findById(new ObjectId(id));
+    public TheaterDto getTheaterById(@PathVariable String id) {
+        Optional<TheaterDto> theaterOp = theaterDAO.findById(id);
         if (theaterOp.isPresent()) {
-            Theater theater = theaterOp.get();
-            theaterRepo.findById(theater.getId());
+            TheaterDto theater = theaterOp.get();
+            theaterDAO.findById(theater.getId());
             return theater;
         }
-        else { return new Theater(null, null, null); }
+        else { return new TheaterDto(); }
 
     }
 
     @DeleteMapping("/delete/{id}")
-    public ObjectId deleteById(@PathVariable String id){
-        Optional<Theater> theaterOp = theaterRepo.findById(new ObjectId(id));
+    public String deleteById(@PathVariable String id){
+        Optional<TheaterDto> theaterOp = theaterDAO.findById(id);
         if (theaterOp.isPresent()) {
-            Theater theater = theaterOp.get();
-            theaterRepo.delete(theater);
+            TheaterDto theater = theaterOp.get();
+            theaterDAO.delete(String.valueOf(theater));
             return theater.getId();
         }
-        else { return new Theater(null, null, null).getId(); }
+        else { return null; }
 
     }
 
