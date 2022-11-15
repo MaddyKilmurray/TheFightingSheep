@@ -24,17 +24,19 @@ body{
     background-color: #B4654A;
     font-family: sans-serif ;
 }
+.signup, .login {
+    background-color: #B4654A;
+}
 .login_form, .signup_form{
     width: 320px;
     height: 420px;
     background-color: rgba(220, 39, 60, 0.25);
     color: #fff;
-    top: 50%;
+    top: 10%;
     left: 50%;
     position: absolute;
     transform: translate(-50%,50%);
     box-sizing: border-box;
-
 }
 h1{
     margin: 0;
